@@ -209,7 +209,7 @@ $(document).ready(function() {
 	      ['image', 'code-block']
 	    ]
 	  },
-	  placeholder: 'Compose an epic...',
+	  placeholder: 'Descripción del ticket...',
 	  theme: 'snow'  // or 'bubble'
 	});
 

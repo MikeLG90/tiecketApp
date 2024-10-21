@@ -1,6 +1,6 @@
 // Basic
 
-var quill = new Quill('#editor-container', {
+var quill = new Quill('#', {
   modules: {
     toolbar: [
       [{ header: [1, 2, false] }],

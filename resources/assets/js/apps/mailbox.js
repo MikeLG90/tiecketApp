@@ -206,10 +206,11 @@ $(document).ready(function() {
 	    toolbar: [
 	      [{ header: [1, 2, false] }],
 	      ['bold', 'italic', 'underline'],
-	      ['image', 'code-block']
+	    //  ['image', 'code-block']
+		  ['code-block']
 	    ]
 	  },
-	  placeholder: 'Compose an epic...',
+	  placeholder: 'Descripción del ticket...',
 	  theme: 'snow'  // or 'bubble'
 	});
 

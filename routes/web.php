@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FolioController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\AreAController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/guardar-folio', [FolioController::class, 'store'])->name('folio.store');
     Route::get('/folios/{folio}', [FolioController::class, 'show'])->name('folios.show');
     Route::get('/mis-folios', [FolioController::class, 'misFolios'])->name('folio.index');
+});
+
+//Rutas para los tickets
+Route::middleware('auth')->group(function () {
+    Route::get('/inbox', [TicketController::class, 'index'])->name('ticket.index');
+    Route::post('/store-tck', [TicketController::class, 'store'])->name('ticket.store');
+
 });
 
 Route::middleware('checkRole:Administrador')->group(function () {

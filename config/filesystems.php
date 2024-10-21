@@ -35,6 +35,17 @@ return [
             'root' => storage_path('app'),
             'throw' => false,
         ],
+        
+        'ftp' => [
+            'driver' => 'ftp',
+            'host' => env('FTP_HOST'),
+            'username' => env('FTP_USERNAME'),
+            'password' => env('FTP_PASSWORD'),
+            'root' => env('FTP_ROOT'),
+            'port' => 21, // Cambia si es necesario
+            'passive' => true, // Ajusta según tu configuración
+            'ssl' => false, // Cambia a true si usas FTPS
+        ],
 
         'public' => [
             'driver' => 'local',
