@@ -5,10 +5,10 @@ html {
 }
 
 body {
-  color: #888ea8;
+  color: #161616;
   height: 100%;
   font-size: 0.875rem;
-  background: #fafafa;
+  background: #e7e6e3;
   overflow-x: hidden;
   overflow-y: auto;
   letter-spacing: 0.0312rem;
@@ -22,7 +22,7 @@ body {
     top: 0;
     z-index: 1;
     left: 0;
-    background: rgba(250, 250, 250, 0.71);
+    background: #e7e6e3;
     -webkit-backdrop-filter: saturate(200%) blur(10px);
     backdrop-filter: saturate(200%) blur(10px);
   }
@@ -92,7 +92,7 @@ code {
   span {
     display: block;
     font-size: 11px;
-    color: #555555;
+    color: #131313;
     font-weight: normal;
   }
 }
@@ -1350,10 +1350,10 @@ body {
     }
 
     &.active > .dropdown-toggle {
-      background-color: #4361ee;
+      background-color: #e0e6ed99;
       
       svg, span {
-        color: #fff;
+        color: #000000;
       }
 
       &[aria-expanded="true"] {
@@ -1362,10 +1362,10 @@ body {
       }
 
       &:hover {
-        color: #fff;
+        color: #000000;
 
         svg:not(.badge-icon) {
-          color: #fff;
+          color: #000000;
           fill: #4361ee0a;
         }
       }
@@ -1406,10 +1406,10 @@ body {
         }
 
         &:hover {
-          color: $primary;
+          color: #660000;
 
           svg:not(.badge-icon) {
-            color: $primary;
+            color: #660000;
             fill: #4361ee0a;
           }
         }

@@ -44,7 +44,7 @@ Route::middleware('checkRole:Administrador')->group(function () {
 
 
 Route::get('/poblacion', function () {
-    return view('rppc.tickets.ticket-inbox');
+    return view('rppc.tickets.view-ticket');
 });
 
 Route::get('/', function () {

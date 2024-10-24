@@ -112,21 +112,22 @@
 
   .nav-link {
     &.active {
-      color: #e95f2b;
-      background-color: #191e3a;
-      border-color: #191e3a #191e3a #0e1726;
+      color: #660000;
+      background-color: #ffffff;
+      border-color: #dfdfdf #dfdfdf #dfdfdf;
+      
 
       &:after {
-        color: #e95f2b;
+        color: #660000;
       }
     }
 
     &:hover {
-      border-color: #191e3a #191e3a #191e3a;
+      border-color: #ffffff #ffffff #ffffff;
     }
   }
 
-  border-bottom: 1px solid #191e3a;
+  border-bottom: 1px solid #ffffff;
 }
 
 /*
