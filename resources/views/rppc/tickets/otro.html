@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador de Imágenes TIFF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin-top: 20px;
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Visualizador de Imágenes TIFF</h1>
+    <input type="file" id="fileInput" accept=".tiff, .tif">
+    <canvas id="tiffCanvas"></canvas>
+
+    <!-- Cargar la biblioteca tiff.js desde una ubicación local -->
+    <script src="js/tiff.min.js"></script>
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            
+            if (file) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const tiffData = new Uint8Array(e.target.result);
+                    const tiff = new Tiff({ buffer: tiffData });
+                    const canvas = document.getElementById('tiffCanvas');
+                    const width = tiff.width();
+                    const height = tiff.height();
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    const imgData = ctx.createImageData(width, height);
+                    imgData.data.set(tiff.toRGBA8(0));
+                    ctx.putImageData(imgData, 0, 0);
+                };
+                
+                reader.readAsArrayBuffer(file);
+            }
+        });
+    </script>
+</body>
+</html>

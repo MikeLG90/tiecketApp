@@ -1,4 +1,4 @@
-<div class="modal fade inputForm-modal" id="inputFormModal2{{ $t->ticket_id }}" tabindex="-1" role="dialog" aria-labelledby="inputFormModalLabel" aria-hidden="true">
+<div class="modal fade inputForm-modal" id="inputFormModal" tabindex="-1" role="dialog" aria-labelledby="inputFormModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
       <div class="modal-content">
          <div class="modal-header" id="inputFormModalLabel">
@@ -11,7 +11,7 @@
             </button>
          </div>
          <div class="modal-body">
-            <form method="POST" action="{{ route('ticket.store') }}" enctype="multipart/form-data">
+            <form method="POST" action="/store-tck" enctype="multipart/form-data" id="store">
                @csrf
                <div class="row">
                   <!--         <div class="col-md-12">
@@ -37,7 +37,7 @@
                               Fecha de apertura:
                            </p>
                            <div class="">
-                              <input name="fecha_apertura" type="datetime-local" id="fecha2" value="{{ $t->fecha_aper }}"  class="form-control" readonly>
+                              <input name="fecha_apertura" type="datetime-local" id="fecha" class="form-control" readonly>
                            </div>
                         </div>
                      </div>
@@ -53,7 +53,7 @@
                               Fecha límite:
                            </p>
                            <div>
-                              <input name="fecha_limite" type="datetime-local" id="m-cc" value="{{ $t->fecha_lim }}" class="form-control">
+                              <input name="fecha_limite" type="datetime-local" id="m-cc" class="form-control" required>
                            </div>
                         </div>
                      </div>
@@ -67,50 +67,17 @@
                               Tipo:
                            </p>
                            <div>
-                           <select name="tipo" id="m-cc" class="form-control" disabled>
-    <option value="" disabled {{ old('tipo', $t->tipo) == '' ? 'selected' : '' }}>Seleccione un tipo</option>
-    <option value="1" 
-        @switch(old('tipo', $t->tipo))
-            @case(1) selected @break
-            @case(2) @break
-            @default @break
-        @endswitch
-    >Incidente</option>
-    <option value="2" 
-        @switch(old('tipo', $t->tipo))
-            @case(2) selected @break
-            @case(1) @break
-            @default @break
-        @endswitch
-    >Solicitar</option>
-    <!-- Agrega más opciones según sea necesario -->
-</select>
-
-                              <span class="validation-text"></span>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="mb-4 mail-cc">
-                           <p>
-                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle">
-                                 <circle cx="12" cy="12" r="10"/>
-                              </svg>
-                              Categoría:
-                           </p>
-                           <div>
-                              <select name="categoria" id="m-cc" class="form-control">
+                              <select name="tipo" id="m-cc" class="form-control" required>
                                  <option value="" disabled selected>Seleccione un tipo</option>
-                                 <option value="tipo1">Acuerdo</option>
-                                 <option value="tipo2">Apertura de folio</option>
-                                 <option value="tipo2">Resolución</option>
+                                 <option value="1">Incidente</option>
+                                 <option value="2">Solicitar</option>
                                  <!-- Agrega más opciones según sea necesario -->
                               </select>
                               <span class="validation-text"></span>
                            </div>
                         </div>
-                        <!--  Estado -->
                      </div>
+
                      <div class="col-md-6">
                         <div class="mb-4 mail-cc">
                            <p>
@@ -121,7 +88,7 @@
                               Estado
                            </p>
                            <div>
-                              <select name="estado" id="m-cc" class="form-control">
+                              <select name="estado" id="m-cc" class="form-control" required>
                                  <option value="" disabled selected>Seleccione un tipo</option>
                                  <option value="1">Nuevo</option>
                                  <option value="2">En curso (Asignada)</option>
@@ -149,13 +116,13 @@
                               Urgencia:
                            </p>
                            <div>
-                              <select name="urgencia" id="m-cc" class="form-control">
+                              <select name="urgencia" id="m-cc" class="form-control" required>
                                  <option value="" disabled selected>Seleccione un tipo</option>
-                                 <option value="tipo1">Muy urgente</option>
-                                 <option value="tipo2">Urgente</option>
-                                 <option value="tipo2">Mediana</option>
-                                 <option value="tipo2">Baja</option>
-                                 <option value="tipo2">Muy baja</option>
+                                 <option value="1">Muy urgente</option>
+                                 <option value="2">Urgente</option>
+                                 <option value="3">Mediana</option>
+                                 <option value="4">Baja</option>
+                                 <option value="5">Muy baja</option>
                                  <!-- Agrega más opciones según sea necesario -->
                               </select>
                               <span class="validation-text"></span>
@@ -174,13 +141,13 @@
                               Impacto:
                            </p>
                            <div>
-                              <select name="impacto" id="m-cc" class="form-control">
+                              <select name="impacto" id="m-cc" class="form-control" required>
                                  <option value="" disabled selected>Seleccione un tipo</option>
-                                 <option value="tipo1">Muy alto</option>
-                                 <option value="tipo2">Alto</option>
-                                 <option value="tipo2">Mediano</option>
-                                 <option value="tipo2">Bajo</option>
-                                 <option value="tipo2">Muy bajo</option>
+                                 <option value="1">Muy alto</option>
+                                 <option value="2">Alto</option>
+                                 <option value="3">Mediano</option>
+                                 <option value="4">Bajo</option>
+                                 <option value="5">Muy bajo</option>
                                  <!-- Agrega más opciones según sea necesario -->
                               </select>
                               <span class="validation-text"></span>
@@ -203,13 +170,13 @@
                               Prioridad:
                            </p>
                            <div>
-                              <select name="prioridad" id="m-cc" class="form-control">
+                              <select name="prioridad" id="m-cc" class="form-control" required>
                                  <option value="" disabled selected>Seleccione un tipo</option>
-                                 <option value="tipo1">Muy alta</option>
-                                 <option value="tipo2">Alta</option>
-                                 <option value="tipo2">Mediana</option>
-                                 <option value="tipo2">Baja</option>
-                                 <option value="tipo2">Muy baja</option>
+                                 <option value="1">Muy alta</option>
+                                 <option value="2">Alta</option>
+                                 <option value="3">Mediana</option>
+                                 <option value="4">Baja</option>
+                                 <option value="5">Muy baja</option>
                                  <!-- Agrega más opciones según sea necesario -->
                               </select>
                               <span class="validation-text"></span>
@@ -226,7 +193,7 @@
                               Título:
                            </p>
                            <div class="">
-                              <input name="titulo" type="text" id="m-to" class="form-control" placeholder="Ingrese el título del ticket">
+                              <input required name="titulo" type="text" id="m-to" class="form-control" placeholder="Ingrese el título del ticket">
                               <span class="validation-text"></span>
                            </div>
                         </div>
@@ -246,12 +213,11 @@
                               Oficina:
                            </p>
                            <div>
-                              <select name="oficina" id="m-cc" class="form-control">
+                              <select name="oficina" id="oficina" class="form-control" required>
                                  <option value="" disabled selected>Seleccione una oficina</option>
-                                 <option value="tipo1">Cancún</option>
-                                 <option value="tipo2">Chetumal</option>
-                                 <option value="tipo2">Cozumel</option>
-                                 <option value="tipo2">Playa del Carmen</option>
+                                 @foreach ($oficinas as $o)
+                                 <option value="{{ $o->oficina_id }}">{{ $o->oficina }}</option>
+                                 @endforeach
                                  <!-- Agrega más opciones según sea necesario -->
                               </select>
                               <span class="validation-text"></span>
@@ -267,9 +233,8 @@
                            Para:
                         </p>
                         <div class="w-100">
-                           <select name="usuario_id" id="m-cc" class="form-control">
+                           <select name="usuario_id" id="usuarios" class="form-control" required>
                               <option value="" disabled selected>Seleccione a quién se le asignará el ticket</option>
-                              <option value="1">User-1</option>
                               <!-- Agrega más opciones según sea necesario -->
                            </select>
                            <span class="validation-text"></span>
@@ -285,7 +250,7 @@
                            Subir archivos:
                         </p>
                         <!-- <input type="file" class="form-control-file" id="mail_File_attachment" multiple="multiple"> -->
-                        <input class="form-control file-upload-input" type="file" name="attachments[]" multiple>
+                        <input class="form-control file-upload-input" type="file" name="attachments[]" multiple required>
                         <br>
                      </div>
                      <div class="w-100">
@@ -300,7 +265,7 @@
                            </svg>
                            Descripción
                         </p>
-                        <textarea name="descripcion" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea required name="descripcion" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                         <span class="validation-text"></span>
                      </div>
                      <div>
@@ -309,8 +274,8 @@
                   </div>
                </div>
                <div class="modal-footer">
-                  <button type="cancel" class="btn btn-light-danger mt-2 mb-2 btn-no-effect" data-bs-dismiss="modal">Cancelar</button>
-                  <button type="submit" class="btn btn-primary mt-2 mb-2 btn-no-effect" data-bs-dismiss="modal">Actualizar</button>
+                  <button class="btn btn-light-danger mt-2 mb-2 btn-no-effect" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-primary mt-2 mb-2 btn-no-effect">Enviar</button>
             </form>
             </div>
          </div>

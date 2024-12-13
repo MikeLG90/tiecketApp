@@ -55,13 +55,13 @@
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputEmail2" class="col-sm-2 col-form-label">Para:</label>
+                          <label for="inputEmail2" class="col-sm-2 col-form-label">Dirigido a:</label>
                           <div class="col-sm-10">
                             <input type="text" class="form-control" id="inputEmail2" name="para">
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label for="inputEmail2" class="col-sm-2 col-form-label">Oficina o delegación:</label>
+                          <label for="inputEmail2" class="col-sm-2 col-form-label">Dependencia u oficina:</label>
                           <div class="col-sm-10">
                             <input type="text" class="form-control" id="inputEmail2" name="oficina">
                           </div>
@@ -83,22 +83,23 @@
     <x-slot:footerFiles>
 
     <script>
-        window.onload = function () {
-            var fecha = new Date();
-            var mes = fecha.getMonth();
-            var dia = fecha.getDate();
-            var anio = fecha.getFullYear();
-            var horas = fecha.getHours();
-            var minutos = fecha.getMinutes();
+window.onload = function () {
+    var fecha = new Date();
+    var mes = fecha.getMonth() + 1; // Sumar 1 para obtener el mes correcto
+    var dia = fecha.getDate();
+    var anio = fecha.getFullYear();
+    var horas = fecha.getHours();
+    var minutos = fecha.getMinutes();
 
-            // Añadir ceros a la izquierda si es necesario
-            if (dia < 10) dia = '0' + dia;
-            if (mes < 10) mes = '0' + mes;
-            if (horas < 10) horas = '0' + horas;
-            if (minutos < 10) minutos = '0' + minutos;
+    // Añadir ceros a la izquierda si es necesario
+    if (dia < 10) dia = '0' + dia;
+    if (mes < 10) mes = '0' + mes; // Aquí se ajusta para el formato 'MM'
+    if (horas < 10) horas = '0' + horas;
+    if (minutos < 10) minutos = '0' + minutos;
 
-            document.getElementById('fecha').value = anio + "-" + mes + "-" + dia + "T" + horas + ":" + minutos;
-        }
+    document.getElementById('fecha').value = anio + "-" + mes + "-" + dia + "T" + horas + ":" + minutos;
+}
+
     </script>
 
 

@@ -2,9 +2,13 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import path from 'path';
 import { hash } from './resources/js/fn.js';
+import react from '@vitejs/plugin-react';
+
+
 
 export default defineConfig({
     plugins: [
+        react(),
         laravel({
             input: [
 
@@ -13,8 +17,10 @@ export default defineConfig({
                  *      Will Config images Files
                  * =================================
                  */
-                'resources/js/app.js',
+                'resources/js/app.jsx',
                 'public/css/login.css',
+                'resources/css/sweet.css',
+                'resources/css/app.css',
 
                 /**
                  * =======================
@@ -720,6 +726,7 @@ export default defineConfig({
 
                 
             ],
+            
             refresh: true,
         }),
     ],

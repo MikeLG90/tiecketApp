@@ -3,7 +3,13 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FolioController;
 use App\Http\Controllers\TicketController;
-use App\Http\Controllers\AreAController;
+use App\Http\Controllers\AreaController;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DelegacioneController;
+use App\Http\Controllers\NotificacionController;
+use App\Http\Controllers\DependenciaController;
+use App\Http\Controllers\GrupoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,30 +22,98 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+use App\Http\Controllers\TiffController;
+
+Route::post('/preview-tiff', [TiffController::class, 'previewTiff'])->name('preview-tiff');
+Route::get('/visor', [TiffController::class, 'index'])->name('index-tiff');
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->name('user.index');
+    Route::post('editar-perfil', [UserController::class, 'updateUser']);
+    Route::put('/editar-user/{userId}', [UserController::class, 'cambioRol']);
+
+
+});
+
+// ConsultaSATQ 
+Route::get('/satq', function () {
+    return view('rppc.satq.consultSatq');
+});
+
+
+Route::put('/not/update/{notId}', [NotificacionController::class, 'update'])->name('not.update');
+
+//Rutas para grupos
+
+Route::middleware('auth')->group(function () {
+    Route::get('/grupos', [GrupoController::class,'index'])->name('grupo.index');
+    Route::post('/guardar-grupo', [GrupoController::class, 'store'])->name('grupo.store');
+    Route::get('/miembros/{group_id}', [GrupoController::class,'getMembers'])->name('grupo.members');
+
+});
+
+//Rutas para delegacion
+Route::middleware('auth')->group(function () {
+    Route::get('/delegaciones', [DelegacioneController::class, 'index'])->name('del.index');
+    Route::post('/delegacion/store', [DelegacioneController::class, 'store'])->name('del.store');
+    Route::put('/editar-delegacion/{id}', [DelegacioneController::class, 'update'])->name('del.update');
+    Route::delete('/delegacion/destroy/{oficina_id}', [DelegacioneController::class, 'destroy'])->name('del.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dependencias', [DependenciaController::class, 'index'])->name('dep.index');
+    Route::post('/dependencia/store', [DependenciaController::class, 'store'])->name('dep.store');
+    Route::put('/editar-dependencia/{id}', [DependenciaController::class, 'update'])->name('dep.update');
+    Route::delete('/dependencia/destroy/{dep_id}', [DependenciaController::class, 'destroy'])->name('del.destroy');
+});
+
+
+Route::get('/file/{filename}', [FileController::class, 'getFile']);
+
 //Rutas para los folios
 Route::middleware('auth')->group(function () {
     Route::get('/crear-folio', [FolioController::class, 'create'])->name('folio.create');
     Route::post('/guardar-folio', [FolioController::class, 'store'])->name('folio.store');
     Route::get('/folios/{folio}', [FolioController::class, 'show'])->name('folios.show');
     Route::get('/mis-folios', [FolioController::class, 'misFolios'])->name('folio.index');
+
 });
+Route::get('/folios', [FolioController::class, 'getFolios'])->name('folios.get');
 
 //Rutas para los tickets
 Route::middleware('auth')->group(function () {
     Route::get('/inbox', [TicketController::class, 'index'])->name('ticket.index');
     Route::post('/store-tck', [TicketController::class, 'store'])->name('ticket.store');
+    Route::get('/antecedentes', [TicketController::class, 'antecedentes'])->name('antecedentes');
+    Route::get('/usuarios/oficina/{oficinaId}', [TicketController::class, 'userOficina']);
+    Route::put('/ticket/update/{ticketId}', [TicketController::class, 'update'])->name('ticket.update');
+    Route::get('/ticket/create', [TicketController::class, 'create'])->name('create.t');
 
 });
+Route::get('/ticket/files/{id}', [TicketController::class, 'ticketFiles']);
+ 
 
-Route::middleware('checkRole:Administrador')->group(function () {
+Route::middleware('checkRole:Trabajador')->group(function () {
     Route::get('/index-folios', [FolioController::class, 'index'])->name('folio.index');
 });
 //Rutas para las áreas
-Route::middleware('checkRole:Administrador')->group(function () {
+Route::middleware('checkRole:Trabajador')->group(function () {
     Route::get('/areas', [AreaController::class, 'index'])->name('area.index');
     Route::post('/area/guardar', [AreaController::class, 'store'])->name('area.store');
     Route::put('/editar-area/{id}', [AreaController::class, 'update'])->name('area.update');
     Route::delete('/areas/{area_id}', [AreaController::class, 'destroy'])->name('areas.destroy');
+    Route::get('/oficinas/dependencia/{depId}', [AreaController::class, 'delegacion']);
+});    
+
+Route::get('/areas/delegacion/{delId}', [AreaController::class, 'area']);
+
+Route::get('/perfil', function () {
+    return view('rppc.user-perfil');
+});
+
+Route::get('/tif', function () {
+    return view('viewer-tiff');
 });
 
 

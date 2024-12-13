@@ -19,7 +19,8 @@ class Folio extends Model
         'usuario_id',
         'fecha y hora',
         'destinatario',
-        'oficina'
+        'oficina',
+        'folio_generado'
     ];
 
     public static function obtenerFolios() {
@@ -33,6 +34,7 @@ class Folio extends Model
             ->join('areas as a', 'a.area_id', '=', 'u.area_id')
             ->select(
                 'f.num_folio',
+                'f.folio_generado',
                 'f.destinatario',
                 'f.oficina',
                 'f.fecha_hora',

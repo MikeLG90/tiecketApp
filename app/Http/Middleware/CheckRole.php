@@ -23,7 +23,7 @@ class CheckRole
 
         $user = Auth::user();
 
-        if($user->role->rol !== $role) {
+        if($user->role->rol == $role) {
             return redirect('/crear-folio');
         }
 

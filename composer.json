@@ -11,7 +11,8 @@
         "laravel/framework": "^9.41",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "league/flysystem-ftp": "^3.29"
+        "league/flysystem-ftp": "^3.29",
+        "yajra/laravel-datatables-oracle": "^10.11"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

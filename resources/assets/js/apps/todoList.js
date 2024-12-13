@@ -6,6 +6,8 @@ $('.input-search').on('keyup', function() {
     }).show();
 });
 
+
+
 const taskViewScroll = new PerfectScrollbar('.task-text', {
     wheelSpeed:.5,
     swipeEasing:!0,
@@ -21,16 +23,40 @@ function dynamicBadgeNotification( setTodoCategoryCount ) {
   var get_TodoAllListParentsDiv = $('.todo-item.all-list');
   var get_TodoCompletedListParentsDiv = $('.todo-item.todo-task-done');
   var get_TodoImportantListParentsDiv = $('.todo-item.todo-task-important');
+      // Obtener el número de elementos de la nueva categoría
+  var get_TodoSendListParentsDiv = $('.todo-item.todo-task-send')
+  
 
   // Get Parents Div(s) Counts
   var get_TodoListElementsCount = get_TodoAllListParentsDiv.length;
   var get_CompletedTaskElementsCount = get_TodoCompletedListParentsDiv.length;
   var get_ImportantTaskElementsCount = get_TodoImportantListParentsDiv.length;
+  var get_SendTaskElementsCount = get_TodoSendListParentsDiv.length;
+
 
   // Get Badge Div(s)
   var getBadgeTodoAllListDiv = $('#all-list .todo-badge');
   var getBadgeCompletedTaskListDiv = $('#todo-task-done .todo-badge');
   var getBadgeImportantTaskListDiv = $('#todo-task-important .todo-badge');
+  var getBadgeSendTaskListDiv = $('#todo-task-Send .todo-badge');
+
+ // Lógica para actualizar el conteo de la categoría "Pendiente de Revisión"
+ if (setTodoCategoryCount === 'sendList') {
+  if (get_SendTaskElementsCount === 0) {
+      getBadgeSendTaskListDiv.text('');
+      return;
+  }
+  if (get_SendTaskElementsCount > 9) {
+      getBadgeSendTaskListDiv.css({
+          padding: '2px 0px',
+          height: '25px',
+          width: '25px'
+      });
+  } else if (get_SendTaskElementsCount <= 9) {
+      getBadgeSendTaskListDiv.removeAttr('style');
+  }
+  getBadgeSendTaskListDiv.text(get_SendTaskElementsCount);
+}
 
 
   if (todoCategoryCount === 'allList') {
@@ -227,17 +253,106 @@ function editDropdown() {
 
 function todoItem() {
   $('.todo-item .todo-content').on('click', function(event) {
-    event.preventDefault();
-   
-    var $_taskTitle = $(this).find('.todo-heading').attr('data-todoHeading');
-    var $todoHtml = $(this).find('.todo-text').attr('data-todoHtml');
+      event.preventDefault();
 
-    $('.task-heading').text($_taskTitle);
-    $('.task-text').html($todoHtml);
-    
-    $('#todoShowListItem').modal('show');
+      // Extrayendo datos de cada registro
+      var $_taskTitle = $(this).find('.todo-heading').attr('data-todoHeading');
+      var $todoHtml = $(this).find('.todo-text').attr('data-todoHtml');
+      var $id_ticket = $(this).find('.id_t').text(); // ID del ticket
+      var $apertura = $(this).find('.apertura').text();
+      var $limite = $(this).find('.limite').text();
+      var $tipo = $(this).find('.tipo').text();
+      var $categoria = $(this).find('.categoria').text();
+      var $estado = $(this).find('.estado').text();
+      var $urgencia = $(this).find('.urgencia').text();
+      var $impacto = $(this).find('.impacto').text();
+      var $prioridad = $(this).find('.prioridad').text();
+
+      // Establecer valores de los inputs del modal
+      $('#inApertura').val($apertura);
+      $('#inLimite').val($limite);
+      $('#inTipo').val($tipo);
+      $('#inCat').val($categoria);
+      $('#inEstado').val($estado);
+      $('#inUrgencia').val($urgencia);
+      $('#inImpacto').val($impacto);
+      $('#inPrioridad').val($prioridad);
+      $('.task-heading').text($_taskTitle);
+      $('.task-text').html($todoHtml);
+
+      // Llamada AJAX para obtener los archivos del ticket
+      $.ajax({
+          url: '/ticket/files/' + $id_ticket, // Cambia la ruta según sea necesario
+          method: 'GET',
+          success: function(files) {
+              // Limpiar la lista de archivos
+              $('#fileList').empty();
+              files.forEach(file => {
+                  $('#fileList').append(`
+                      <li>
+                          <a href="#" class="file-link" data-file-name="${file.file_path.split('/').pop()}">
+                              ${file.file_path.split('/').pop()}
+                          </a>
+                      </li>
+                  `);
+              });
+
+              // Mostrar el modal
+              $('#todoShowListItem').modal('show');
+          },
+          error: function() {
+              alert('Error al cargar los archivos del ticket.');
+          }
+      });
   });
+
+  // Evento para abrir la vista previa en el iframe
+  $(document).on('click', '.file-link', function(event) {
+    event.preventDefault();
+    const fileName = $(this).data('file-name');
+
+    // Obtener la extensión del archivo
+    const extension = fileName.split('.').pop().toLowerCase();
+    
+    // Aquí puedes ajustar la lógica según el tipo de archivo
+    if (['jpg', 'jpeg', 'png', 'gif', 'pdf', 'doc', 'docx'].includes(extension)) {
+        $('#previewIframe').attr('src', '/file/' + encodeURIComponent(fileName));
+        $('#previewContainer').show(); // Mostrar el contenedor del iframe
+    } else {
+        alert('No se puede previsualizar este tipo de archivo.');
+    }
+});
+
+  // Cerrar el iframe
+  $(document).on('click', '#closeIframe', function() {
+      $('#previewContainer').hide(); // Ocultar el contenedor del iframe
+      $('#previewIframe').attr('src', ''); // Limpiar el iframe
+  });
+  $('#todoShowListItem').on('hidden.bs.modal', function() {
+    $('#previewContainer').hide(); // Ocultar el contenedor del iframe
+    $('#previewIframe').attr('src', ''); // Limpiar el iframe
+});
 }
+
+
+
+// Función para obtener el icono según la extensión del archivo
+function getFileIcon(extension) {
+  const icons = {
+      'pdf': 'fas fa-file-pdf',
+      'jpg': 'fas fa-file-image',
+      'jpeg': 'fas fa-file-image',
+      'png': 'fas fa-file-image',
+      'doc': 'fas fa-file-word',
+      'docx': 'fas fa-file-word',
+      'txt': 'fas fa-file-alt',
+      // Agrega más extensiones e iconos según sea necesario
+  };
+
+  return icons[extension] || 'fas fa-file'; // Icono por defecto
+}
+
+
 var $btns = $('.list-actions').click(function() {
   if (this.id == 'all-list') {
     var $el = $('.' + this.id).fadeIn();

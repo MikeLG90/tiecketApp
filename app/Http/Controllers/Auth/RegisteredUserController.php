@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Area;
+use App\Models\Oficina;
+use App\Models\Rol;
 use App\Models\Persona;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -23,14 +25,16 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
+        $oficinas = Oficina::all();
         $areas = Area::all();
-        return view('auth.register', compact('areas'));
+        return view('auth.register', compact('areas', 'oficinas'));
     }
 
     public function createAdmin(): View
     {
         $areas = Area::all();
-        return view('auth.register-admin', compact('areas'));
+        $roles = Rol::all();
+        return view('auth.register-admin', compact('areas', 'roles'));
     }
 
     /**
@@ -47,14 +51,13 @@ class RegisteredUserController extends Controller
         ]);
 
         $rol_id = 2;
-        $area = $request->area;
+        $areaId = $request->area;
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'rol_id' => $rol_id,
             'password' => Hash::make($request->password),
-            'area_id' => $area,
         ]);
 
         $userId = $user->usuario_id;
@@ -68,10 +71,22 @@ class RegisteredUserController extends Controller
         $persona->sexo = $request->genero;
         $persona->save();
 
+        $personaId = $persona->persona_id;
+
+        $user = User::find($userId);
+        $area = Area::find($areaId);
+
+        $user->persona_id = $personaId;
+        $user->area_id = $area->area_id;
+        $user->oficina_id = $area->oficina_id;
+        $user->save();
+
 
         event(new Registered($user));
 
         Auth::login($user);
+
+
 
         return redirect(RouteServiceProvider::HOME);
     }
@@ -84,15 +99,14 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $rol_id = 1;
-        $area = $request->area;
+        $rol_id = $request->rol;
+        $areaId = $request->area;
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'rol_id' => $rol_id,
             'password' => Hash::make($request->password),
-            'area_id' => $area,
         ]);
 
         $userId = $user->usuario_id;
@@ -106,6 +120,15 @@ class RegisteredUserController extends Controller
         $persona->sexo = $request->genero;
         $persona->save();
 
+        $personaId = $persona->persona_id;
+
+        $user = User::find($userId);
+        $area = Area::find($areaId);
+
+        $user->persona_id = $personaId;
+        $user->area_id = $area->area_id;
+        $user->oficina_id = $area->oficina_id;
+        $user->save();
 
         event(new Registered($user));
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Area;
+use App\Models\Oficina;
+use App\Models\Dependencia;
 use Carbon\Carbon;
 
 class AreaController extends Controller
@@ -14,8 +16,10 @@ class AreaController extends Controller
 
     {
         $areas = Area::all();
+        $oficinas = Oficina::all();
+        $dependencias = Dependencia::all();
 
-        return view('rppc.areas.areas-index', compact('areas'));
+        return view('rppc.areas.areas-index', compact('areas', 'oficinas', 'dependencias'));
     }
 
     public function store(Request $request)
@@ -23,6 +27,7 @@ class AreaController extends Controller
         $area = new Area;
 
         $area->area = $request->nombre;
+        $area->oficina_id = $request->oficina;
         $area->created_at = now();
         $area->updated_at = now();
         $area->save();
@@ -57,5 +62,27 @@ class AreaController extends Controller
 
         // Redirige con un mensaje de éxito
         return redirect()->back()->with('success', 'Área eliminada exitosamente.');
+    }
+
+    public function delegacion($depId) 
+    {
+        $oficinas = Oficina::where('dep_id', $depId)->get()
+        ->map(function($oficina) {
+            $oficina->nombre = "{$oficina->oficina}";
+            return $oficina;
+        });
+
+        return response()->json($oficinas);
+    }
+
+    public function area($delId) 
+    {
+        $areas = Area::where('oficina_id', $delId)->get()
+        ->map(function($area) {
+            $area->nombre_area = "{$area->area}";
+            return $area;
+        });
+
+        return response()->json($areas);
     }
 }

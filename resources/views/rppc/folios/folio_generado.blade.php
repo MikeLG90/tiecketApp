@@ -20,7 +20,7 @@
 
                 <div class="row">
 
-                    <div class="col-xl-9">
+                    <div class="col-xl-12">
 
                         <div class="invoice-container">
                             <div class="invoice-inbox">
@@ -43,12 +43,18 @@
                                                     </div>
                                                     
                                                     <div class="col-sm-6 text-sm-end">
-                                                        <p class="inv-list-number mt-sm-3 pb-sm-2 mt-4"><span class="inv-title">Folio número : </span> <span class="inv-number">{{ $folio->num_folio }}</span></p>
+                                                        <p class="inv-list-number mt-sm-3 pb-sm-2 mt-4"><span class="inv-title">Número de folio: </span> <span class="inv-number">{{ $folio->num_folio }}</span></p>
                                                         <p class="inv-created-date mt-sm-5 mt-3"><span class="inv-title">Fecha: </span> <span class="inv-date">{{ $fecha }}</span></p>
                                                     </div>                                                                
                                                 </div>
-                                                
+<!-- The text field -->
+ <label for="">Folio:</label>
+<input type="text" value="{{ $folio->folio_generado }}" class="form-control" id="myInput">
+<br>
+<!-- The button used to copy the text -->
+<button onclick="myFunction()" class="btn btn-primary">Copiar el folio en el portapapeles</button>
                                             </div>
+                                            
 
                                             <div class="inv--detail-section inv--customer-detail-section">
 
@@ -99,6 +105,22 @@
     <!--  BEGIN CUSTOM SCRIPTS FILE  -->
     <x-slot:footerFiles>
         @vite(['resources/assets/js/apps/invoice-preview.js'])
+        <script>
+            function myFunction() {
+  // Get the text field
+  var copyText = document.getElementById("myInput");
+
+  // Select the text field
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); // For mobile devices
+
+   // Copy the text inside the text field
+  navigator.clipboard.writeText(copyText.value);
+
+  // Alert the copied text
+  alert("Copiaste el folio: " + copyText.value);
+}
+        </script>
     </x-slot>
     <!--  END CUSTOM SCRIPTS FILE  -->
 </x-base-layout>

@@ -21,6 +21,8 @@
     <title>{{ $pageTitle }}</title>
     <link rel="icon" type="image/x-icon" href="{{Vite::asset('resources/images/favicon_qroo.ico')}}"/>
     @vite(['resources/scss/layouts/modern-light-menu/light/loader.scss'])
+    @viteReactRefresh
+    @vite(['resources/js/app.jsx'])
 
     @if (Request::is('modern-light-menu/*'))
         @vite(['resources/layouts/modern-light-menu/loader.js'])

@@ -15,7 +15,8 @@ class Ticket extends Model
     protected $primaryKey = 'ticket_id';
 
     protected $fillable = [
-        'usuario_id',
+        'destinatario_id',
+        'remitente_id',
         'titulo',
         'nu_ticket',
         'fecha_aper',
@@ -30,6 +31,11 @@ class Ticket extends Model
         'estatus'
     ];
 
+    public function files()
+    {
+        return $this->hasMany(TicketFile::class);
+    }
+
     public static function myTicks()
     {
         $tickets = DB::table('tickets as t')
@@ -38,13 +44,13 @@ class Ticket extends Model
             ->select('t.*',                
             DB::raw('CONCAT(p.nombre, " ", p.ape_materno, " ", p.ape_paterno) AS remitente'),
             )
-            ->where('u.usuario_id', '=', auth()->user()->usuario_id)
+            ->where('u.destinatario_id', '=', auth()->user()->usuario_id)
             ->get();
 
             return $tickets;
     }
 
-    public static function files($ticket_id = null)
+    public static function filesc($ticket_id = null)
     {
         $files = DB::table('ticket_file')
             ->select('*')

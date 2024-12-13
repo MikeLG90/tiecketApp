@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obtener Token</title>
+    <script>
+        async function obtenerToken() {
+            const url = 'http://148.235.173.216/rpp/Token';
+
+            const data = new URLSearchParams();
+            data.append('grant_type', 'password');
+            data.append('username', 'jonamorales002@gmail.com');
+            data.append('password', 'hb1$iBBQK');
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: data.toString(),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta de la API');
+                }
+
+                const jsonResponse = await response.json();
+                // Mostrar la respuesta en el HTML
+                document.getElementById('resultado').textContent = JSON.stringify(jsonResponse, null, 2);
+            } catch (error) {
+                console.error('Error al consumir la API:', error);
+                document.getElementById('resultado').textContent = 'Error al obtener el token';
+            }
+        }
+
+        // Llama a la función para obtener el token al cargar la página
+        window.onload = obtenerToken;
+    </script>
+</head>
+<body>
+    <h1>Resultado de la API</h1>
+    <pre id="resultado">Cargando...</pre>
+</body>
+</html>

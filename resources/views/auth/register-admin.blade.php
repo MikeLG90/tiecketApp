@@ -25,6 +25,18 @@
 
         <!-- Área -->
         <div class="mt-4">
+            <label for="rol" class="block text-sm font-medium text-black">Rol o Cargo</label>
+            <select name="rol" id="rol" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 bg-white">
+                <option value="">-- Selecciona una rol --</option>
+                @foreach($roles as $r)
+                    <option value="{{ $r->rol_id}}">{{ $r->rol }}</option>
+                @endforeach
+            </select>
+            <x-input-error :messages="$errors->get('rol')" class="mt-2" />
+        </div>
+
+        <!-- Área -->
+        <div class="mt-4">
             <label for="area" class="block text-sm font-medium text-black">Área</label>
             <select name="area" id="area" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 bg-white">
                 <option value="">-- Selecciona una área --</option>

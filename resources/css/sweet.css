@@ -1,0 +1,49 @@
+.swal-container {
+    z-index: 10000 !important;
+}
+
+.swal-popup {
+    font-family: 'Arial', sans-serif !important;
+    background-color: #fff !important;
+    border-radius: 10px !important;
+    padding: 20px !important;
+}
+
+.swal-title {
+    color: #333 !important;
+    font-size: 1.6em !important;
+}
+
+.swal-text {
+    color: #333 !important;
+    font-size: 1.6em !important;
+}
+
+.swal-content {
+    color: #666 !important;
+    font-size: 1.2em !important;
+}
+
+.swal-actions {
+    margin-top: 20px !important;
+}
+
+.swal-confirm-button {
+    background-color: #3085d6 !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    border-radius: 5px !important;
+}
+
+.swal-cancel-button {
+    background-color: #aaa !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    border-radius: 5px !important;
+}
+
+.swal-footer {
+    margin-top: 10px !important;
+}
