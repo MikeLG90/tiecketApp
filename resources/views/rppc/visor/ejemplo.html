@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseño con Bootstrap</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Sidebar */
+        .sidebar {
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #ddd;
+        }
+
+        /* Tabla */
+        .table-container {
+            max-height: 20vh;
+            overflow-y: auto;
+        }
+
+        /* Visor PDF */
+        .pdf-viewer {
+            height: calc(150vh - 35vh); /* Ajuste automático con el espacio restante */
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Izquierdo -->
+            <div class="col-md-3 col-lg-2 sidebar bg-light p-3">
+                <h4 class="text-primary mb-3">Visor</h4>
+                <div class="mb-3">
+                    <label class="form-label"><strong>Oficina</strong></label>
+                    <select class="form-select" aria-label="Seleccionar oficina">
+                        <option selected>Seleccionar...</option>
+                        <option value="1">Oficina 1</option>
+                        <option value="2">Oficina 2</option>
+                        <option value="3">Oficina 3</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"><strong>Sección</strong></label>
+                    <input type="text" class="form-control" placeholder="Ingrese sección">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"><strong>Tomo</strong></label>
+                    <input type="text" class="form-control" placeholder="Ingrese tomo">
+                </div>
+                <button class="btn btn-primary w-100 mb-3">Buscar</button>
+
+                <hr>
+                <table class="table table-bordered table-sm">
+                    <tbody>
+                        <tr><td><a href="#" class="text-decoration-none">0001</a></td></tr>
+                        <tr><td><a href="#" class="text-decoration-none">0002</a></td></tr>
+                        <tr><td><a href="#" class="text-decoration-none">0003</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Contenido Principal -->
+            <div class="col-md-9 col-lg-10 p-3 d-flex flex-column">
+                <!-- Tabla Principal -->
+                <div class="table-container mb-3">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Invoice ID</th>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Payable Amount</th>
+                                <th>Paid Amount</th>
+                                <th>Due</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#" class="text-decoration-none">#AHGA6B</a></td>
+                                <td>23/09/2022</td>
+                                <td>Jacobo Marcus</td>
+                                <td>$100</td>
+                                <td>$0</td>
+                                <td>$100</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="text-decoration-none">#BHGA7C</a></td>
+                                <td>25/09/2022</td>
+                                <td>María López</td>
+                                <td>$150</td>
+                                <td>$50</td>
+                                <td>$100</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="text-decoration-none">#BHGA7C</a></td>
+                                <td>25/09/2022</td>
+                                <td>María López</td>
+                                <td>$150</td>
+                                <td>$50</td>
+                                <td>$100</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="text-decoration-none">#BHGA7C</a></td>
+                                <td>25/09/2022</td>
+                                <td>María López</td>
+                                <td>$150</td>
+                                <td>$50</td>
+                                <td>$100</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="text-decoration-none">#CHGA8D</a></td>
+                                <td>27/09/2022</td>
+                                <td>Carlos Sánchez</td>
+                                <td>$200</td>
+                                <td>$150</td>
+                                <td>$50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Visor PDF -->
+                <div class="pdf-viewer">
+                    <iframe src="https://www.africau.edu/images/default/sample.pdf" width="100%" height="100%" title="Visor PDF"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

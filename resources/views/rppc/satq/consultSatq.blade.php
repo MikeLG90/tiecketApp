@@ -28,7 +28,7 @@
       <h3>Sistema de Consultas de Derechos de Pago</h3>
    </div>
    <div class="row">
-      <div id="flHorizontalForm" class="col-lg-12 layout-spacing mx-3">
+      <div id="flHorizontalForm" class="col-lg-12 layout-spacing mx-2">
          <!-- Añadido margen horizontal -->
          <div class="statbox widget box box-shadow">
             <div class="widget-header">
@@ -38,7 +38,7 @@
                   </div>
                </div>
             </div>
-            <div class="widget-content widget-content-area p-3">
+            <div class="widget-content widget-content-area p-2">
                <!-- Añadido padding -->
                <div class="input-group mb-3">
                   <!-- Sin margen horizontal aquí, ya que se aplica al contenedor -->
@@ -76,9 +76,6 @@
                      <thead>
                         <tr>
                            <th>Fecha de pago</th>
-                           <th>Subsidio programa</th>
-                           <th>Subsidio folio</th>
-                           <th>ID Detalle</th>
                            <th>Concepto</th>
                            <th>Cantidad</th>
                            <th>Precio unitario</th>
@@ -92,9 +89,6 @@
                      <tfoot>
                         <tr>
                            <th>Fecha de pago</th>
-                           <th>Subsidio programa</th>
-                           <th>Subsidio folio</th>
-                           <th>ID Detalle</th>
                            <th>Concepto</th>
                            <th>Cantidad</th>
                            <th>Precio unitario</th>
@@ -185,9 +179,6 @@
       // Crear celdas y agregar un evento de clic a cada celda
       row.innerHTML = `
         <td data-id="${item.IdDetalle}">${item.PagoFecha}</td>
-        <td data-id="${item.IdDetalle}">${item.SubsidioPrograma}</td>
-        <td data-id="${item.IdDetalle}">${item.SubsidioFolio}</td>
-        <td data-id="${item.IdDetalle}">${item.IdDetalle}</td>
         <td data-id="${item.IdDetalle}">${item.Concepto}</td>
         <td data-id="${item.IdDetalle}">${item.Cantidad}</td>
         <td data-id="${item.IdDetalle}">${item.PrecioUnitario}</td>

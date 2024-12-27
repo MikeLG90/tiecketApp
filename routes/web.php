@@ -10,7 +10,13 @@ use App\Http\Controllers\DelegacioneController;
 use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\DependenciaController;
 use App\Http\Controllers\GrupoController;
+use App\Http\Controllers\LibroController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\EmailController;
+use App\Http\Controllers\GmailController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +29,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use App\Http\Controllers\TiffController;
+Route::get('/callback/google', [GoogleAuthController::class, 'callback']);
+Route::get('/enviar-correo', [EmailController::class, 'enviarCorreo']);
+
+Route::post('/send-email', [GmailController::class, 'sendEmail']);
+
 
 Route::post('/preview-tiff', [TiffController::class, 'previewTiff'])->name('preview-tiff');
 Route::get('/visor', [TiffController::class, 'index'])->name('index-tiff');
@@ -30,17 +41,32 @@ Route::get('/visor', [TiffController::class, 'index'])->name('index-tiff');
 
 Route::middleware('auth')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('user.index');
-    Route::post('editar-perfil', [UserController::class, 'updateUser']);
+    Route::post('/editar-perfil', [UserController::class, 'updateUser']);
     Route::put('/editar-user/{userId}', [UserController::class, 'cambioRol']);
 
 
 });
+
+// Visor
+Route::middleware('auth')->group(function () {
+    Route::get('/visor_img', function () {
+        return view('rppc.visor.visor_img');
+
+        
+    });
+    
+
+});
+
 
 // ConsultaSATQ 
 Route::get('/satq', function () {
     return view('rppc.satq.consultSatq');
 });
 
+Route::get('/gmail-send', function () {
+    return view('mail-ejemplo');
+});
 
 Route::put('/not/update/{notId}', [NotificacionController::class, 'update'])->name('not.update');
 

@@ -55,7 +55,7 @@ class FolioController extends Controller
         $folio->fecha_hora = $request->fecha;
         $folio->destinatario = $request->para;
         $folio->oficina = $request->oficina;
-        $folio->folio_generado = $result->resultado_concatenado . "/F:" . $num_folio . "/" . $fechaActual;
+        $folio->folio_generado = $result->resultado_concatenado . "/000" . $num_folio . "/" . $fechaActual;
         $folio->save();
 
         return redirect()->route('folios.show', ['folio' => $folio->folio_id]);

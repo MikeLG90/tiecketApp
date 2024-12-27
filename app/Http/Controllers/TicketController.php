@@ -10,10 +10,19 @@ use App\Models\User;
 use App\Models\Oficina;
 use App\Models\Notificacion;
 use Carbon\Carbon;
+use App\Services\GmailService;
 use Illuminate\Support\Facades\DB;
 
 class TicketController extends Controller
 {
+
+    protected $gmailService;
+
+    public function __construct(GmailService $gmailService)
+    {
+        $this->gmailService = $gmailService;
+    }
+
     public function index()
     {
         setlocale(LC_TIME, 'es_ES.UTF-8');
@@ -218,6 +227,11 @@ class TicketController extends Controller
 
     public function store(Request $request) 
     {
+        // Localizar el correo del usuario
+
+        $user = User::find($request->usuario_id);
+
+        $userEmail = $user->email;
 
         $request->validate([
             'attachments.*' => 'file|mimes:jpg,jpeg,png,pdf|max:2048', // Ajusta según tus necesidades
@@ -275,9 +289,15 @@ class TicketController extends Controller
             ]);
         }
     }
+
+        $to = $userEmail;
+        $subject = "Prueba de correo";
+        $message = "<h1>Nuevo Ticket</h1><p>Tienes un nuevo ticket en SIDRPP</p>";
+
+        $response = $this->gmailService->sendEmail($to, $subject, $message);
    // DD($ticket);
-    return redirect("/inbox")->with('success', 'Ticket generado exitosamente');
-    }
+   return response()->json(['message' => 'Registro guardado y correo enviado.', 'emailResult' => $response]);
+}
 
     public function ticketFiles($id)
     {

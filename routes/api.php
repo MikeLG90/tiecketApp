@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\FolioController;
 use App\Http\Controllers\SATQController;
+use App\Http\Controllers\LibroController;
 
 
 /*
@@ -40,3 +41,7 @@ Route::get('/tickets', [TicketController::class, 'getTickets']);
 
 // Ruta para obtener detalles de un ticket específico por ID
 Route::get('/tickets/{id}', [TicketController::class, 'getTicketById']);
+
+// Apis para visor
+Route::get('/libros/{id_oficina}', [LibroController::class,'getLibros'])->name('lib.get');
+Route::get('/libro/imagenes/{id_oficina}/{id_libro}', [LibroController::class,'getImagenesLibros'])->name('img.get');

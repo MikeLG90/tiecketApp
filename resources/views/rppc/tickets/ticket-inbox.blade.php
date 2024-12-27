@@ -1,6 +1,6 @@
 <x-base-layout :scrollspy="false">
    <x-slot:pageTitle>
-   RPPC | ConsultaSATQ 
+   RPPC | Tickets 
    </x-slot>
    <!-- BEGIN GLOBAL MANDATORY STYLES -->
    <x-slot:headerFiles>
@@ -146,9 +146,7 @@
                         <tr>
                            <td>{{ $i }}</td>
                            <td>
-                              <div class="avatar" style="margin-right: 10px;">
-                                 <img alt="avatar" src="{{ $t->image ? '/file/'.$t->image : '/file/def.jpg' }}" class="rounded-circle" />
-                              </div>
+
                               {{ $t->remitente_id }} 
                               <p>({{ $t->oficina_remitente }})</p>
                            </td>
@@ -237,9 +235,6 @@
                         <tr>
                            <td>{{ $i }}</td>
                            <td>
-                              <div class="avatar">
-                                 <img alt="avatar" src="{{ $t->image ? '/file/'.$t->image : '/file/def.jpg' }}" class="rounded-circle" />
-                              </div>
                               {{ $t->remitente_id }}
                               <p>({{ $t->oficina_remitente }})</p>
                            </td>
@@ -431,9 +426,6 @@
                         <tr>
                            <td>{{ $i }}</td>
                            <td>
-                              <div class="avatar">
-                                 <img alt="avatar" src="{{ $t->image ? '/file/'.$t->image : '/file/def.jpg' }}" class="rounded-circle" />
-                              </div>
                               {{ $t->remitente_id }}
                               <p>({{ $t->oficina_remitente }})</p>
                            </td>
@@ -521,9 +513,6 @@
                         <tr>
                            <td>{{ $i }}</td>
                            <td>
-                              <div class="avatar">
-                                 <img alt="avatar" src="{{ $t->image ? '/file/'.$t->image : '/file/def.jpg' }}" class="rounded-circle" />
-                              </div>
                               {{ $t->remitente_id }}
                               <p>({{ $t->oficina_remitente }})</p>
                            </td>

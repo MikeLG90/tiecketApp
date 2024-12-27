@@ -24,7 +24,7 @@
     </style>
 
     <div class="row layout-top-spacing">
-        <h3>Blioteca de folios</h3>
+        <h3>Mis folios</h3>
     </div>
 
     <div class="row">
