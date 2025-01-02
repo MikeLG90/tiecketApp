@@ -1,46 +1,31 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obtener Token</title>
-    <script>
-        async function obtenerToken() {
-            const url = 'http://148.235.173.216/rpp/Token';
-
-            const data = new URLSearchParams();
-            data.append('grant_type', 'password');
-            data.append('username', 'jonamorales002@gmail.com');
-            data.append('password', 'hb1$iBBQK');
-
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: data.toString(),
-                });
-
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta de la API');
-                }
-
-                const jsonResponse = await response.json();
-                // Mostrar la respuesta en el HTML
-                document.getElementById('resultado').textContent = JSON.stringify(jsonResponse, null, 2);
-            } catch (error) {
-                console.error('Error al consumir la API:', error);
-                document.getElementById('resultado').textContent = 'Error al obtener el token';
-            }
-        }
-
-        // Llama a la función para obtener el token al cargar la página
-        window.onload = obtenerToken;
-    </script>
+    <title>Renderizar TIFF</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiff.js/1.0.0/tiff.min.js"></script>
 </head>
 <body>
-    <h1>Resultado de la API</h1>
-    <pre id="resultado">Cargando...</pre>
+    <h1>Renderizar TIFF</h1>
+    <div id="pages"></div>
+    <script>
+        const url = 'CCLXVIIa-01-02-01_02-0012.tif'; // Ruta al TIFF
+        fetch(url)
+            .then(response => response.arrayBuffer())
+            .then(buffer => {
+                const tiff = new Tiff({ buffer });
+                const pagesDiv = document.getElementById('pages');
+                for (let i = 0; i < tiff.countDirectory(); i++) {
+                    tiff.setDirectory(i);
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = tiff.width();
+                    canvas.height = tiff.height();
+                    ctx.putImageData(tiff.toImageData(), 0, 0);
+                    pagesDiv.appendChild(canvas);
+                }
+            });
+    </script>
 </body>
 </html>

@@ -35,6 +35,17 @@ class Libros extends Model
             return $query->get();
     }
 
+    public static function getLibrosTS($seccion, $tomo, $id_oficina)
+    {
+        $query = DB::connection('visor_db')->table('tomos1')
+            ->select('tomos1.*')
+            ->where('id_oficina', '=', $id_oficina)
+            ->where('seccion', 'like', '%' . $seccion . '%')
+            ->where('tomo', 'like', $tomo . '%');
+
+            return $query->get();
+    }
+
     public static function getImg($id_oficina, $id_libro)
     {
         $query = DB::connection('visor_db')->table('libroimagen')
@@ -43,6 +54,18 @@ class Libros extends Model
         ->where('id_libro','=', $id_libro);
 
         return $query->get();
+    }
+
+    public static function getInscripciones($seccion, $tomo, $inscripcion, $id_oficina)
+    {
+        $query = DB::connection('visor_db')->table('inscripciones')
+            ->select('inscripciones.*')
+            ->where('id_oficina', '=', $id_oficina)
+            ->where('seccion', '=', $seccion)
+            ->where('tomo', 'like', $tomo . '%')
+            ->where('ins_inicial', '=', $inscripcion);
+
+            return $query->get();
     }
 
 }

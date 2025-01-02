@@ -37,6 +37,10 @@ Route::post('/send-email', [GmailController::class, 'sendEmail']);
 
 Route::post('/preview-tiff', [TiffController::class, 'previewTiff'])->name('preview-tiff');
 Route::get('/visor', [TiffController::class, 'index'])->name('index-tiff');
+Route::get('/tiff/view/{fileName}/{idLibro}/{oficinaId}', [TiffController::class, 'viewTiff'])->name('viewer-tiff');
+Route::get('/tiff/ins/{fileName}/{oficinaId}', [TiffController::class, 'viewTiffIns'])->name('viewer-ins');
+
+
 
 
 Route::middleware('auth')->group(function () {
@@ -50,11 +54,11 @@ Route::middleware('auth')->group(function () {
 // Visor
 Route::middleware('auth')->group(function () {
     Route::get('/visor_img', function () {
-        return view('rppc.visor.visor_img');
-
-        
+        return view('rppc.visor.visor_img');        
     });
-    
+    Route::get('/visor_inscripciones', function () {
+        return view('rppc.visor.visor_inscripciones');        
+    });   
 
 });
 

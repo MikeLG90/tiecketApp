@@ -44,4 +44,6 @@ Route::get('/tickets/{id}', [TicketController::class, 'getTicketById']);
 
 // Apis para visor
 Route::get('/libros/{id_oficina}', [LibroController::class,'getLibros'])->name('lib.get');
+Route::get('/libros-st/{seccion}/{tomo}/{id_oficina}', [LibroController::class,'getLibrosST'])->name('lib.getS');
 Route::get('/libro/imagenes/{id_oficina}/{id_libro}', [LibroController::class,'getImagenesLibros'])->name('img.get');
+Route::get('/inscripciones/{seccion}/{tomo}/{id_oficina}/{inscripcion}', [LibroController::class,'getInscripciones'])->name('lib.ins');

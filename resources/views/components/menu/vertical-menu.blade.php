@@ -95,7 +95,12 @@
          <li class="menu">
             <a href="/users" aria-expanded="false" class="dropdown-toggle">
                <div class="">
-               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users">
+                     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                     <circle cx="9" cy="7" r="4"/>
+                     <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                     <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
                   <span>Usuarios</span>       
                </div>
             </a>
@@ -164,14 +169,65 @@
                </div>
             </a>
          </li>
-
          <li class="menu ">
             <a href="/satq" aria-expanded="false" class="dropdown-toggle">
                <div class="">
-               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-search"><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M4.268 21a2 2 0 0 0 1.727 1H18a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v3"/><path d="m9 18-1.5-1.5"/><circle cx="5" cy="14" r="3"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-search">
+                     <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
+                     <path d="M4.268 21a2 2 0 0 0 1.727 1H18a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v3"/>
+                     <path d="m9 18-1.5-1.5"/>
+                     <circle cx="5" cy="14" r="3"/>
+                  </svg>
                   <span>ConsultaSATQ</span>
                </div>
             </a>
+         </li>
+         <li class="menu ">
+            <a href="#dashboard" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+               <div class="">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-eye">
+                     <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
+                     <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+                     <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
+                     <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+                     <circle cx="12" cy="12" r="1"/>
+                     <path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0"/>
+                  </svg>
+                  <span>Visor</span>
+               </div>
+               <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                     <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+               </div>
+            </a>
+            <ul class="collapse submenu list-unstyled " id="dashboard" data-bs-parent="#accordionExample">
+               <li class="">
+                  <a href="/visor_img" aria-expanded="false" class="dropdown-toggle">
+                     <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-images">
+                           <path d="M18 22H4a2 2 0 0 1-2-2V6"/>
+                           <path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18"/>
+                           <circle cx="12" cy="8" r="2"/>
+                           <rect width="16" height="16" x="6" y="2" rx="2"/>
+                        </svg>
+                        <span>Visor de Libros</span>
+                     </div>
+                  </a>
+               </li>
+               <li class="">
+                  <a href="/visor_inscripciones" aria-expanded="false" class="dropdown-toggle">
+                     <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-image">
+                           <path d="m20 13.7-2.1-2.1a2 2 0 0 0-2.8 0L9.7 17"/>
+                           <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/>
+                           <circle cx="10" cy="8" r="2"/>
+                        </svg>
+                        <span>Visor de Inscripciones</span>
+                     </div>
+                  </a>
+               </li>
+            </ul>
          </li>
          <!--           
             <li class="menu ">
