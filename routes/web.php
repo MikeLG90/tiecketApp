@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OficinaFolioController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FolioController;
 use App\Http\Controllers\TicketController;
@@ -28,6 +29,12 @@ use App\Http\Controllers\GmailController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Rutas de las oficinas recurrentes
+Route::get('/oficinas-folios', [OficinaFolioController::class, 'index'])->name('index-oficina-folio');
+Route::post('/oficinas-folios/store', [OficinaFolioController::class, 'store'])->name('store-oficina-folio');
+Route::put('/oficinas-folios/update/{id}', [OficinaFolioController::class, 'update'])->name('update-oficina-folio');
+Route::delete('/oficinas-folios/delete/{oficina_folio_id}', [OficinaFolioController::class, 'destroy'])->name('destroy-oficina-folio');
+
 use App\Http\Controllers\TiffController;
 Route::get('/callback/google', [GoogleAuthController::class, 'callback']);
 Route::get('/enviar-correo', [EmailController::class, 'enviarCorreo']);

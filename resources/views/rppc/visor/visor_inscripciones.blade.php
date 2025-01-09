@@ -13,6 +13,10 @@
          .dt-table-hover td {
          cursor: pointer; /* Cambia el cursor a un puntero */
          }
+         .fila-seleccionada {
+         background-color: #f5f5a3; /* Color de fondo para la fila seleccionada */
+         font-weight: bold;         /* Resaltar texto opcionalmente */
+         }
       </style>
       <style>
          /* Estilos generales */
@@ -86,43 +90,42 @@
          border-radius: 4px;
          }
       </style>
-         <style>
-      .btn-flotante {
-      font-size: 10px; /* Cambiar el tamaño de la tipografia */
-      text-transform: uppercase; /* Texto en mayusculas */
-      font-weight: bold; /* Fuente en negrita o bold */
-      color: #ffffff; /* Color del texto */
-      border-radius: 50px; /* Borde del boton */
-      letter-spacing: 2px; /* Espacio entre letras */
-      background-color: #9e192d !important;; /* Color de fondo */
-      padding: 18px 30px; /* Relleno del boton */
-      position: fixed;
-      bottom: 120px;
-      right: 40px;
-      transition: all 300ms ease 0ms;
-      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-      z-index: 99;
-      width: 60px; /* Ancho fijo del botón */
-      height: 60px; /* Altura fija del botón */
-      display: flex;
-      align-items: center;
-      justify-content: center; 
-      }
-      .btn-flotante:hover {
-      background-color: #2c2fa5; /* Color de fondo al pasar el cursor */
-      box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
-      transform: translateY(-7px);
-      }
-      @media only screen and (max-width: 600px) {
-      .btn-flotante {
-      font-size: 14px;
-      padding: 12px 20px;
-      bottom: 20px;
-      right: 20px;
-      }
-      }
-   </style>
-
+      <style>
+         .btn-flotante {
+         font-size: 10px; /* Cambiar el tamaño de la tipografia */
+         text-transform: uppercase; /* Texto en mayusculas */
+         font-weight: bold; /* Fuente en negrita o bold */
+         color: #ffffff; /* Color del texto */
+         border-radius: 50px; /* Borde del boton */
+         letter-spacing: 2px; /* Espacio entre letras */
+         background-color: #9e192d !important;; /* Color de fondo */
+         padding: 18px 30px; /* Relleno del boton */
+         position: fixed;
+         bottom: 120px;
+         right: 40px;
+         transition: all 300ms ease 0ms;
+         box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+         z-index: 99;
+         width: 60px; /* Ancho fijo del botón */
+         height: 60px; /* Altura fija del botón */
+         display: flex;
+         align-items: center;
+         justify-content: center; 
+         }
+         .btn-flotante:hover {
+         background-color: #2c2fa5; /* Color de fondo al pasar el cursor */
+         box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+         transform: translateY(-7px);
+         }
+         @media only screen and (max-width: 600px) {
+         .btn-flotante {
+         font-size: 14px;
+         padding: 12px 20px;
+         bottom: 20px;
+         right: 20px;
+         }
+         }
+      </style>
       <link rel="stylesheet" href="{{asset('plugins/table/datatable/datatables.css')}}">
       @vite(['resources/scss/light/plugins/table/datatable/dt-global_style.scss'])
       @vite(['resources/scss/light/plugins/table/datatable/custom_dt_miscellaneous.scss'])
@@ -138,8 +141,7 @@
              <a class="navbar-brand" href="#">Visor de Libros</a>
          </div>
          </nav> -->
-         <a href="/crear-folio" class="btn-flotante">Volver</a>
-
+      <a href="/crear-folio" class="btn-flotante">Volver</a>
       <div class="container-fluid mt-4">
          <div class="row">
             <!-- Sidebar Izquierdo -->
@@ -250,6 +252,11 @@
                     td.addEventListener('click', function() {
                         const name = this.getAttribute('data-name');
                         mostrarImagen(name, oficinaId);
+                                                    // Resaltar la fila seleccionada
+                                                    document.querySelectorAll('#imagenes tbody tr').forEach(tr => {
+                                tr.classList.remove('fila-seleccionada'); // Quitar resaltado de otras filas
+                            });
+                            row.classList.add('fila-seleccionada'); 
                     });
                 });
                 tableBody.appendChild(row);

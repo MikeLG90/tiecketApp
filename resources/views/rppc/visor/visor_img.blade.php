@@ -13,6 +13,11 @@
          .dt-table-hover td {
          cursor: pointer; /* Cambia el cursor a un puntero */
          }
+
+         .fila-seleccionada {
+         background-color: #9e192d ; /* Color de fondo para la fila seleccionada */
+         font-weight: bold;         /* Resaltar texto opcionalmente */
+         }
       </style>
       <style>
          /* Estilos generales */
@@ -50,7 +55,7 @@
          /* Tabla */
          .table-container {
          overflow-y: auto;
-         max-height: 150px;
+         max-height: 275px;
          }
          .table-container2 {
          overflow-y: auto;
@@ -325,6 +330,11 @@
                                  const name = this.getAttribute('data-name');
          
                                  mostrarImagen(name, id, oficinaId);
+                            // Resaltar la fila seleccionada
+                            document.querySelectorAll('#imagenes tbody tr').forEach(tr => {
+                                tr.classList.remove('fila-seleccionada'); // Quitar resaltado de otras filas
+                            });
+                            row.classList.add('fila-seleccionada'); // Agregar resaltado a la fila seleccionada
                              });
                          });
                          tableBody.appendChild(row);
@@ -337,50 +347,56 @@
          }
          
          $(document).ready(function() {
-             $("#oficina").change(function() {
-                 const oficinaId = $(this).val();
-                 const tableBody = document.getElementById('libros').querySelector('tbody');
-                 tableBody.innerHTML = ""; // Limpiar el contenido anterior de la tabla
-                  $("#seccion").val();
-                  $('#tomo').val();
-                  $('#oficina').val();
-         
-                 console.log(oficinaId);
-         
-                 $.ajax({
-                     url: 'api/libros/' + oficinaId,
-                     method: 'GET',
-                     success: function(data) {
-                         data.forEach((item) => {
-                             const row = document.createElement('tr');
-                             row.innerHTML = `
-                                 <td data-id="${item.id_libro}">${item.id_libro}</td>
-                                 <td data-id="${item.id_libro}">${item.id_oficina}</td>
-                                 <td data-id="${item.id_libro}">${item.seccion}</td>
-                                 <td data-id="${item.id_libro}">${item.tomo}</td>
-                                 <td data-id="${item.id_libro}">${item.volumen}</td>
-                                 <td data-id="${item.id_libro}">${item.foja_inicial}</td>
-                                 <td data-id="${item.id_libro}">${item.foja_final}</td>
-                                 <td data-id="${item.id_libro}">${item.no_inscripciones}</td>
-                                 <td data-id="${item.id_libro}">${item.status}</td>
-                                 <td data-id="${item.id_libro}">${item.observaciones}</td>
-                             `;
-         
-                             row.querySelectorAll('td').forEach(td => {
-                                 td.addEventListener('click', function() {
-                                     const id = this.getAttribute('data-id');
-                                     getImagenes(oficinaId, id);
-                                 });
-                             });
-                             tableBody.appendChild(row);
-                         });
-                     },
-                     error: function(xhr, status, error) {
-                         console.error("Error en la solicitud AJAX:", status, error);
-                     }
-                 });
-             });
-         });
+    $("#oficina").change(function() {
+        const oficinaId = $(this).val();
+        const tableBody = document.getElementById('libros').querySelector('tbody');
+        tableBody.innerHTML = ""; // Limpiar el contenido anterior de la tabla
+
+        console.log(oficinaId);
+
+        $.ajax({
+            url: 'api/libros/' + oficinaId,
+            method: 'GET',
+            success: function(data) {
+                data.forEach((item) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td data-id="${item.id_libro}">${item.id_libro}</td>
+                        <td data-id="${item.id_libro}">${item.id_oficina}</td>
+                        <td data-id="${item.id_libro}">${item.seccion}</td>
+                        <td data-id="${item.id_libro}">${item.tomo}</td>
+                        <td data-id="${item.id_libro}">${item.volumen}</td>
+                        <td data-id="${item.id_libro}">${item.foja_inicial}</td>
+                        <td data-id="${item.id_libro}">${item.foja_final}</td>
+                        <td data-id="${item.id_libro}">${item.no_inscripciones}</td>
+                        <td data-id="${item.id_libro}">${item.status}</td>
+                        <td data-id="${item.id_libro}">${item.observaciones}</td>
+                    `;
+
+                    // Agregar evento de clic a cada celda
+                    row.querySelectorAll('td').forEach(td => {
+                        td.addEventListener('click', function() {
+                            const id = this.getAttribute('data-id');
+                            getImagenes(oficinaId, id);
+
+                            // Resaltar la fila seleccionada
+                            document.querySelectorAll('#libros tbody tr').forEach(tr => {
+                                tr.classList.remove('fila-seleccionada'); // Quitar resaltado de otras filas
+                            });
+                            row.classList.add('fila-seleccionada'); // Agregar resaltado a la fila seleccionada
+                        });
+                    });
+
+                    tableBody.appendChild(row);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error("Error en la solicitud AJAX:", status, error);
+            }
+        });
+    });
+});
+
       </script>
    </body>
 </html>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Folio;
+use App\Models\User;
+use App\Models\OficinaFolio;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -14,8 +16,21 @@ class FolioController extends Controller
     public function create ()
     {
         $user = auth()->user();
+        $oficinas = OficinaFolio::all();
 
-        return view('rppc.folios.folio_form', compact('user'));
+        $query = DB::table('usuarios as u')
+        ->join('persona as p','p.usuario_id','=','u.usuario_id')
+        ->join('oficinas as o', 'o.oficina_id', '=','u.oficina_id')
+        ->join('areas as a', 'a.area_id', '=', 'u.area_id')
+        ->select(
+            'u.*',
+            'a.area',
+            DB::raw('CONCAT(p.nombre, " ", p.ape_paterno, " ", p.ape_materno) as nombre_completo')
+        );
+
+        $usuarios = $query->get();
+
+        return view('rppc.folios.folio_form', compact('user', 'usuarios', 'oficinas'));
     }
 
     public function store (Request $request)
@@ -53,7 +68,7 @@ class FolioController extends Controller
         $folio->num_folio = $num_folio;
         $folio->usuario_id = Auth()->user()->usuario_id;
         $folio->fecha_hora = $request->fecha;
-        $folio->destinatario = $request->para;
+        $folio->destinatario = $request->persona;
         $folio->oficina = $request->oficina;
         $folio->folio_generado = $result->resultado_concatenado . "/000" . $num_folio . "/" . $fechaActual;
         $folio->save();

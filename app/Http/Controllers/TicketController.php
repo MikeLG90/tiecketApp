@@ -290,13 +290,8 @@ class TicketController extends Controller
         }
     }
 
-        $to = $userEmail;
-        $subject = "Prueba de correo";
-        $message = "<h1>Nuevo Ticket</h1><p>Tienes un nuevo ticket en SIDRPP</p>";
-
-        $response = $this->gmailService->sendEmail($to, $subject, $message);
-   // DD($ticket);
-   return response()->json(['message' => 'Registro guardado y correo enviado.', 'emailResult' => $response]);
+    //DD($ticket);
+    return redirect("/inbox")->with('success', 'Ticket creado correctamente');
 }
 
     public function ticketFiles($id)
