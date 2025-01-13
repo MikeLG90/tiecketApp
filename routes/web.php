@@ -70,6 +70,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
+
 // ConsultaSATQ 
 Route::get('/satq', function () {
     return view('rppc.satq.consultSatq');
@@ -170,6 +171,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::get('/pruebas', function () {
+    return view('prueba');
+});
+
+Route::get('/pruebas2', function () {
+    return view('prueba2');
 });
 
 require __DIR__.'/auth.php';

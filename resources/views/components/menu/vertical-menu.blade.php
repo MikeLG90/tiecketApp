@@ -18,7 +18,7 @@
                </a>
             </div>
             <div class="nav-item theme-text">
-               <a href="" class="nav-link"><img class="" src="{{Vite::asset('resources/images/rppc_logo2.png')}}" width="140" height="50" alt="company">
+               <a href="" class="nav-link"><img class="navbar-logo logo-dark" src="{{Vite::asset('resources/images/logo-png-rppc.png')}}" width="120" height="60" alt="company">
                </a>
             </div>
          </div>
