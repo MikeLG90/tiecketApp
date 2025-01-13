@@ -361,6 +361,8 @@ function mostrarPdf(nombre_archivo, id_libro, oficinaId) {
     // Cargar el documento PDF
     pdfjsLib.getDocument(url).promise.then(pdf => {
         pdfDoc = pdf;
+        pageNum = 1; // Reiniciar la página al cargar un nuevo PDF
+        zoom = 0.99; // Reiniciar el zoom al cargar un nuevo PDF
         renderPage(pageNum);
     });
 
@@ -380,49 +382,49 @@ function mostrarPdf(nombre_archivo, id_libro, oficinaId) {
     }
 
     // Navegar a la página anterior
-    document.getElementById('prev').addEventListener('click', () => {
+    document.getElementById('prev').onclick = () => {
         console.log("Botón Anterior presionado");
         if (pageNum <= 1) return;
         pageNum--;
         document.getElementById('page-num').value = pageNum;
         renderPage(pageNum);
-    });
+    };
 
     // Navegar a la siguiente página
-    document.getElementById('next').addEventListener('click', () => {
+    document.getElementById('next').onclick = () => {
         console.log("Botón Siguiente presionado");
         if (!pdfDoc || pageNum >= pdfDoc.numPages) return;
         pageNum++;
         document.getElementById('page-num').value = pageNum;
         renderPage(pageNum);
-    });
+    };
 
     // Aumentar el zoom
-    document.getElementById('zoom-in').addEventListener('click', () => {
+    document.getElementById('zoom-in').onclick = () => {
         console.log("Botón Zoom + presionado");
         zoom += 0.1;
         renderPage(pageNum);
-    });
+    };
 
     // Disminuir el zoom
-    document.getElementById('zoom-out').addEventListener('click', () => {
+    document.getElementById('zoom-out').onclick = () => {
         console.log("Botón Zoom - presionado");
         if (zoom <= 0.1) return;
         zoom -= 0.1;
         renderPage(pageNum);
-    });
+    };
 
     // Descargar el PDF
-    document.getElementById('download').addEventListener('click', () => {
+    document.getElementById('download').onclick = () => {
         console.log("Botón Descargar presionado");
         const link = document.createElement('a');
         link.href = url;
-        link.download = 'preview.pdf';
+        link.download = 'sample.pdf';
         link.click();
-    });
+    };
 
     // Imprimir el PDF
-    document.getElementById('print').addEventListener('click', () => {
+    document.getElementById('print').onclick = () => {
         console.log("Botón Imprimir presionado");
         const iframe = document.createElement('iframe');
         iframe.style.display = 'none';
@@ -431,7 +433,7 @@ function mostrarPdf(nombre_archivo, id_libro, oficinaId) {
         iframe.contentWindow.focus();
         iframe.contentWindow.print();
         document.body.removeChild(iframe);
-    });
+    };
 
     // Eventos de arrastre
     container.addEventListener('mousedown', (e) => {
