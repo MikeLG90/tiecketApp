@@ -9,6 +9,8 @@
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <link rel="icon" type="image/x-icon" href="{{Vite::asset('resources/images/favicon_qroo.ico')}}"/>
       @vite(['resources/scss/layouts/modern-light-menu/light/loader.scss'])
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
       <style>
          .dt-table-hover td {
          cursor: pointer; /* Cambia el cursor a un puntero */
@@ -126,6 +128,47 @@
       right: 20px;
       }
       }
+
+      body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #canvas-container {
+            width: 100%;
+            overflow: auto;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+        }
+        canvas {
+            display: block;
+        }
+        #controls {
+            margin-bottom: 20px;
+        }
+        button {
+            margin: 0 5px;
+        }
+        .btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 24px;
+    line-height: 1.33;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
    </style>
       <link rel="stylesheet" href="{{asset('plugins/table/datatable/datatables.css')}}">
       @vite(['resources/scss/light/plugins/table/datatable/dt-global_style.scss'])
@@ -205,10 +248,20 @@
                      </tbody>
                   </table>
                </div>
+
+               <div id="controls">
+        <button class="btn btn-primary btn-circle" id="prev"><i class="fa-solid fa-angle-left"></i></button>
+        <input class="" type="number" id="page-num" value="1" style="width: 50px;">
+        <button class="btn btn-primary btn-circle" id="next"><i class="fa-solid fa-angle-right"></i></button>
+        <button class="btn btn-primary btn-circle" id="zoom-in"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+        <button class="btn btn-primary btn-circle" id="zoom-out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+        <button class="btn btn-primary btn-circle" id="download"><i class="fa-solid fa-download"></i></button>
+        <button class="btn btn-primary btn-circle" id="print"><i class="fa-solid fa-print"></i></button>
+    </div>
+    <div id="canvas-container">
+        <canvas id="pdf-canvas"></canvas>
+    </div>
                <!-- Visor PDF -->
-               <div>
-                  <iframe id="viewer" style="width: 100%; height: 600px; border: 1px solid #ccc;" src="{{ asset('rppc.pdf') }}"></iframe>
-               </div>
             </div>
          </div>
       </div>
@@ -289,6 +342,134 @@
          });
          });
       </script>
+
+    <script>
+// Función para mostrar el PDF
+function mostrarPdf(nombre_archivo, id_libro, oficinaId) {
+    const url = `/tiff/view/${nombre_archivo}/${id_libro}/${oficinaId}`;
+    
+    let pdfDoc = null,
+        pageNum = 1,
+        zoom = 0.99,
+        canvas = document.getElementById('pdf-canvas'),
+        ctx = canvas.getContext('2d'),
+        container = document.getElementById('canvas-container'),
+        isDragging = false,
+        startX, startY,
+        scrollLeft, scrollTop;
+
+    // Cargar el documento PDF
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+        pdfDoc = pdf;
+        pageNum = 1; // Reiniciar la página al cargar un nuevo PDF
+        zoom = 0.99; // Reiniciar el zoom al cargar un nuevo PDF
+        renderPage(pageNum);
+    });
+
+    // Renderizar la página
+    function renderPage(num) {
+        pdfDoc.getPage(num).then(page => {
+            const viewport = page.getViewport({ scale: zoom });
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+
+            const renderContext = {
+                canvasContext: ctx,
+                viewport: viewport
+            };
+            page.render(renderContext);
+        });
+    }
+
+    // Navegar a la página anterior
+    document.getElementById('prev').onclick = () => {
+        console.log("Botón Anterior presionado");
+        if (pageNum <= 1) return;
+        pageNum--;
+        document.getElementById('page-num').value = pageNum;
+        renderPage(pageNum);
+    };
+
+    // Navegar a la siguiente página
+    document.getElementById('next').onclick = () => {
+        console.log("Botón Siguiente presionado");
+        if (!pdfDoc || pageNum >= pdfDoc.numPages) return;
+        pageNum++;
+        document.getElementById('page-num').value = pageNum;
+        renderPage(pageNum);
+    };
+
+    // Aumentar el zoom
+    document.getElementById('zoom-in').onclick = () => {
+        console.log("Botón Zoom + presionado");
+        zoom += 0.1;
+        renderPage(pageNum);
+    };
+
+    // Disminuir el zoom
+    document.getElementById('zoom-out').onclick = () => {
+        console.log("Botón Zoom - presionado");
+        if (zoom <= 0.1) return;
+        zoom -= 0.1;
+        renderPage(pageNum);
+    };
+
+    // Descargar el PDF
+    document.getElementById('download').onclick = () => {
+        console.log("Botón Descargar presionado");
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'sample.pdf';
+        link.click();
+    };
+
+    // Imprimir el PDF
+    document.getElementById('print').onclick = () => {
+        console.log("Botón Imprimir presionado");
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = url;
+        document.body.appendChild(iframe);
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+        document.body.removeChild(iframe);
+    };
+
+    // Eventos de arrastre
+    container.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        container.style.cursor = 'grabbing';
+        startX = e.pageX - container.offsetLeft;
+        startY = e.pageY - container.offsetTop;
+        scrollLeft = container.scrollLeft;
+        scrollTop = container.scrollTop;
+    });
+
+    container.addEventListener('mouseleave', () => {
+        isDragging = false;
+        container.style.cursor = 'grab';
+    });
+
+    container.addEventListener('mouseup', () => {
+        isDragging = false;
+        container.style.cursor = 'grab';
+    });
+
+    container.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - container.offsetLeft;
+        const y = e.pageY - container.offsetTop;
+        const walkX = (x - startX) * 1;
+        const walkY = (y - startY) * 1;
+        container.scrollLeft = scrollLeft - walkX;
+        container.scrollTop = scrollTop - walkY;
+    });
+}
+
+
+    </script>
+
       <script>
          // Función para mostrar las imágenes TIFF a PDF
          function mostrarImagen(nombre_archivo, id_libro, oficinaId) {
@@ -329,7 +510,7 @@
                                  const id = this.getAttribute('data-id');
                                  const name = this.getAttribute('data-name');
          
-                                 mostrarImagen(name, id, oficinaId);
+                                 mostrarPdf(name, id, oficinaId);
                             // Resaltar la fila seleccionada
                             document.querySelectorAll('#imagenes tbody tr').forEach(tr => {
                                 tr.classList.remove('fila-seleccionada'); // Quitar resaltado de otras filas
