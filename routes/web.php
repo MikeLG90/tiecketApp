@@ -177,7 +177,7 @@ Route::get('/pruebas', function () {
     return view('prueba');
 });
 
-Route::get('/pruebas2', function () {
+Route::get('/folios-app', function () {
     return view('prueba2');
 });
 
