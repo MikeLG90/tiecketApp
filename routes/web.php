@@ -3,6 +3,7 @@
 use App\Http\Controllers\OficinaFolioController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FolioController;
+use App\Http\Controllers\ResolucionController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\FileController;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\GmailController;
+
 
 
 
@@ -129,6 +131,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/ticket/create', [TicketController::class, 'create'])->name('create.t');
 
 });
+
+// Rutas para las resoluciones
+
+Route::middleware('auth')->group(function () {
+    Route::get('/resoluciones', [ResolucionController::class, 'index'])->name('resolucion.index');
+});
+
+
 Route::get('/ticket/files/{id}', [TicketController::class, 'ticketFiles']);
  
 
@@ -180,5 +190,6 @@ Route::get('/pruebas', function () {
 Route::get('/folios-app', function () {
     return view('prueba2');
 });
+
 
 require __DIR__.'/auth.php';
