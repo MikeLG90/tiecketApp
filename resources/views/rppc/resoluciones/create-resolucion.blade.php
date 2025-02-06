@@ -2,7 +2,7 @@
    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
       <div class="modal-content">
          <div class="modal-header" id="inputFormModalLabel">
-            <h5 class="modal-title">Nuevo Ticket</h5>
+            <h5 class="modal-title">Nueva Resolución</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true">
                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -11,10 +11,11 @@
             </button>
          </div>
          <div class="modal-body">
-            <form method="POST" action="/store-tck" enctype="multipart/form-data" id="store">
+            <form method="POST" action="/nueva-resolucion" enctype="multipart/form-data" id="store">
                @csrf
                <div class="row">
-                  <!--         <div class="col-md-12">
+            <!--
+               <div class="col-md-12">
                      <div class="mb-4 mail-form">
                          <p>From:</p>
                          <select class="form-control" id="m-form">
@@ -23,7 +24,8 @@
                          </select>
                      </div>
                      </div>
-                     </div> -->
+                     </div>   
+                      -->
                   <div class="row">
                      <div class="col-md-6">
                         <div class="mb-4 mail-to">
@@ -38,22 +40,6 @@
                            </p>
                            <div class="">
                               <input name="fecha_apertura" type="datetime-local" id="fecha" class="form-control" readonly>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="mb-4 mail-cc">
-                           <p>
-                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar">
-                                 <path d="M8 2v4"/>
-                                 <path d="M16 2v4"/>
-                                 <rect width="18" height="18" x="3" y="4" rx="2"/>
-                                 <path d="M3 10h18"/>
-                              </svg>
-                              Fecha límite:
-                           </p>
-                           <div>
-                              <input name="fecha_limite" type="datetime-local" id="m-cc" class="form-control" required>
                            </div>
                         </div>
                      </div>
@@ -210,7 +196,7 @@
                                  <path d="M10 14h4"/>
                                  <path d="M10 18h4"/>
                               </svg>
-                              Oficina:
+                              Delegación donde se requiere la resolución:
                            </p>
                            <div>
                               <select name="oficina" id="oficina" class="form-control" required>
@@ -224,22 +210,6 @@
                            </div>
                         </div>
                      </div>
-                     <div class="mb-4 mail-subject">
-                        <p>
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round">
-                              <circle cx="12" cy="8" r="5"/>
-                              <path d="M20 21a8 8 0 0 0-16 0"/>
-                           </svg>
-                           Para:
-                        </p>
-                        <div class="w-100">
-                           <select name="usuario_id" id="usuarios" class="form-control" required>
-                              <option value="" disabled selected>Seleccione a quién se le asignará el ticket</option>
-                              <!-- Agrega más opciones según sea necesario -->
-                           </select>
-                           <span class="validation-text"></span>
-                        </div>
-                     </div>
                      <div class="">
                         <p>
                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-down">
@@ -247,7 +217,7 @@
                               <path d="M12 10v6"/>
                               <path d="m15 13-3 3-3-3"/>
                            </svg>
-                           Subir archivos:
+                           Anexo:
                         </p>
                         <!-- <input type="file" class="form-control-file" id="mail_File_attachment" multiple="multiple"> -->
                         <input class="form-control file-upload-input" type="file" name="attachments[]" multiple required>

@@ -69,7 +69,7 @@
                            <div>
                               <select name="tipo" id="m-cc" class="form-control" required>
                                  <option value="" disabled selected>Seleccione un tipo</option>
-                                 <option value="1">Incidente</option>
+                                 <option value="1" >Incidente</option>
                                  <option value="2">Solicitar</option>
                                  <!-- Agrega más opciones según sea necesario -->
                               </select>

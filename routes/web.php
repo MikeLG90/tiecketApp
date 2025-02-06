@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\GmailController;
+use App\Http\Controllers\ComentarioController;
+
 
 
 
@@ -136,10 +138,22 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/resoluciones', [ResolucionController::class, 'index'])->name('resolucion.index');
+    Route::post('/nueva-resolucion', [ResolucionController::class, 'store'])->name(name: 'resolucion.store');
+    Route::get('/resolucion/{id}', [ResolucionController::class, 'view'])->name('resolucion.view');
+    Route::get('/resoluciones-chart-data', [ResolucionController::class, 'getResolucionesData'])->name('resolucion-data.index');
+    Route::get('/resolucion/file/{id}', [ResolucionController::class, 'resolucionFile'])->name('resolucion.file');
+    Route::post('/aprobar/resolucion/{resolucion_id}', [ResolucionController::class, 'cambiarEstado'])->name(name: 'resolucion.estado');
+
+
 });
+
+// Rutas para los comentarios
+Route::post('/comentario/store', [ComentarioController::class, 'store'])->name('comentario.store');
 
 
 Route::get('/ticket/files/{id}', [TicketController::class, 'ticketFiles']);
+
+
  
 
 Route::middleware('checkRole:Trabajador')->group(function () {
@@ -166,7 +180,7 @@ Route::get('/tif', function () {
 
 
 Route::get('/poblacion', function () {
-    return view('rppc.tickets.view-ticket');
+    return view('rppc.resoluciones.preview-res');
 });
 
 Route::get('/', function () {

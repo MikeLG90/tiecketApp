@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class Resolucion extends Model
 {
@@ -28,4 +29,53 @@ class Resolucion extends Model
         'estatus'
         ];
 
+    public function files()
+    {
+        return $this->hasMany(ResolucionFile::class);
+    }
+
+    public static function indexResoluciones() 
+    {
+        $resolucioens = DB::table('resoluciones as r')
+            ->join('usuarios as u', 'r.usuario_id', '=', 'u.usuario_id')
+            ->join('persona as p', 'u.usuario_id', '=', 'p.usuario_id')
+            ->select(
+                'r.*',
+                DB::raw('CONCAT(p.nombre, " ", p.ape_paterno, " ", p.ape_materno) AS remitente'),
+            )
+            ->get();
+
+        return $resolucioens;
+    }
+
+    public static function resolucion($resolucion_id = null) 
+    {
+        $resolucion = DB::table('resoluciones as r')
+        ->join('usuarios as u', 'r.usuario_id', '=', 'u.usuario_id')
+        ->join('persona as p', 'u.usuario_id', '=', 'p.usuario_id')
+        ->select(
+            'r.*',
+            DB::raw('CONCAT(p.nombre, " ", p.ape_paterno, " ", p.ape_materno) AS remitente'),
+        )
+        ->where('r.resolucion_id', '=', $resolucion_id)
+        ->get();
+
+    return $resolucion;
+
+    }
+
+    public static function resolucionData()
+    {
+        $startOfWeek = Carbon::now()->startOfWeek(); // Lunes
+        $endOfWeek = Carbon::now()->endOfWeek(); // Domingo
+
+        $resoluciones = DB::table('resoluciones')
+            ->select(DB::raw('DATE(created_at) as fecha'), DB::raw('count(*) as total'))
+            ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+            ->groupBy('fecha')
+            ->orderBy('fecha', 'ASC')
+            ->get();
+
+        return $resoluciones;
+    }
 }

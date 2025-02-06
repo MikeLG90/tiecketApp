@@ -1,7 +1,6 @@
 import.meta.glob([
     '../images/**',
 ]);
-
 //import Mailbox from './components/Mailbox';
 /*import React from 'react';
 import ReactDOM from 'react-dom/client'; // Asegúrate de importar desde 'react-dom/client'
@@ -22,3 +21,4 @@ if (document.getElementById('listado-folios')) {
         </React.StrictMode>
     );
 }
+

@@ -686,9 +686,7 @@ window.onload = function () {
                       $('#inUrgencia').val(ticket.urgencia);
                       $('#inImpacto').val(ticket.impacto);
                       $('#inPrioridad').val(ticket.prioridad);
-                      $('#textarea-t').val(ticket.descripcion);
-      
-      
+                      $('#textarea-t').val(ticket.descripcion);         
       
                       // Mostrar archivos adjuntos
                       if (data.files.length === 0) {
