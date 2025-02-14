@@ -38,15 +38,18 @@
                <div class="input-group mb-4">
                   <span class="input-group-text">Municipio</span>
                   <select class="form-control form-control-lg" id="municipio">
-                     <option value="1">Cozumel</option>
-                     <option value="2">Isla Mujeres</option>
-                     <option value="3">Felipe Carrillo Puerto</option>
-                     <option value="4">Othón P. Blanco</option>
-                     <option value="5">Solidaridad</option>
-                     <option value="6">Tulum</option>
-                     <option value="7">Bacalar</option>
-                     <option value="8">Puerto Morelos</option>
-                  </select>
+    <option value="1">Cozumel</option>
+    <option value="2">Isla Mujeres</option>
+    <option value="3">Felipe Carrillo Puerto</option>
+    <option value="4">Othón P. Blanco</option>
+    <option value="5">Benito Juárez</option>
+    <option value="6">José María Morelos </option>
+    <option value="7">Lázaro Cárdenas </option>
+    <option value="8">Solidaridad </option>
+    <option value="9">Tulum </option>
+    <option value="10">Bacalar</option>
+    <option value="11">Puerto Morelos</option>
+  </select>
                </div>
                <div class="input-group mb-4">
                   <span class="input-group-text">Cve. catastral</span>
