@@ -32,9 +32,9 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
 
         if ($user->rol_id == 1) {
-            return redirect()->intended('/index-folios');
+            return redirect()->intended('/bienvenida');
         } else {
-            return redirect()->intended('/crear-folio');
+            return redirect()->intended('/bienvenida');
         }
 
     }

@@ -80,7 +80,9 @@ Route::middleware('auth')->group(function () {
 Route::get('/satq', function () {
     return view('rppc.satq.consultSatq');
 });
-
+Route::get('/bienvenida', function () {
+    return view('rppc.bienvrenida');
+});
 // Api catastro
 Route::get('/catastro', function () {
     return view('rppc.web_services.ig_api');
