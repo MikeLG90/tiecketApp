@@ -40,6 +40,7 @@ class ResolucionController extends Controller
            $array2++;
            }
         }
+
         $cantidad_aprobadas = $array2;
 
         $total = $cantidad_aprobadas + $cantidad_pendientes;
@@ -101,8 +102,15 @@ class ResolucionController extends Controller
         $resolucion[0]->fecha_aper = Carbon::parse($resolucion[0]->fecha_aper)->translatedFormat('j \d\e F \d\e Y');
         
         $comentarios = Comentario::comentariosR($resolucion_id);
+        
+        $oficina = null;
 
-        return view('rppc.resoluciones.preview-res', data: compact('resolucion', 'comentarios'));
+        $oficina  = Oficina::findOrFail($resolucion[0]->oficina_dest);
+
+        $oficina_nombre = $oficina->oficina;
+
+        
+        return view('rppc.resoluciones.preview-res', data: compact('resolucion', 'comentarios', 'oficina_nombre'));
     }
 
     public function getResolucionesData()

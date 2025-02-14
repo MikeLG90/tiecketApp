@@ -28,109 +28,114 @@
       <h3>Sistema de Consultas de Derechos de Pago</h3>
    </div>
    <div class="row">
-      <div id="flHorizontalForm" class="col-lg-12 layout-spacing mx-2">
-         <!-- Añadido margen horizontal -->
-         <div class="statbox widget box box-shadow">
-            <div class="widget-header">
-               <div class="row">
-                  <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                     <h4>Por favor {{ auth()->user()->persona->nombre }} ingrese la referencia de pago</h4>
-                  </div>
-               </div>
-            </div>
-            <div class="widget-content widget-content-area p-2">
-               <!-- Añadido padding -->
-               <div class="input-group mb-3">
-                  <!-- Sin margen horizontal aquí, ya que se aplica al contenedor -->
-                  <input type="text" class="form-control" placeholder="ej. 7505623XXXX" aria-label="Recipient's username" aria-describedby="button-addon2" id="referencia">
-                  <button class="btn btn-info" type="button" id="button-addon2">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search">
-                        <circle cx="11" cy="11" r="8"/>
-                        <path d="m21 21-4.3-4.3"/>
-                     </svg>
-                  </button>
-               </div>
-               <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                  <h6>Detalles de la solicitud</h6>
-               </div>
-               <hr>
-               <div class="input-group">
-                  <!-- Sin margen horizontal aquí, ya que se aplica al contenedor -->
-                  <span class="input-group-text">Referencia</span>
-                  <input type="text" class="form-control" placeholder="Referencia" id="referencia2">
-                  <span class="input-group-text">RFC</span>
-                  <input type="text" class="form-control" placeholder="RFC" id="rfc">
-                  <span class="input-group-text">Fecha</span>
-                  <input type="text" class="form-control" id="fechas">
-               </div>
-               <br>
-               <div class="input-group mb-3">
-                  <!-- Sin margen horizontal aquí -->
-                  <span class="input-group-text">Nombre</span>
-                  <input type="text" class="form-control" aria-describedby="" id="nombre">
-               </div>
-               <hr>
-               <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                  <h6>Pago/s: (Para ver los movimentos dar click al concepto)</h6>
-                  <table id="tabla1" class="multi-table table dt-table-hover w-100">
-                     <thead>
-                        <tr>
-                           <th>Fecha de pago</th>
-                           <th>Concepto</th>
-                           <th>Cantidad</th>
-                           <th>Precio unitario</th>
-                           <th>Bloqueados</th>
-                           <th>Usados</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-
-                     </tbody>
-                     <tfoot>
-                        <tr>
-                           <th>Fecha de pago</th>
-                           <th>Concepto</th>
-                           <th>Cantidad</th>
-                           <th>Precio unitario</th>
-                           <th>Bloqueados</th>
-                           <th>Usados</th>
-                        </tr>
-                     </tfoot>
-                  </table>
-                  <hr>
-                  <h6>Detalles de Concepto</h6>
-                  <table id="tabla2" class="multi-table table dt-table-hover w-100">
-                     <thead>
-                        <tr>
-                           <th>Fecha</th>
-                           <th>Movimiento</th>
-                           <th>Concepto ID</th>
-                           <th>LLave compuesta</th>
-                           <th>Folio-Dia-Hora</th>
-                           <th>Usuario</th>
-                           <th>Cantidad</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <!-- Aquí se cargan todos los conceptos de la referencia -->
-                     </tbody>
-                     <tfoot>
-                        <tr>
-                           <th>Fecha</th>
-                           <th>Movimiento</th>
-                           <th>Concepto ID</th>
-                           <th>LLave compuesta</th>
-                           <th>Folio-Dia-Hora</th>
-                           <th>Usuario</th>
-                           <th>Cantidad</th>
-                        </tr>
-                     </tfoot>
-                  </table>
-               </div>
-            </div>
-         </div>
+  <div id="flHorizontalForm" class="col-lg-12 layout-spacing">
+    <div class="card shadow-sm">
+      <div class="card-header ">
+        <h4 class="mb-0">Por favor {{ auth()->user()->persona->nombre }} ingrese la referencia de pago</h4>
       </div>
-   </div>
+      <div class="card-body">
+        <div class="input-group mb-4">
+          <input type="text" class="form-control form-control-lg" placeholder="ej. 7505623XXXX" aria-label="Recipient's username" aria-describedby="button-addon2" id="referencia">
+          <button class="btn btn-info btn-lg" type="button" id="button-addon2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.3-4.3"/>
+            </svg>
+          </button>
+        </div>
+
+        <h5 class="card-title mb-3">Detalles de la solicitud</h5>
+        <hr class="mb-4">
+
+        <div class="row g-3 mb-4">
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-text">Referencia</span>
+              <input type="text" class="form-control" placeholder="Referencia" id="referencia2">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-text">RFC</span>
+              <input type="text" class="form-control" placeholder="RFC" id="rfc">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-text">Fecha</span>
+              <input type="text" class="form-control" id="fechas">
+            </div>
+          </div>
+        </div>
+
+        <div class="input-group mb-4">
+          <span class="input-group-text">Nombre</span>
+          <input type="text" class="form-control" aria-describedby="" id="nombre">
+        </div>
+
+        <h5 class="card-title mb-3">Pago/s: (Para ver los movimentos dar click al concepto)</h5>
+        <div class="table-responsive mb-4">
+          <table id="tabla1" class="table table-striped table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>Fecha de pago</th>
+                <th>Concepto</th>
+                <th>Cantidad</th>
+                <th>Precio unitario</th>
+                <th>Bloqueados</th>
+                <th>Usados</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Table body content -->
+            </tbody>
+            <tfoot class="table">
+              <tr>
+                <th>Fecha de pago</th>
+                <th>Concepto</th>
+                <th>Cantidad</th>
+                <th>Precio unitario</th>
+                <th>Bloqueados</th>
+                <th>Usados</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <h5 class="card-title mb-3">Detalles de Concepto</h5>
+        <div class="table-responsive">
+          <table id="tabla2" class="table table-striped table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>Fecha</th>
+                <th>Movimiento</th>
+                <th>Concepto ID</th>
+                <th>LLave compuesta</th>
+                <th>Folio-Dia-Hora</th>
+                <th>Usuario</th>
+                <th>Cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Aquí se cargan todos los conceptos de la referencia -->
+            </tbody>
+            <tfoot class="table">
+              <tr>
+                <th>Fecha</th>
+                <th>Movimiento</th>
+                <th>Concepto ID</th>
+                <th>LLave compuesta</th>
+                <th>Folio-Dia-Hora</th>
+                <th>Usuario</th>
+                <th>Cantidad</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
    <x-slot:footerFiles>
    <script src="{{asset('plugins/global/vendors.min.js')}}"></script>

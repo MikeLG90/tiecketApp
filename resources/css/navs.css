@@ -1,0 +1,33 @@
+.nav-tabs-wrapper {
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .nav-tabs {
+    border-bottom: none;
+  }
+  .nav-tabs .nav-link {
+    border: none;
+    color: #495057;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    transition: all 0.2s ease-in-out;
+  }
+  .nav-tabs .nav-link:hover {
+    background-color: #e9ecef;
+    border-radius: 0.25rem;
+  }
+  .nav-tabs .nav-link.active {
+    color: #9e192d;
+    background-color: #fff;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .nav-tabs .nav-link svg {
+    vertical-align: text-bottom;
+  }
+  .badge {
+    font-size: 0.75em;
+    padding: 0.25em 0.5em;
+  }

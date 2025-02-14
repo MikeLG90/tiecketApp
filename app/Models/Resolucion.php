@@ -42,10 +42,12 @@ class Resolucion extends Model
             ->select(
                 'r.*',
                 DB::raw('CONCAT(p.nombre, " ", p.ape_paterno, " ", p.ape_materno) AS remitente'),
-            )
-            ->get();
+            );
+            if(auth()->user()->rol_id != 1 and auth()->user()->rol_id != 6) {
+            $resolucioens->where('r.oficina_dest', auth()->user()->oficina_id);
+            }
 
-        return $resolucioens;
+        return $resolucioens->get();
     }
 
     public static function resolucion($resolucion_id = null) 

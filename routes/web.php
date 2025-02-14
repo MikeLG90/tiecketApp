@@ -18,6 +18,7 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\GmailController;
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\WebServicesController;
 
 
 
@@ -79,6 +80,15 @@ Route::middleware('auth')->group(function () {
 Route::get('/satq', function () {
     return view('rppc.satq.consultSatq');
 });
+
+// Api catastro
+Route::get('/catastro', function () {
+    return view('rppc.web_services.ig_api');
+});
+
+// Consulta Catastro
+Route::get('/consulta-catastro/{municipio}/{cve}', [WebServicesController::class,'obtenerDatosCatastro'])->name('grupo.index');
+
 
 Route::get('/gmail-send', function () {
     return view('mail-ejemplo');

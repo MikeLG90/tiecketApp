@@ -20,6 +20,9 @@ export default defineConfig({
                 'resources/js/app.jsx',
                 'public/css/login.css',
                 'resources/css/sweet.css',
+                'resources/css/navs.css',
+                'resources/css/visor.css',
+                'resources/js/visor/visor.js',
                 'resources/css/app.css',
 
                 /**

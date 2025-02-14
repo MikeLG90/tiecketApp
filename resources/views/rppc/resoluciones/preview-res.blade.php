@@ -21,6 +21,8 @@
    </style>
    </x-slot>
    <!-- END GLOBAL MANDATORY STYLES -->
+   <a href="/resoluciones" class="btn-flotante">Volver</a>
+
    <div class="row invoice layout-top-spacing layout-spacing">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
          <div class="doc-container">
@@ -54,7 +56,7 @@
                                        </div>
                                        <div class="col-xl-12 col-lg-7 col-md-6 col-sm-4">
                                           <p class="inv-customer-name">{{ $resolucion[0]->remitente }}</p>
-                                          <p class="inv-street-addr">{{ $resolucion[0]->oficina_dest }}</p>
+                                          <p class="inv-street-addr">{{ $oficina_nombre }}</p>
                                           <p class="inv-email-address">
                                              Urgencia:
                                              @switch($resolucion[0]->urgencia)
@@ -331,13 +333,13 @@
                                                 <div class="pagination-no_spacing">
                                                    <ul class="pagination">
                                                       <li>
-                                                         <a href="javascript:void(0);" class="prev">
+                                                         <a href="javascript:void(0);" class="prev" data-image="prev">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left">
                                                                <polyline points="15 18 9 12 15 6"></polyline>
                                                             </svg>
                                                          </a>
                                                       </li>
-                                                      <li><a href="javascript:void(0);">1</a></li>
+                                                      <li><a href="javascript:void(0);" data->1</a></li>
                                                       <li><a href="javascript:void(0);" class="active">2</a></li>
                                                       <li><a href="javascript:void(0);">3</a></li>
                                                       <li>
