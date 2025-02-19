@@ -17,6 +17,11 @@
       @vite(['resources/scss/dark/plugins/table/datatable/dt-global_style.scss'])
       @vite(['resources/scss/dark/plugins/table/datatable/custom_dt_miscellaneous.scss'])
       @vite(['resources/css/visor.css'])
+      <style>
+         .canvas-container { 
+    text-align: center; /* Optional: centers any text inside the container */ 
+         } 
+      </style>
    </head>
    <body>
       <!-- Navbar -->
@@ -99,11 +104,13 @@
                </div>
                <div id="canvas-container" class="border border-gray-300 rounded-lg overflow-hidden">
                   <canvas id="pdf-canvas"></canvas>
+                  
                </div>
                <!-- Visor PDF -->
             </div>
          </div>
       </div>
+      
       <!-- Bootstrap JS Bundle -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
       <!-- jQuery CDN -->

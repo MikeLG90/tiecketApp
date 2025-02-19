@@ -19,15 +19,15 @@ class FolioController extends Controller
         $oficinas = OficinaFolio::all();
 
         $query = DB::table('usuarios as u')
-        ->join('persona as p','p.usuario_id','=','u.usuario_id')
-        ->join('oficinas as o', 'o.oficina_id', '=','u.oficina_id')
+        ->join('persona as p', 'p.usuario_id', '=', 'u.usuario_id')
+        ->join('oficinas as o', 'o.oficina_id', '=', 'u.oficina_id')
         ->join('areas as a', 'a.area_id', '=', 'u.area_id')
         ->select(
             'u.*',
             'a.area',
-            DB::raw('CONCAT(p.nombre, " ", p.ape_paterno, " ", p.ape_materno) as nombre_completo')
+            DB::raw('p.nombre || \' \' || p.ape_paterno || \' \' || p.ape_materno as nombre_completo')
         );
-
+    
         $usuarios = $query->get();
 
         return view('rppc.folios.folio_form', compact('user', 'usuarios', 'oficinas'));
@@ -94,10 +94,7 @@ class FolioController extends Controller
     public function index () 
     {
         $folios = Folio::obtenerFolios();
-
-        $registros = DB::table('registros')
-               ->whereRaw('1')
-               ->get();
+        $registros = DB::table('registros')->get();
 
         
 

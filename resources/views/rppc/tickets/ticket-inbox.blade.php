@@ -322,15 +322,15 @@
                      @php $i = 1; @endphp
                      @foreach($registros_1 as $r)
                      <tr>
-                        <td>{{ $r->ID }}</td>
-                        <td>{{ $r->Titulo }}</td>
-                        <td>{{ $r->Estado }}</td>
-                        <td>{{ $r->Ultima_modificacion }}</td>
-                        <td>{{ $r->Fecha_apertura }}</td>
-                        <td>{{ $r->Prioridad }}</td>
-                        <td>{{ $r->Solicitante }}</td>
-                        <td>{{ $r->Asignada_a_tecnico }}</td>
-                        <td>{{ $r->Categoria }}</td>
+                        <td>{{ $r->id }}</td>
+                        <td>{{ $r->titulo }}</td>
+                        <td>{{ $r->estado }}</td>
+                        <td>{{ $r->ultima_modificacion }}</td>
+                        <td>{{ $r->fecha_apertura }}</td>
+                        <td>{{ $r->prioridad }}</td>
+                        <td>{{ $r->solicitante }}</td>
+                        <td>{{ $r->asignada_a_tecnico }}</td>
+                        <td>{{ $r->categoria }}</td>
                      </tr>
                      @php $i++; @endphp
                      @endforeach
@@ -374,15 +374,15 @@
                      @php $i = 1; @endphp
                      @foreach($registros_2 as $r)
                      <tr>
-                        <td>{{ $r->ID }}</td>
-                        <td>{{ $r->Titulo }}</td>
-                        <td>{{ $r->Estado }}</td>
-                        <td>{{ $r->Ultima_modificacion }}</td>
-                        <td>{{ $r->Fecha_apertura }}</td>
-                        <td>{{ $r->Prioridad }}</td>
-                        <td>{{ $r->Solicitante }}</td>
-                        <td>{{ $r->Asignada_a_tecnico }}</td>
-                        <td>{{ $r->Categoria }}</td>
+                        <td>{{ $r->id }}</td>
+                        <td>{{ $r->titulo }}</td>
+                        <td>{{ $r->estado }}</td>
+                        <td>{{ $r->ultima_modificacion }}</td>
+                        <td>{{ $r->fecha_apertura }}</td>
+                        <td>{{ $r->prioridad }}</td>
+                        <td>{{ $r->solicitante }}</td>
+                        <td>{{ $r->asignada_a_tecnico }}</td>
+                        <td>{{ $r->categoria }}</td>
                      </tr>
                      @php $i++; @endphp
                      @endforeach

@@ -63,126 +63,99 @@ $("#buscar").click(function() {
 /* Visor de pdf funciones*/
 // Función para mostrar el PDF
 function mostrarPdf(nombre_archivo, id_libro, oficinaId) {
-const url = `/tiff/view/${nombre_archivo}/${id_libro}/${oficinaId}`;
+    const url = `/tiff/view/${nombre_archivo}/${id_libro}/${oficinaId}`;
 
-let pdfDoc = null,
-pageNum = 1,
-zoom = 0.99,
-canvas = document.getElementById('pdf-canvas'),
-ctx = canvas.getContext('2d'),
-container = document.getElementById('canvas-container'),
-isDragging = false,
-startX, startY,
-scrollLeft, scrollTop;
+    let pdfDoc = null,
+        pageNum = 1,
+        zoom = 1.0,
+        container = document.getElementById('pdf-canvas');
 
-// Cargar el documento PDF
-pdfjsLib.getDocument(url).promise.then(pdf => {
-pdfDoc = pdf;
-pageNum = 1; // Reiniciar la página al cargar un nuevo PDF
-zoom = 0.99; // Reiniciar el zoom al cargar un nuevo PDF
-renderPage(pageNum);
-});
+    // Cargar el documento PDF
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+        pdfDoc = pdf;
+        pageNum = 1;
+        zoom = 1.0;
+        renderPage(pageNum);
+    });
 
-// Renderizar la página
-function renderPage(num) {
-pdfDoc.getPage(num).then(page => {
-   const viewport = page.getViewport({ scale: zoom });
-   canvas.width = viewport.width;
-   canvas.height = viewport.height;
+    // Renderizar la página
+    function renderPage(num) {
+        pdfDoc.getPage(num).then(page => {
+            const viewport = page.getViewport({ scale: zoom });
 
-   const renderContext = {
-       canvasContext: ctx,
-       viewport: viewport
-   };
-   page.render(renderContext);
-});
+            // Crear un canvas temporal para convertir la página en imagen
+            const canvas = document.createElement('canvas');
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            const ctx = canvas.getContext('2d');
+
+            const renderContext = {
+                canvasContext: ctx,
+                viewport: viewport
+            };
+
+            page.render(renderContext).promise.then(() => {
+                // Convertir el canvas a imagen y establecerla como fondo del div
+                const imgData = canvas.toDataURL('image/png');
+                container.style.width = `${viewport.width}px`;
+                container.style.height = `${viewport.height}px`;
+                container.style.backgroundImage = `url(${imgData})`;
+                container.style.backgroundSize = 'contain';
+                container.style.backgroundRepeat = 'no-repeat';
+                container.style.backgroundPosition = 'center';
+            });
+        });
+    }
+
+    // Navegar a la página anterior
+    document.getElementById('prev').onclick = () => {
+        if (pageNum <= 1) return;
+        pageNum--;
+        document.getElementById('page-num').value = pageNum;
+        renderPage(pageNum);
+    };
+
+    // Navegar a la siguiente página
+    document.getElementById('next').onclick = () => {
+        if (!pdfDoc || pageNum >= pdfDoc.numPages) return;
+        pageNum++;
+        document.getElementById('page-num').value = pageNum;
+        renderPage(pageNum);
+    };
+
+    // Aumentar el zoom
+    document.getElementById('zoom-in').onclick = () => {
+        zoom += 0.1;
+        renderPage(pageNum);
+    };
+
+    // Disminuir el zoom
+    document.getElementById('zoom-out').onclick = () => {
+        if (zoom <= 0.1) return;
+        zoom -= 0.1;
+        renderPage(pageNum);
+    };
+
+    // Descargar el PDF
+    document.getElementById('download').onclick = () => {
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'sample.pdf';
+        link.click();
+    };
+
+    // Imprimir el PDF
+    document.getElementById('print').onclick = () => {
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = url;
+        document.body.appendChild(iframe);
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+        document.body.removeChild(iframe);
+    };
 }
 
-// Navegar a la página anterior
-document.getElementById('prev').onclick = () => {
-console.log("Botón Anterior presionado");
-if (pageNum <= 1) return;
-pageNum--;
-document.getElementById('page-num').value = pageNum;
-renderPage(pageNum);
-};
-
-// Navegar a la siguiente página
-document.getElementById('next').onclick = () => {
-console.log("Botón Siguiente presionado");
-if (!pdfDoc || pageNum >= pdfDoc.numPages) return;
-pageNum++;
-document.getElementById('page-num').value = pageNum;
-renderPage(pageNum);
-};
-
-// Aumentar el zoom
-document.getElementById('zoom-in').onclick = () => {
-console.log("Botón Zoom + presionado");
-zoom += 0.1;
-renderPage(pageNum);
-};
-
-// Disminuir el zoom
-document.getElementById('zoom-out').onclick = () => {
-console.log("Botón Zoom - presionado");
-if (zoom <= 0.1) return;
-zoom -= 0.1;
-renderPage(pageNum);
-};
-
-// Descargar el PDF
-document.getElementById('download').onclick = () => {
-console.log("Botón Descargar presionado");
-const link = document.createElement('a');
-link.href = url;
-link.download = 'sample.pdf';
-link.click();
-};
-
-// Imprimir el PDF
-document.getElementById('print').onclick = () => {
-console.log("Botón Imprimir presionado");
-const iframe = document.createElement('iframe');
-iframe.style.display = 'none';
-iframe.src = url;
-document.body.appendChild(iframe);
-iframe.contentWindow.focus();
-iframe.contentWindow.print();
-document.body.removeChild(iframe);
-};
-
-// Eventos de arrastre
-container.addEventListener('mousedown', (e) => {
-isDragging = true;
-container.style.cursor = 'grabbing';
-startX = e.pageX - container.offsetLeft;
-startY = e.pageY - container.offsetTop;
-scrollLeft = container.scrollLeft;
-scrollTop = container.scrollTop;
-});
-
-container.addEventListener('mouseleave', () => {
-isDragging = false;
-container.style.cursor = 'grab';
-});
-
-container.addEventListener('mouseup', () => {
-isDragging = false;
-container.style.cursor = 'grab';
-});
-
-container.addEventListener('mousemove', (e) => {
-if (!isDragging) return;
-e.preventDefault();
-const x = e.pageX - container.offsetLeft;
-const y = e.pageY - container.offsetTop;
-const walkX = (x - startX) * 1;
-const walkY = (y - startY) * 1;
-container.scrollLeft = scrollLeft - walkX;
-container.scrollTop = scrollTop - walkY;
-});
-}
 
 /* Conversión de imagenes TIFF a pdf */
 

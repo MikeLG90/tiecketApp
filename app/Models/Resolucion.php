@@ -37,17 +37,19 @@ class Resolucion extends Model
     public static function indexResoluciones() 
     {
         $resolucioens = DB::table('resoluciones as r')
-            ->join('usuarios as u', 'r.usuario_id', '=', 'u.usuario_id')
-            ->join('persona as p', 'u.usuario_id', '=', 'p.usuario_id')
-            ->select(
-                'r.*',
-                DB::raw('CONCAT(p.nombre, " ", p.ape_paterno, " ", p.ape_materno) AS remitente'),
-            );
-            if(auth()->user()->rol_id != 1 and auth()->user()->rol_id != 6) {
-            $resolucioens->where('r.oficina_dest', auth()->user()->oficina_id);
-            }
-
-        return $resolucioens->get();
+        ->join('usuarios as u', 'r.usuario_id', '=', 'u.usuario_id')
+        ->join('persona as p', 'u.usuario_id', '=', 'p.usuario_id')
+        ->select(
+            'r.*',
+            DB::raw('p.nombre || \' \' || p.ape_paterno || \' \' || p.ape_materno AS remitente')
+        );
+    
+    if (auth()->user()->rol_id != 1 && auth()->user()->rol_id != 6) {
+        $resolucioens->where('r.oficina_dest', auth()->user()->oficina_id);
+    }
+    
+    return $resolucioens->get();
+    ;
     }
 
     public static function resolucion($resolucion_id = null) 
@@ -57,10 +59,11 @@ class Resolucion extends Model
         ->join('persona as p', 'u.usuario_id', '=', 'p.usuario_id')
         ->select(
             'r.*',
-            DB::raw('CONCAT(p.nombre, " ", p.ape_paterno, " ", p.ape_materno) AS remitente'),
+            DB::raw('p.nombre || \' \' || p.ape_paterno || \' \' || p.ape_materno AS remitente')
         )
         ->where('r.resolucion_id', '=', $resolucion_id)
         ->get();
+    
 
     return $resolucion;
 

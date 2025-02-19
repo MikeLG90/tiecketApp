@@ -38,34 +38,34 @@
                <div class="input-group mb-4">
                   <span class="input-group-text">Municipio</span>
                   <select class="form-control form-control-lg" id="municipio">
-    <option value="1">Cozumel</option>
-    <option value="2">Felipe Carrillo Puerto</option>
-    <option value="3">Isla Mujeres</option>
-    <option value="4">Othón P. Blanco</option>
-    <option value="5">Benito Juárez</option>
-    <option value="6">José María Morelos </option>
-    <option value="7">Lázaro Cárdenas </option>
-    <option value="8">Solidaridad </option>
-    <option value="9">Tulum </option>
-    <option value="10">Bacalar</option>
-    <option value="11">Puerto Morelos</option>
-  </select>
+                     <option value="1">Cozumel</option>
+                     <option value="2">Felipe Carrillo Puerto</option>
+                     <option value="3">Isla Mujeres</option>
+                     <option value="4">Othón P. Blanco</option>
+                     <option value="5">Benito Juárez</option>
+                     <option value="6">José María Morelos </option>
+                     <option value="7">Lázaro Cárdenas </option>
+                     <option value="8">Solidaridad </option>
+                     <option value="9">Tulum </option>
+                     <option value="10">Bacalar</option>
+                     <option value="11">Puerto Morelos</option>
+                  </select>
                </div>
                <div class="input-group mb-4">
                   <span class="input-group-text">Cve. catastral</span>
                   <input type="text" class="form-control form-control-lg" placeholder="ej. 7505623XXXX" aria-label="Recipient's username" aria-describedby="button-addon2" id="cve_catastro">
                </div>
-    <!-- Botón de búsqueda -->
-    <div class="d-grid gap-2 col-6 mx-auto">
-                                    <!-- Default -->
-
-                                       <button class="btn btn-success mb-4" type="submit" id="aprobar-btn">
-                                          Buscar 
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                                       </button>
-
-                                 </div>
-
+               <!-- Botón de búsqueda -->
+               <div class="d-grid gap-2 col-6 mx-auto">
+                  <!-- Default -->
+                  <button class="btn btn-success mb-4" type="submit" id="aprobar-btn">
+                     Buscar 
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.3-4.3"/>
+                     </svg>
+                  </button>
+               </div>
                <h5 class="card-title mb-3">Detalles de la solicitud</h5>
                <hr class="mb-4">
                <div class="row g-3 mb-4">
@@ -97,11 +97,9 @@
                   <input type="text" class="form-control" aria-describedby="" id="propietario">
                </div>
                <div class="input-group mb-4">
-                    <span class="input-group-text">Dirección</span>
-                    <textarea class="form-control" id="direccion" rows="3"></textarea>
-                </div>
-
-
+                  <span class="input-group-text">Dirección</span>
+                  <textarea class="form-control" id="direccion" rows="3"></textarea>
+               </div>
             </div>
          </div>
       </div>
@@ -144,7 +142,7 @@
                       $('#direccion').val(data.direccion);
                       $('#latitud').val(data.centroide_lat);
                       $('#longitud').val(data.centroide_log);
-
+      
                   },
                   error: function(error) {
                     Swal.fire({
@@ -159,7 +157,6 @@
           });
       });
    </script>
-
    </x-slot>
    <!--  END CUSTOM SCRIPTS FILE  -->
 </x-base-layout>

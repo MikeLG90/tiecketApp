@@ -22,7 +22,6 @@ class TicketController extends Controller
     {
         $this->gmailService = $gmailService;
     }
-
     public function index()
     {
         setlocale(LC_TIME, 'es_ES.UTF-8');
@@ -31,100 +30,99 @@ class TicketController extends Controller
         $oficinas = Oficina::all();
 
         $tickets = DB::table('tickets as t')
-        ->join('usuarios as remitente', 't.remitente_id', '=', 'remitente.usuario_id') // Unión para el remitente
-        ->join('persona as p_remitente', 'remitente.usuario_id', '=', 'p_remitente.usuario_id') // Persona del remitente
-        ->join('oficinas as o_remitente', 'remitente.oficina_id', '=', 'o_remitente.oficina_id') // Oficina del remitente
-        ->join('usuarios as destinatario', 't.destinatario_id', '=', 'destinatario.usuario_id') // Unión para el destinatario
-        ->join('persona as p_destinatario', 'destinatario.usuario_id', '=', 'p_destinatario.usuario_id') // Persona del destinatario
-        ->join('oficinas as o_destinatario', 'destinatario.oficina_id', '=', 'o_destinatario.oficina_id') // Oficina del destinatario
-        ->select(
-            't.*',
-            'remitente.image',
-            'remitente.rol_id',
-            'o_remitente.oficina as oficina_remitente',
-            DB::raw('CONCAT(p_remitente.nombre, " ", p_remitente.ape_materno, " ", p_remitente.ape_paterno) AS remitente_nombre'),
-            'remitente.image as remitente_image',
-            'o_destinatario.oficina as oficina_destinatario',
-            DB::raw('CONCAT(p_destinatario.nombre, " ", p_destinatario.ape_materno, " ", p_destinatario.ape_paterno) AS destinatario_nombre'),
-            DB::raw('(SELECT COUNT(*) 
-                      FROM tickets 
-                      WHERE remitente_id = t.remitente_id) AS total_tickets_remitente') // Subconsulta para contar tickets por remitente
-        )
-        ->orderBy('t.ticket_id', 'desc')
-        ->get();
-        
-        $tickets2 = DB::table('tickets as t')
-        ->join('usuarios as remitente', 't.remitente_id', '=', 'remitente.usuario_id') // Unión para el remitente
-        ->join('persona as p_remitente', 'remitente.usuario_id', '=', 'p_remitente.usuario_id') // Persona del remitente
-        ->join('oficinas as o_remitente', 'remitente.oficina_id', '=', 'o_remitente.oficina_id') // Oficina del remitente
-        ->join('usuarios as destinatario', 't.destinatario_id', '=', 'destinatario.usuario_id') // Unión para el destinatario
-        ->join('persona as p_destinatario', 'destinatario.usuario_id', '=', 'p_destinatario.usuario_id') // Persona del destinatario
-        ->join('oficinas as o_destinatario', 'destinatario.oficina_id', '=', 'o_destinatario.oficina_id') // Oficina del destinatario
-        ->select(
-            't.*',
-            'remitente.image',
-            'remitente.usuario_id',
-            'o_remitente.oficina as oficina_remitente',
-            DB::raw('CONCAT(p_remitente.nombre, " ", p_remitente.ape_materno, " ", p_remitente.ape_paterno) AS remitente_nombre'),
-            'remitente.image as remitente_image',
-            'o_destinatario.oficina as oficina_destinatario',
-            DB::raw('CONCAT(p_destinatario.nombre, " ", p_destinatario.ape_materno, " ", p_destinatario.ape_paterno) AS destinatario_nombre'),
-            DB::raw('(SELECT COUNT(*) 
-                      FROM tickets 
-                      WHERE remitente_id = t.remitente_id) AS total_tickets_remitente') // Subconsulta para contar tickets por remitente
-        )
-        ->orderBy('t.ticket_id', 'desc')
-        ->whereNull('t.categoria')
-        ->get();
-    
+    ->join('usuarios as remitente', 't.remitente_id', '=', 'remitente.usuario_id') // Unión para el remitente
+    ->join('persona as p_remitente', 'remitente.usuario_id', '=', 'p_remitente.usuario_id') // Persona del remitente
+    ->join('oficinas as o_remitente', 'remitente.oficina_id', '=', 'o_remitente.oficina_id') // Oficina del remitente
+    ->join('usuarios as destinatario', 't.destinatario_id', '=', 'destinatario.usuario_id') // Unión para el destinatario
+    ->join('persona as p_destinatario', 'destinatario.usuario_id', '=', 'p_destinatario.usuario_id') // Persona del destinatario
+    ->join('oficinas as o_destinatario', 'destinatario.oficina_id', '=', 'o_destinatario.oficina_id') // Oficina del destinatario
+    ->select(
+        't.*',
+        'remitente.image',
+        'remitente.rol_id',
+        'o_remitente.oficina as oficina_remitente',
+        DB::raw('p_remitente.nombre || \' \' || p_remitente.ape_materno || \' \' || p_remitente.ape_paterno AS remitente_nombre'),
+        'remitente.image as remitente_image',
+        'o_destinatario.oficina as oficina_destinatario',
+        DB::raw('p_destinatario.nombre || \' \' || p_destinatario.ape_materno || \' \' || p_destinatario.ape_paterno AS destinatario_nombre'),
+        DB::raw('(SELECT COUNT(*) 
+                  FROM tickets 
+                  WHERE remitente_id = t.remitente_id) AS total_tickets_remitente') // Subconsulta para contar tickets por remitente
+    )
+    ->orderBy('t.ticket_id', 'desc')
+    ->get();
 
-        
-        $tickets3 = DB::table('tickets as t')
-        ->join('usuarios as remitente', 't.remitente_id', '=', 'remitente.usuario_id') // Unión para el remitente
-        ->join('persona as p_remitente', 'remitente.usuario_id', '=', 'p_remitente.usuario_id') // Persona del remitente
-        ->join('oficinas as o_remitente', 'remitente.oficina_id', '=', 'o_remitente.oficina_id') // Oficina del remitente
-        ->join('usuarios as destinatario', 't.destinatario_id', '=', 'destinatario.usuario_id') // Unión para el destinatario
-        ->join('persona as p_destinatario', 'destinatario.usuario_id', '=', 'p_destinatario.usuario_id') // Persona del destinatario
-        ->join('oficinas as o_destinatario', 'destinatario.oficina_id', '=', 'o_destinatario.oficina_id') // Oficina del destinatario
-        ->select(
-            't.*',
-            'remitente.image',
-            'o_remitente.oficina as oficina_remitente',
-            DB::raw('CONCAT(p_remitente.nombre, " ", p_remitente.ape_materno, " ", p_remitente.ape_paterno) AS remitente_nombre'),
-            'remitente.image as remitente_image',
-            'o_destinatario.oficina as oficina_destinatario',
-            DB::raw('CONCAT(p_destinatario.nombre, " ", p_destinatario.ape_materno, " ", p_destinatario.ape_paterno) AS destinatario_nombre'),
-            DB::raw('(SELECT COUNT(*) 
-                      FROM tickets 
-                      WHERE remitente_id = t.remitente_id) AS total_tickets_remitente') // Subconsulta para contar tickets por remitente
-        )
-        ->where('t.destinatario_id', auth()->user()->usuario_id) // Filtrar por el destinatario autenticado
-        ->orderBy('t.ticket_id', 'desc')
-        ->get();
+$tickets2 = DB::table('tickets as t')
+    ->join('usuarios as remitente', 't.remitente_id', '=', 'remitente.usuario_id') // Unión para el remitente
+    ->join('persona as p_remitente', 'remitente.usuario_id', '=', 'p_remitente.usuario_id') // Persona del remitente
+    ->join('oficinas as o_remitente', 'remitente.oficina_id', '=', 'o_remitente.oficina_id') // Oficina del remitente
+    ->join('usuarios as destinatario', 't.destinatario_id', '=', 'destinatario.usuario_id') // Unión para el destinatario
+    ->join('persona as p_destinatario', 'destinatario.usuario_id', '=', 'p_destinatario.usuario_id') // Persona del destinatario
+    ->join('oficinas as o_destinatario', 'destinatario.oficina_id', '=', 'o_destinatario.oficina_id') // Oficina del destinatario
+    ->select(
+        't.*',
+        'remitente.image',
+        'remitente.usuario_id',
+        'o_remitente.oficina as oficina_remitente',
+        DB::raw('p_remitente.nombre || \' \' || p_remitente.ape_materno || \' \' || p_remitente.ape_paterno AS remitente_nombre'),
+        'remitente.image as remitente_image',
+        'o_destinatario.oficina as oficina_destinatario',
+        DB::raw('p_destinatario.nombre || \' \' || p_destinatario.ape_materno || \' \' || p_destinatario.ape_paterno AS destinatario_nombre'),
+        DB::raw('(SELECT COUNT(*) 
+                  FROM tickets 
+                  WHERE remitente_id = t.remitente_id) AS total_tickets_remitente') // Subconsulta para contar tickets por remitente
+    )
+    ->orderBy('t.ticket_id', 'desc')
+    ->whereNull('t.categoria')
+    ->get();
 
-        $tickets4 = DB::table('tickets as t')
-        ->join('usuarios as remitente', 't.remitente_id', '=', 'remitente.usuario_id') // Unión para el remitente
-        ->join('persona as p_remitente', 'remitente.usuario_id', '=', 'p_remitente.usuario_id') // Persona del remitente
-        ->join('oficinas as o_remitente', 'remitente.oficina_id', '=', 'o_remitente.oficina_id') // Oficina del remitente
-        ->join('usuarios as destinatario', 't.destinatario_id', '=', 'destinatario.usuario_id') // Unión para el destinatario
-        ->join('persona as p_destinatario', 'destinatario.usuario_id', '=', 'p_destinatario.usuario_id') // Persona del destinatario
-        ->join('oficinas as o_destinatario', 'destinatario.oficina_id', '=', 'o_destinatario.oficina_id') // Oficina del destinatario
-        ->select(
-            't.*',
-            'remitente.image',
-            'remitente.usuario_id',
-            'o_remitente.oficina as oficina_remitente',
-            DB::raw('CONCAT(p_remitente.nombre, " ", p_remitente.ape_materno, " ", p_remitente.ape_paterno) AS remitente_nombre'),
-            'remitente.image as remitente_image',
-            'o_destinatario.oficina as oficina_destinatario',
-            DB::raw('CONCAT(p_destinatario.nombre, " ", p_destinatario.ape_materno, " ", p_destinatario.ape_paterno) AS destinatario_nombre'),
-            DB::raw('(SELECT COUNT(*) 
-                      FROM tickets 
-                      WHERE remitente_id = t.remitente_id) AS total_tickets_remitente') // Subconsulta para contar tickets por remitente
-        )
-        ->where('t.remitente_id', auth()->user()->usuario_id) // Filtrar por el destinatario autenticado
-        ->orderBy('t.ticket_id', 'desc')
-        ->get();
+$tickets3 = DB::table('tickets as t')
+    ->join('usuarios as remitente', 't.remitente_id', '=', 'remitente.usuario_id') // Unión para el remitente
+    ->join('persona as p_remitente', 'remitente.usuario_id', '=', 'p_remitente.usuario_id') // Persona del remitente
+    ->join('oficinas as o_remitente', 'remitente.oficina_id', '=', 'o_remitente.oficina_id') // Oficina del remitente
+    ->join('usuarios as destinatario', 't.destinatario_id', '=', 'destinatario.usuario_id') // Unión para el destinatario
+    ->join('persona as p_destinatario', 'destinatario.usuario_id', '=', 'p_destinatario.usuario_id') // Persona del destinatario
+    ->join('oficinas as o_destinatario', 'destinatario.oficina_id', '=', 'o_destinatario.oficina_id') // Oficina del destinatario
+    ->select(
+        't.*',
+        'remitente.image',
+        'o_remitente.oficina as oficina_remitente',
+        DB::raw('p_remitente.nombre || \' \' || p_remitente.ape_materno || \' \' || p_remitente.ape_paterno AS remitente_nombre'),
+        'remitente.image as remitente_image',
+        'o_destinatario.oficina as oficina_destinatario',
+        DB::raw('p_destinatario.nombre || \' \' || p_destinatario.ape_materno || \' \' || p_destinatario.ape_paterno AS destinatario_nombre'),
+        DB::raw('(SELECT COUNT(*) 
+                  FROM tickets 
+                  WHERE remitente_id = t.remitente_id) AS total_tickets_remitente') // Subconsulta para contar tickets por remitente
+    )
+    ->where('t.destinatario_id', auth()->user()->usuario_id) // Filtrar por el destinatario autenticado
+    ->orderBy('t.ticket_id', 'desc')
+    ->get();
+
+$tickets4 = DB::table('tickets as t')
+    ->join('usuarios as remitente', 't.remitente_id', '=', 'remitente.usuario_id') // Unión para el remitente
+    ->join('persona as p_remitente', 'remitente.usuario_id', '=', 'p_remitente.usuario_id') // Persona del remitente
+    ->join('oficinas as o_remitente', 'remitente.oficina_id', '=', 'o_remitente.oficina_id') // Oficina del remitente
+    ->join('usuarios as destinatario', 't.destinatario_id', '=', 'destinatario.usuario_id') // Unión para el destinatario
+    ->join('persona as p_destinatario', 'destinatario.usuario_id', '=', 'p_destinatario.usuario_id') // Persona del destinatario
+    ->join('oficinas as o_destinatario', 'destinatario.oficina_id', '=', 'o_destinatario.oficina_id') // Oficina del destinatario
+    ->select(
+        't.*',
+        'remitente.image',
+        'remitente.usuario_id',
+        'o_remitente.oficina as oficina_remitente',
+        DB::raw('p_remitente.nombre || \' \' || p_remitente.ape_materno || \' \' || p_remitente.ape_paterno AS remitente_nombre'),
+        'remitente.image as remitente_image',
+        'o_destinatario.oficina as oficina_destinatario',
+        DB::raw('p_destinatario.nombre || \' \' || p_destinatario.ape_materno || \' \' || p_destinatario.ape_paterno AS destinatario_nombre'),
+        DB::raw('(SELECT COUNT(*) 
+                  FROM tickets 
+                  WHERE remitente_id = t.remitente_id) AS total_tickets_remitente') // Subconsulta para contar tickets por remitente
+    )
+    ->where('t.remitente_id', auth()->user()->usuario_id) // Filtrar por el destinatario autenticado
+    ->orderBy('t.ticket_id', 'desc')
+    ->get();
+
 
         $total_tickets = null;
 
@@ -172,14 +170,13 @@ class TicketController extends Controller
 
 
         $registros_1 = DB::table('tickets_2')
-        ->whereRaw('1')
-        ->orderBy('Fecha_apertura', 'desc')
+        ->orderBy('fecha_apertura', 'desc') // Asegúrate de que el nombre de la columna esté en minúsculas
         ->get();
-
-        $registros_2 = DB::table('tickets_1')
-        ->whereRaw('1')
-        ->orderBy('Fecha_apertura', 'desc')
+    
+    $registros_2 = DB::table('tickets_1')
+        ->orderBy('fecha_apertura', 'desc') // Asegúrate de que el nombre de la columna esté en minúsculas
         ->get();
+    
     
        // dd($tickets);
 
@@ -196,17 +193,16 @@ class TicketController extends Controller
     public function userOficina($oficinaId) 
     {
         $query = DB::table('usuarios as u')
-        ->join('persona as p','p.usuario_id','=','u.usuario_id')
-        ->join('oficinas as o', 'o.oficina_id', '=','u.oficina_id')
-        ->join('areas as a', 'a.area_id', '=', 'u.area_id')
-        ->select(
-            'u.*',
-            'a.area',
-            DB::raw('CONCAT(p.nombre, " ", p.ape_paterno, " ", p.ape_materno, " (", a.area, ", ", o.oficina, ")") as nombre_completo')
-        );
-           // $query->where('u.oficina_id', $oficinaId);
-
-        if(auth()->user()->rol_id == 6) {
+            ->join('persona as p', 'p.usuario_id', '=', 'u.usuario_id')
+            ->join('oficinas as o', 'o.oficina_id', '=', 'u.oficina_id')
+            ->join('areas as a', 'a.area_id', '=', 'u.area_id')
+            ->select(
+                'u.*',
+                'a.area',
+                DB::raw('p.nombre || \' \' || p.ape_paterno || \' \' || p.ape_materno || \' (\' || a.area || \', \' || o.oficina || \')\' as nombre_completo')
+            );
+    
+        if (auth()->user()->rol_id == 6) {
             $query->where('u.oficina_id', $oficinaId);
             $query->whereIn('u.rol_id', [8, 7]);
         } elseif (auth()->user()->rol_id == 8) {
@@ -214,16 +210,16 @@ class TicketController extends Controller
             $query->where('a.area', 'Jurídico');
         } elseif (auth()->user()->rol_id == 7) {
             $query->where('u.oficina_id', $oficinaId);
-            $query->where('a.area','Sistemas');
+            $query->where('a.area', 'Sistemas');
         } else {
             $query->where('u.oficina_id', $oficinaId);
         }
-
-       $usuarios = $query->get();
-
+    
+        $usuarios = $query->get();
+    
         return response()->json($usuarios);
     }
-
+    
     public function store(Request $request) 
     {
         // Localizar el correo del usuario
@@ -293,30 +289,28 @@ class TicketController extends Controller
     return redirect("/inbox")->with('success', 'Ticket creado correctamente');
 }
 
-    public function ticketFiles($id)
-    {
-
-        $ticket = DB::table('tickets as t')
+public function ticketFiles($id)
+{
+    $ticket = DB::table('tickets as t')
         ->join('usuarios as u', 't.remitente_id', '=', 'u.usuario_id')
         ->join('persona as p', 'u.usuario_id', '=', 'p.usuario_id')
         ->select('t.*',                
-        DB::raw('CONCAT(p.nombre, " ", p.ape_materno, " ", p.ape_paterno) AS remitente'),
-    )
+            DB::raw('p.nombre || \' \' || p.ape_materno || \' \' || p.ape_paterno AS remitente')
+        )
         ->where('t.ticket_id', '=', $id)
         ->get();
 
-        $ticket_file = DB::table('ticket_file as t')
+    $ticket_file = DB::table('ticket_file as t')
         ->join('tickets as t1', 't.ticket_id', '=', 't1.ticket_id')
         ->select('t.*')
         ->where('t.ticket_id', '=', $id)
         ->get();
         
-        return response()->json([
-            'ticket' => $ticket,
-            'files' => $ticket_file
-        ]);
-
-    }
+    return response()->json([
+        'ticket' => $ticket,
+        'files' => $ticket_file
+    ]);
+}
 
     public function update(Request $request, $ticketId)
     {
@@ -342,15 +336,14 @@ class TicketController extends Controller
     public function antecedentes()
     {
         $tickets = DB::table('glpi_tickets as t')
-    ->join('glpi_users as u', 't.users_id_lastupdater', '=', 'u.id')
-    ->select('t.id as ticket_id', 't.*', DB::raw("CONCAT(u.realname, ' ', u.name, ' ', u.firstname) AS creator_name"))
-    ->orderBy('t.id', 'desc')
-    ->get();
-
-   // dd($tickets);
-
-    return view('rppc.antecedentes', compact('tickets'));
+            ->join('glpi_users as u', 't.users_id_lastupdater', '=', 'u.id')
+            ->select('t.id as ticket_id', 't.*', DB::raw("u.realname || ' ' || u.name || ' ' || u.firstname AS creator_name"))
+            ->orderBy('t.id', 'desc')
+            ->get();
+    
+        return view('rppc.antecedentes', compact('tickets'));
     }
+    
 
     public function getTickets(Request $request)
     {

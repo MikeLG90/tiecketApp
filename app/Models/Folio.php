@@ -24,7 +24,6 @@ class Folio extends Model
     ];
 
     public static function obtenerFolios() {
-
         setlocale(LC_TIME, 'es_ES.UTF-8');
         Carbon::setLocale('es');
         
@@ -38,23 +37,22 @@ class Folio extends Model
                 'f.destinatario',
                 'f.oficina',
                 'f.fecha_hora',
-                DB::raw('CONCAT(p.nombre, " ", p.ape_materno, " ", p.ape_paterno) AS generado_por'),
+                DB::raw('p.nombre || \' \' || p.ape_materno || \' \' || p.ape_paterno AS generado_por'),
                 'a.area'
             )
             ->get();
-
-            foreach ($folios as $folio) {
-                $folio->fecha_hora = Carbon::parse($folio->fecha_hora)->translatedFormat('j \d\e F \d\e Y');
-            }
-        
-            return $folios;
+    
+        foreach ($folios as $folio) {
+            $folio->fecha_hora = Carbon::parse($folio->fecha_hora)->translatedFormat('j \d\e F \d\e Y');
+        }
+    
+        return $folios;
     }
-
+    
     public static function misFolios() {
-
         setlocale(LC_TIME, 'es_ES.UTF-8');
         Carbon::setLocale('es');
-        
+    
         $folios = DB::table('folios as f')
             ->join('usuarios as u', 'f.usuario_id', '=', 'u.usuario_id')
             ->join('persona as p', 'u.usuario_id', '=', 'p.usuario_id')
@@ -64,16 +62,17 @@ class Folio extends Model
                 'f.destinatario',
                 'f.oficina',
                 'f.fecha_hora',
-                DB::raw('CONCAT(p.nombre, " ", p.ape_materno, " ", p.ape_paterno) AS generado_por'),
+                DB::raw('p.nombre || \' \' || p.ape_materno || \' \' || p.ape_paterno AS generado_por'),
                 'a.area'
             )
             ->where('f.usuario_id', '=', auth()->user()->usuario_id)
             ->get();
-
-            foreach ($folios as $folio) {
-                $folio->fecha_hora = Carbon::parse($folio->fecha_hora)->translatedFormat('j \d\e F \d\e Y');
-            }
-        
-            return $folios;
+    
+        foreach ($folios as $folio) {
+            $folio->fecha_hora = Carbon::parse($folio->fecha_hora)->translatedFormat('j \d\e F \d\e Y');
+        }
+    
+        return $folios;
     }
+    
 }
