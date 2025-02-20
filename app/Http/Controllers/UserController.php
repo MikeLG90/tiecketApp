@@ -22,7 +22,7 @@ class UserController extends Controller
     ->join('cabeza_sector as c', 'd.cs_id', '=', 'c.cs_id')
     ->join('persona as p', 'p.persona_id', '=', 'u.persona_id')
     ->join('roles as r', 'u.rol_id', '=', 'r.rol_id')
-    ->select(DB::raw('CONCAT(p.nombre, " ", p.ape_paterno, " ", p.ape_materno) as nombre'), 
+    ->select(DB::raw('p.nombre|| \' \' || p.ape_paterno || \' \' || p.ape_materno as nombre'), 
              'a.area as departamento', 
              'o.oficina as delegacion', 
              'd.nombre as dependencia', 

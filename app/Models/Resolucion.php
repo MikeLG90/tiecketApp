@@ -76,6 +76,9 @@ class Resolucion extends Model
 
         $resoluciones = DB::table('resoluciones')
             ->select(DB::raw('DATE(created_at) as fecha'), DB::raw('count(*) as total'))
+            ->when(!in_array(auth()->user()->rol_id, [6, 8]), function ($query) {
+                return $query->where('resoluciones.oficina_dest', '=', auth()->user()->oficina_id);
+            })
             ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
             ->groupBy('fecha')
             ->orderBy('fecha', 'ASC')

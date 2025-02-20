@@ -1,6 +1,6 @@
 <x-base-layout :scrollspy="false">
    <x-slot:pageTitle>
-   Ejemplo
+   Ver Resolución
    </x-slot>
    <!-- BEGIN GLOBAL MANDATORY STYLES -->
    <x-slot:headerFiles>
@@ -56,6 +56,8 @@
                                        </div>
                                        <div class="col-xl-12 col-lg-7 col-md-6 col-sm-4">
                                           <p class="inv-customer-name">{{ $resolucion[0]->remitente }}</p>
+                                          <p class="inv-customer-name"> Promovente {{ $resolucion[0]->promovente }}</p>
+
                                           <p class="inv-street-addr">{{ $oficina_nombre }}</p>
                                           <p class="inv-email-address">
                                              Urgencia:

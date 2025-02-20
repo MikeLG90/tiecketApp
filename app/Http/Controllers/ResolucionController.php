@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Resolucion;
 use App\Models\ResolucionFile;
+use App\Models\SolicitudResolucion;
+use App\Models\OficioResolucion;
 use App\Models\Oficina;
 use App\Models\Comentario;
 use Illuminate\Support\Facades\DB;
@@ -51,8 +53,10 @@ class ResolucionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'attachments.*' => 'file|mimes:jpg,jpeg,png,pdf|max:2048', // Ajusta según tus necesidades
-        ]);
+            'attachments.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'attachments1.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'attachments2.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+        ]);        
    
         $resolucion = new Resolucion();
 
@@ -67,7 +71,42 @@ class ResolucionController extends Controller
         $resolucion->oficina_dest = $request->oficina;
         $resolucion->estatus = 0;
         $resolucion->descripcion = $request->descripcion;
+        $resolucion->promovente = $request->promovente;
         $resolucion->save();
+
+        // Carga la solicitud de la anexión
+        if($request->hasFile('attachments1')) {
+            foreach($request->file('attachments1') as $file) {
+                //Obtener nombre del archivo
+                $originalName = $file->getClientOriginalName();
+                $uniqueName = "SOLICITUD_RS-" . $resolucion->titulo . '-' . pathinfo($originalName, PATHINFO_FILENAME) . '-' . time() . '.' . $file->getClientOriginalExtension();
+                //Guardado del archivo en el servidor QNAP 10.9.35.30 por FTP
+                $path = $file->storeAs('archivos', $uniqueName, 'ftp');
+
+                // Crear un nuevo registro en la tabla ResolucionFiLe
+                SolicitudResolucion::create([
+                    'resolucion_id' => $resolucion->resolucion_id,
+                    'file_path' => $path,
+                ]);
+            }
+        }
+
+        // Carga del oficio de la resolucion
+        if($request->hasFile('attachments2')) {
+            foreach($request->file('attachments2') as $file) {
+                //Obtener nombre del archivo
+                $originalName = $file->getClientOriginalName();
+                $uniqueName = "OFICIO_RS-" . $resolucion->titulo . '-' . pathinfo($originalName, PATHINFO_FILENAME) . '-' . time() . '.' . $file->getClientOriginalExtension();
+                //Guardado del archivo en el servidor QNAP 10.9.35.30 por FTP
+                $path = $file->storeAs('archivos', $uniqueName, 'ftp');
+
+                // Crear un nuevo registro en la tabla ResolucionFiLe
+                OficioResolucion::create([
+                    'resolucion_id' => $resolucion->resolucion_id,
+                    'file_path' => $path,
+                ]);
+            }
+        }
 
         // Carga del anexo de la resolución
         if($request->hasFile('attachments')) {

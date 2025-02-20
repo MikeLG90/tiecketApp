@@ -83,6 +83,7 @@
           Dashboard
         </a>
       </li>
+      @if(Auth::user()->rol_id == 1 )
       <li class="nav-item" role="presentation">
         <a class="nav-link" id="resoluciones-tab" data-bs-toggle="tab" href="#fill-tabpanel-1" role="tab" aria-controls="resoluciones" aria-selected="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text me-2">
@@ -95,6 +96,7 @@
           Resoluciones
         </a>
       </li>
+      @endif
       <li class="nav-item" role="presentation">
         <a class="nav-link" id="aprobadas-tab" data-bs-toggle="tab" href="#fill-tabpanel-2" role="tab" aria-controls="aprobadas" aria-selected="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle me-2">
@@ -111,7 +113,7 @@
             <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
           Pendientes
-          <span class="badge bg-danger ms-2">0</span>
+          <span class="badge bg-danger ms-2">{{ $cantidad_pendientes }}</span>
         </a>
       </li>
       <li class="nav-item" role="presentation">

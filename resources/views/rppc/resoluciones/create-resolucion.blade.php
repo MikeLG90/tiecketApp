@@ -39,7 +39,7 @@
                               Fecha de apertura:
                            </p>
                            <div class="">
-                              <input name="fecha_apertura" type="datetime-local" id="fecha" class="form-control" readonly>
+                              <input name="fecha_apertura" type="datetime-local" id="fecha" class="form-control">
                            </div>
                         </div>
                      </div>
@@ -179,7 +179,7 @@
                               Título:
                            </p>
                            <div class="">
-                              <input required name="titulo" type="text" id="m-to" class="form-control" placeholder="Ingrese el título del ticket">
+                              <input required name="titulo" type="text" id="m-to" class="form-control" placeholder="Ingrese el título de la resolución">
                               <span class="validation-text"></span>
                            </div>
                         </div>
@@ -217,11 +217,50 @@
                               <path d="M12 10v6"/>
                               <path d="m15 13-3 3-3-3"/>
                            </svg>
-                           Anexo:
+                           Solicitud:
                         </p>
                         <!-- <input type="file" class="form-control-file" id="mail_File_attachment" multiple="multiple"> -->
-                        <input class="form-control file-upload-input" type="file" name="attachments[]" multiple required>
+                        <input class="form-control file-upload-input" type="file" name="attachments1[]" multiple>
                         <br>
+                     </div>
+                     <div class="">
+                        <p>
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-down">
+                              <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>
+                              <path d="M12 10v6"/>
+                              <path d="m15 13-3 3-3-3"/>
+                           </svg>
+                           Oficio:
+                        </p>
+                        <!-- <input type="file" class="form-control-file" id="mail_File_attachment" multiple="multiple"> -->
+                        <input class="form-control file-upload-input" type="file" name="attachments2[]" multiple>
+                        <br>
+                     </div>
+                     <div class="">
+                        <p>
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-down">
+                              <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>
+                              <path d="M12 10v6"/>
+                              <path d="m15 13-3 3-3-3"/>
+                           </svg>
+                           Anexo (Opcional):
+                        </p>
+                        <!-- <input type="file" class="form-control-file" id="mail_File_attachment" multiple="multiple"> -->
+                        <input class="form-control file-upload-input" type="file" name="attachments[]" multiple>
+                        <br>
+                     </div>
+                     <div class="mb-4 mail-subject">
+                        <p>
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round">
+                              <circle cx="12" cy="8" r="5"/>
+                              <path d="M20 21a8 8 0 0 0-16 0"/>
+                           </svg>
+                           Promovente:
+                        </p>
+                        <div class="w-100">
+                        <input required name="promovente" type="text" id="m-to" class="form-control" placeholder="Ingrese el nombre del proveniente">
+                           <span class="validation-text"></span>
+                        </div>
                      </div>
                      <div class="w-100">
                         <p for="exampleFormControlTextarea1">

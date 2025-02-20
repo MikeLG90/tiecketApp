@@ -30,7 +30,7 @@ class Comentario extends Model
     ->join('usuarios as u', 'u.usuario_id', '=', 'c.usuario_id')
     ->join('persona as p', 'p.usuario_id', '=', 'u.usuario_id')
     ->where('r.resolucion_id', $resolucion_id)
-    ->selectRaw('CONCAT(p.nombre, " ", p.ape_paterno, " ", p.ape_materno) as usuario, c.contenido, u.image, c.created_at')
+    ->selectRaw('p.nombre || \' \' || p.ape_paterno || \' \' || p.ape_materno as usuario, c.contenido, u.image, c.created_at')
     ->get();
 
     foreach ($comentarios as $comentario) {
