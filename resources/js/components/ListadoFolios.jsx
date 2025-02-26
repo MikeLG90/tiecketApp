@@ -92,7 +92,8 @@ const ListadoFolios = () => {
                 area_id: areaSeleccionada,
                 busqueda: busqueda,
                 page: currentPage,
-                per_page: perPage
+                per_page: perPage,
+                
             }
         });
         setFolios(response.data.data);

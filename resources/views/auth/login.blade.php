@@ -49,9 +49,10 @@
                 {{ __('¿No tienes cuenta?') }}
             </a>
 
-            <x-primary-button class="ml-3">
-                {{ __('Ingresar') }}
-            </x-primary-button>
+            <button type="submit" class="ml-4 px-4 py-2 bg-white-500 text-black font-semibold rounded-md shadow hover:bg-blue-600 focus:outline-none">
+                Ingresar
+            </button>
+
         </div>
     </form>
 </x-guest-layout>

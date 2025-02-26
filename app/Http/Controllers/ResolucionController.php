@@ -50,6 +50,182 @@ class ResolucionController extends Controller
         return view('rppc.resoluciones.resolucion_index', data: compact('oficinas', 'resoluciones', 'cantidad_pendientes', 'cantidad_aprobadas', 'total'));
     }
 
+    public function index1(Request $request)
+    {
+        try {
+            // Construir la consulta base
+            $resultados = DB::table('rppc.resoluciones as r')
+                ->join('rppc.usuarios as u', 'r.usuario_id', '=', 'u.usuario_id')
+                ->join('rppc.persona as p', 'p.usuario_id', '=', 'u.usuario_id')
+                ->join('rppc.oficinas as o', 'o.oficina_id', '=', DB::raw('r.oficina_dest::integer'))
+                ->select(
+                    'r.*',
+                    'o.oficina',
+                    DB::raw("p.nombre || ' ' || p.ape_paterno || ' ' || p.ape_materno AS nombre_completo")
+                );
+    
+            // Aplicar filtros
+            if ($request->has('oficina_id') && $request->oficina_id !== 'Todos') {
+                $resultados->where('r.oficina_dest', $request->oficina_id);
+            }
+    
+            if ($request->has('tipo') && $request->tipo !== 'Todos') {
+                $resultados->where('r.tipo', $request->tipo);
+            }
+    
+            if ($request->has('estatus') && $request->estatus !== 'Todos') {
+                $resultados->where('r.estatus', $request->estatus);
+            }
+            if ($request->has('usuario_id') && $request->usuario_id == auth()->user()->usuario_id )
+                $resultados->where('r.usuario_id', auth()->user()->usuario_id);
+            
+            $perPage = $request->input('per_page', 10);
+    
+            // Obtener los resultados
+            $resoluciones = $resultados->paginate($perPage);
+    
+            return response()->json($resoluciones);
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Ocurrió un error en la API.',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+    
+
+    public function index2(Request $request)
+    {
+        try {
+            // Construir la consulta base
+            $resultados = DB::table('rppc.resoluciones as r')
+                ->join('rppc.usuarios as u', 'r.usuario_id', '=', 'u.usuario_id')
+                ->join('rppc.persona as p', 'p.usuario_id', '=', 'u.usuario_id')
+                ->join('rppc.oficinas as o', 'o.oficina_id', '=', DB::raw('r.oficina_dest::integer'))
+                ->select(
+                    'r.*',
+                    'o.oficina',
+                    DB::raw("p.nombre || ' ' || p.ape_paterno || ' ' || p.ape_materno AS nombre_completo")
+                )
+                ->where('r.usuario_id', auth()->user()->usuario_id);
+    
+            // Aplicar filtros
+            if ($request->has('oficina_id') && $request->oficina_id !== 'Todos') {
+                $resultados->where('r.oficina_dest', $request->oficina_id);
+            }
+    
+            if ($request->has('tipo') && $request->tipo !== 'Todos') {
+                $resultados->where('r.tipo', $request->tipo);
+            }
+    
+            if ($request->has('estatus') && $request->estatus !== 'Todos') {
+                $resultados->where('r.estatus', $request->estatus);
+            }
+ 
+            $perPage = $request->input('per_page', 10);
+    
+            // Obtener los resultados
+            $resoluciones = $resultados->paginate($perPage);
+    
+            return response()->json($resoluciones);
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Ocurrió un error en la API.',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+    
+    public function index3(Request $request)
+    {
+        try {
+            // Construir la consulta base
+            $resultados = DB::table('rppc.resoluciones as r')
+                ->join('rppc.usuarios as u', 'r.usuario_id', '=', 'u.usuario_id')
+                ->join('rppc.persona as p', 'p.usuario_id', '=', 'u.usuario_id')
+                ->join('rppc.oficinas as o', 'o.oficina_id', '=', DB::raw('r.oficina_dest::integer'))
+                ->select(
+                    'r.*',
+                    'o.oficina',
+                    DB::raw("p.nombre || ' ' || p.ape_paterno || ' ' || p.ape_materno AS nombre_completo")
+                )
+                ->where('r.estatus',1);
+    
+            // Aplicar filtros
+            if ($request->has('oficina_id') && $request->oficina_id !== 'Todos') {
+                $resultados->where('r.oficina_dest', $request->oficina_id);
+            }
+    
+            if ($request->has('tipo') && $request->tipo !== 'Todos') {
+                $resultados->where('r.tipo', $request->tipo);
+            }
+    
+            if ($request->has('estatus') && $request->estatus !== 'Todos') {
+                $resultados->where('r.estatus', $request->estatus);
+            }
+ 
+            $perPage = $request->input('per_page', 10);
+    
+            // Obtener los resultados
+            $resoluciones = $resultados->paginate($perPage);
+    
+            return response()->json($resoluciones);
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Ocurrió un error en la API.',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+    
+    public function index4(Request $request)
+    {
+        try {
+            // Construir la consulta base
+            $resultados = DB::table('rppc.resoluciones as r')
+                ->join('rppc.usuarios as u', 'r.usuario_id', '=', 'u.usuario_id')
+                ->join('rppc.persona as p', 'p.usuario_id', '=', 'u.usuario_id')
+                ->join('rppc.oficinas as o', 'o.oficina_id', '=', DB::raw('r.oficina_dest::integer'))
+                ->select(
+                    'r.*',
+                    'o.oficina',
+                    DB::raw("p.nombre || ' ' || p.ape_paterno || ' ' || p.ape_materno AS nombre_completo")
+                )
+                ->where('r.estatus',0);
+    
+            // Aplicar filtros
+            if ($request->has('oficina_id') && $request->oficina_id !== 'Todos') {
+                $resultados->where('r.oficina_dest', $request->oficina_id);
+            }
+    
+            if ($request->has('tipo') && $request->tipo !== 'Todos') {
+                $resultados->where('r.tipo', $request->tipo);
+            }
+    
+            if ($request->has('estatus') && $request->estatus !== 'Todos') {
+                $resultados->where('r.estatus', $request->estatus);
+            }
+ 
+            $perPage = $request->input('per_page', 10);
+    
+            // Obtener los resultados
+            $resoluciones = $resultados->paginate($perPage);
+    
+            return response()->json($resoluciones);
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Ocurrió un error en la API.',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+    
+    
+
     public function store(Request $request)
     {
         $request->validate([
@@ -203,11 +379,65 @@ class ResolucionController extends Controller
                 
     }
 
+    public function resolucionFileSol($id)
+    {
+     
+        $resolucion = Resolucion::resolucion();
+
+        $file = DB::table('solicitud_res as r')
+            ->join('resoluciones as r1', 'r.resolucion_id', '=', 'r1.resolucion_id')
+            ->select('r.*')
+            ->where('r.resolucion_id', '=', $id)
+            ->get();
+        
+        return response()->json([
+            'resolucion' => $resolucion,
+            'files' => $file
+        ]);
+                
+    }
+
+    public function resolucionFileOficio($id)
+    {
+     
+        $resolucion = Resolucion::resolucion();
+
+        $file = DB::table('oficio_res as r')
+            ->join('resoluciones as r1', 'r.resolucion_id', '=', 'r1.resolucion_id')
+            ->select('r.*')
+            ->where('r.resolucion_id', '=', $id)
+            ->get();
+        
+        return response()->json([
+            'resolucion' => $resolucion,
+            'files' => $file
+        ]);
+                
+    }
     public function cambiarEstado($resolucion_id)
     {
+        $user = DB::table('usuarios as u')
+        ->join('persona as p', 'u.usuario_id', '=', 'p.usuario_id')
+        ->select(
+            DB::raw('p.nombre || \' \' || p.ape_paterno || \' \' || p.ape_materno AS user')
+        )
+        ->where('u.usuario_id', '=', auth()->user()->usuario_id)
+        ->first();
+
         $resolucion = Resolucion::findOrFail($resolucion_id);
 
-        $resolucion->estatus = 1;
+        switch (auth()->user()->rol_id) {
+            case 6:
+            case 1:
+                $resolucion->estatus = 1;
+                $resolucion->aprobacion = $user->user;
+                break;
+            case 8:
+                $resolucion->estatus = 2;
+                break;
+            default:
+                return redirect()->back()->with('error', 'No tienes permiso para cambiar el estado.');
+        }
         $resolucion->save();
         
 

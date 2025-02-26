@@ -18,7 +18,7 @@ class GmailController extends Controller
     {
         $to = "mikeprime99@gmail.com";
         $subject = "Prueba de correo";
-        $message = "<h1>Hola bb</h1><p>Este es un mensaje enviado desde SIDRPP xd.</p>";
+        $message = "<h1>Hola bb</h1><p>Este es un mensaje enviado desde SIDRPP</p>";
 
         $response = $this->gmailService->sendEmail($to, $subject, $message);
         return response()->json($response);

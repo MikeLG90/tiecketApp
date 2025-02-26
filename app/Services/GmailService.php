@@ -12,52 +12,61 @@ class GmailService
     public function __construct()
     {
         $this->client = new Client();
-        $this->client->setAuthConfig(base_path('credentials.json'));
-        $this->client->addScope(Gmail::GMAIL_SEND);
-        $this->client->setAccessToken(json_decode(file_get_contents(base_path('token.json')), true));
-
-        if ($this->client->isAccessTokenExpired()) {
-            \Log::info('Token expirado, intentando refrescar...');
-            $refresh_token = $this->client->getRefreshToken();
-            if ($refresh_token) {
-                $new_token = $this->client->fetchAccessTokenWithRefreshToken($refresh_token);
-                file_put_contents(base_path('token.json'), json_encode($new_token));
-                $this->client->setAccessToken($new_token);
-                \Log::info('Token refrescado exitosamente.');
-            } else {
-                \Log::error('No se pudo refrescar el token, no hay refresh_token.');
-            }
-        }
-        
+        $this->client->setClientId(env('OAUTH_CLIENT_ID'));
+        $this->client->setClientSecret(env('OAUTH_CLIENT_SECRET'));
+        $this->client->setRedirectUri(env('OAUTH_REDIRECT_URI'));
+        $this->client->addScope('https://www.googleapis.com/auth/gmail.send');
     }
 
-    public function sendEmail($to, $subject, $messageBody)
+    public function sendEmail($to, $subject, $message)
     {
-        $gmail = new Gmail($this->client);
+        // Obtener el token de la sesión o de la base de datos
+        $token = session('gmail_token');
+
+        if (!$token) {
+            return ['error' => 'No se encontró el token de acceso.'];
+        }
+
+        $this->client->setAccessToken($token);
+
+        // Si el token ha expirado, refrescarlo
+        if ($this->client->isAccessTokenExpired()) {
+            $refreshToken = $this->client->getRefreshToken();
+            $this->client->fetchAccessTokenWithRefreshToken($refreshToken);
+            $newToken = $this->client->getAccessToken();
+            session(['gmail_token' => $newToken]);
+        }
+
+        // Crear el servicio Gmail
+        $service = new Gmail($this->client);
 
         // Crear el mensaje
-        $rawMessage = $this->createMessage($to, $subject, $messageBody);
+        $rawMessage = $this->createMessage($to, $subject, $message);
+        $gmailMessage = new Message();
+        $gmailMessage->setRaw($rawMessage);
 
-        // Crear instancia de Google\Service\Gmail\Message
-        $emailMessage = new Message();
-        $emailMessage->setRaw($rawMessage);
-
+        // Enviar el correo
         try {
-            $gmail->users_messages->send('me', $emailMessage);
-            return "Correo enviado exitosamente";
+            $service->users_messages->send('me', $gmailMessage);
+            return ['success' => 'Correo enviado correctamente.'];
         } catch (\Exception $e) {
-            return "Error al enviar el correo: " . $e->getMessage();
+            return ['error' => 'Error al enviar el correo: ' . $e->getMessage()];
         }
     }
 
-    private function createMessage($to, $subject, $messageBody)
+    private function createMessage($to, $subject, $message)
     {
-        $email = "To: {$to}\r\n";
-        $email .= "Subject: {$subject}\r\n";
-        $email .= "Content-Type: text/html; charset=UTF-8\r\n\r\n";
-        $email .= $messageBody;
+        $boundary = uniqid(rand(), true);
+        $rawMessage = "To: $to\r\n";
+        $rawMessage .= "Subject: $subject\r\n";
+        $rawMessage .= "MIME-Version: 1.0\r\n";
+        $rawMessage .= "Content-Type: multipart/alternative; boundary=$boundary\r\n\r\n";
+        $rawMessage .= "--$boundary\r\n";
+        $rawMessage .= "Content-Type: text/html; charset=UTF-8\r\n";
+        $rawMessage .= "Content-Transfer-Encoding: base64\r\n\r\n";
+        $rawMessage .= base64_encode($message) . "\r\n";
+        $rawMessage .= "--$boundary--";
 
-        // Codificar en Base64 URL-Safe
-        return rtrim(strtr(base64_encode($email), '+/', '-_'), '=');
+        return base64_encode($rawMessage);
     }
 }

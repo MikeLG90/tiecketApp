@@ -12,6 +12,13 @@ root.render(<TicketApp />);*/
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import ListadoFolios from './components/ListadoFolios';
+import ListadoResoluciones from './components/ListadoResoluciones';
+import ListadoResolucionesE from './components/ListadoResolucionesE';
+import ListadoResolucionesP from './components/ListadoResolucionesP';
+import ListadoResolucionesA from './components/ListadoResolucionesA';
+
+
+
 
 if (document.getElementById('listado-folios')) {
     const root = ReactDOM.createRoot(document.getElementById('listado-folios'));
@@ -21,4 +28,38 @@ if (document.getElementById('listado-folios')) {
         </React.StrictMode>
     );
 }
+if (document.getElementById('listado-resoluciones')) {
+    const root = ReactDOM.createRoot(document.getElementById('listado-resoluciones'));
+    root.render(
+        <React.StrictMode>
+            <ListadoResoluciones />
+        </React.StrictMode>
+    );
+}
 
+if (document.getElementById('listado-resolucionesE')) {
+    const root = ReactDOM.createRoot(document.getElementById('listado-resolucionesE'));
+    root.render(
+        <React.StrictMode>
+            <ListadoResolucionesE />
+        </React.StrictMode>
+    );
+}
+
+if (document.getElementById('listado-resolucionesA')) {
+    const root = ReactDOM.createRoot(document.getElementById('listado-resolucionesA'));
+    root.render(
+        <React.StrictMode>
+            <ListadoResolucionesA />
+        </React.StrictMode>
+    );
+}
+
+if (document.getElementById('listado-resolucionesP')) {
+    const root = ReactDOM.createRoot(document.getElementById('listado-resolucionesP'));
+    root.render(
+        <React.StrictMode>
+            <ListadoResolucionesP />
+        </React.StrictMode>
+    );
+}

@@ -58,9 +58,7 @@
       right: 20px;
       }
       }
-
- 
-</style>
+   </style>
    <link rel="stylesheet" href="{{asset('plugins/apex/apexcharts.css')}}">
    @vite(['resources/scss/light/assets/components/list-group.scss'])
    @vite(['resources/scss/light/assets/widgets/modules-widgets.scss'])
@@ -71,63 +69,63 @@
    <!-- Botón flotante para el modal -->
    <a href="#" class="btn-flotante" data-bs-toggle="modal" data-bs-target="#inputFormModal">Nuevo</a>
    <div class="container mt-5">
-  <nav class="nav-tabs-wrapper">
-    <ul class="nav nav-tabs nav-fill" role="tablist">
-      <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#fill-tabpanel-0" role="tab" aria-controls="dashboard" aria-selected="true">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layout me-2">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="3" y1="9" x2="21" y2="9"></line>
-            <line x1="9" y1="21" x2="9" y2="9"></line>
-          </svg>
-          Dashboard
-        </a>
-      </li>
-      @if(Auth::user()->rol_id == 1 )
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" id="resoluciones-tab" data-bs-toggle="tab" href="#fill-tabpanel-1" role="tab" aria-controls="resoluciones" aria-selected="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text me-2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <line x1="16" y1="13" x2="8" y2="13"></line>
-            <line x1="16" y1="17" x2="8" y2="17"></line>
-            <polyline points="10 9 9 9 8 9"></polyline>
-          </svg>
-          Resoluciones
-        </a>
-      </li>
-      @endif
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" id="aprobadas-tab" data-bs-toggle="tab" href="#fill-tabpanel-2" role="tab" aria-controls="aprobadas" aria-selected="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle me-2">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-          </svg>
-          Aprobadas
-        </a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" id="pendientes-tab" data-bs-toggle="tab" href="#fill-tabpanel-3" role="tab" aria-controls="pendientes" aria-selected="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock me-2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          Pendientes
-          <span class="badge bg-danger ms-2">{{ $cantidad_pendientes }}</span>
-        </a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" id="enviados-tab" data-bs-toggle="tab" href="#fill-tabpanel-4" role="tab" aria-controls="enviados" aria-selected="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send me-2">
-            <line x1="22" y1="2" x2="11" y2="13"></line>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-          </svg>
-          Enviados
-        </a>
-      </li>
-    </ul>
-  </nav>
-</div>
+      <nav class="nav-tabs-wrapper">
+         <ul class="nav nav-tabs nav-fill" role="tablist">
+            <li class="nav-item" role="presentation">
+               <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#fill-tabpanel-0" role="tab" aria-controls="dashboard" aria-selected="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layout me-2">
+                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                     <line x1="3" y1="9" x2="21" y2="9"></line>
+                     <line x1="9" y1="21" x2="9" y2="9"></line>
+                  </svg>
+                  Dashboard
+               </a>
+            </li>
+            @if(Auth::user()->rol_id == 1 )
+            <li class="nav-item" role="presentation">
+               <a class="nav-link" id="resoluciones-tab" data-bs-toggle="tab" href="#fill-tabpanel-1" role="tab" aria-controls="resoluciones" aria-selected="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text me-2">
+                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                     <polyline points="14 2 14 8 20 8"></polyline>
+                     <line x1="16" y1="13" x2="8" y2="13"></line>
+                     <line x1="16" y1="17" x2="8" y2="17"></line>
+                     <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                  Resoluciones
+               </a>
+            </li>
+            @endif
+            <li class="nav-item" role="presentation">
+               <a class="nav-link" id="aprobadas-tab" data-bs-toggle="tab" href="#fill-tabpanel-2" role="tab" aria-controls="aprobadas" aria-selected="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle me-2">
+                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                     <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                  Aprobadas
+               </a>
+            </li>
+            <li class="nav-item" role="presentation">
+               <a class="nav-link" id="pendientes-tab" data-bs-toggle="tab" href="#fill-tabpanel-3" role="tab" aria-controls="pendientes" aria-selected="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock me-2">
+                     <circle cx="12" cy="12" r="10"></circle>
+                     <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  Pendientes
+                  <span class="badge bg-danger ms-2">{{ $cantidad_pendientes }}</span>
+               </a>
+            </li>
+            <li class="nav-item" role="presentation">
+               <a class="nav-link" id="enviados-tab" data-bs-toggle="tab" href="#fill-tabpanel-4" role="tab" aria-controls="enviados" aria-selected="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send me-2">
+                     <line x1="22" y1="2" x2="11" y2="13"></line>
+                     <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                  Enviados
+               </a>
+            </li>
+         </ul>
+      </nav>
+   </div>
    <div class="tab-content pt-5" id="tab-content">
       <div class="tab-pane active" id="fill-tabpanel-0" role="tabpanel" aria-labelledby="fill-tab-0">
          <div class="row">
@@ -171,254 +169,25 @@
          <div class="row">
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                <div class="statbox widget box box-shadow">
-                  <div class="widget-content widget-content-area">
-                     <table class="multi-table table dt-table-hover" style="width:100%">
-                        <thead>
-                           <tr>
-                              <th>#</th>
-                              <th>De:</th>
-                              <th>Asunto</th>
-                              <th>Urgencia</th>
-                              <th>Fecha de apertura</th>
-                              <th>Acciones</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           @php $i = 1; @endphp
-                           @foreach($resoluciones as $r)
-                           <tr>
-                              <td>{{ $i }}</td>
-                              <td>{{ $r->remitente }}</td>
-                              <td>{{ $r->titulo }}</td>
-                              <td>
-                                 @switch($r->urgencia)
-                                 @case(1)
-                                 <span class="badge badge-light-danger mb-2 me-4">Muy Urgente</span>
-                                 @break
-                                 @case(2)
-                                 <span class="badge badge-light-danger mb-2 me-4">Urgente</span>
-                                 @break
-                                 @case(3)
-                                 <span class="badge badge-light-warning mb-2 me-4">Mediana</span>
-                                 @break
-                                 @case(4)
-                                 <span class="badge badge-light-success mb-2 me-4">Baja</span>
-                                 @break
-                                 @case(5)
-                                 <span class="badge badge-light-info mb-2 me-4">Muy Baja</span>
-                                 @break
-                                 @default
-                                 <span class="badge badge-light-info mb-2 me-4">Indefinida</span>
-                                 @endswitch
-                              </td>
-                              <td>{{ $r->fecha_aper }}</td>
-                              <td>
-                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a class="btn btn-info" href="/resolucion/{{ $r->resolucion_id }}">
-                                       <!-- Icono de ver -->
-                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye">
-                                          <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/>
-                                          <circle cx="12" cy="12" r="3"/>
-                                       </svg>
-                                    </a>
-                                    <a data-bs-toggle="modal" data-bs-target="#editModal2" type="button" class="btn btn-warning" 
-                                       style="border-radius: 0 5px 5px 0;">
-                                       <!-- Icono de editar -->
-                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil">
-                                          <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>
-                                          <path d="m15 5 4 4"/>
-                                       </svg>
-                                    </a>
-                                 </div>
-                              </td>
-                           </tr>
-                           @php $i++; @endphp
-                           @endforeach
-                        </tbody>
-                        <tfoot>
-                           <tr>
-                              <th>#</th>
-                              <th>De:</th>
-                              <th>Asunto</th>
-                              <th>Urgencia</th>
-                              <th>Fecha de apertura</th>
-                              <th>Acciones</th>
-                           </tr>
-                        </tfoot>
-                     </table>
-                  </div>
+                  <div id="listado-resoluciones"></div>
                </div>
             </div>
          </div>
       </div>
       <div class="tab-pane" id="fill-tabpanel-2" role="tabpanel" aria-labelledby="fill-tab-2">
-         <div class="row">
+      <div class="row">
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                <div class="statbox widget box box-shadow">
-                  <div class="widget-content widget-content-area">
-                     <table class="multi-table table dt-table-hover" style="width:100%">
-                        <thead>
-                           <tr>
-                              <th>#</th>
-                              <th>De:</th>
-                              <th>Asunto</th>
-                              <th>Urgencia</th>
-                              <th>Fecha de apertura</th>
-                              <th>Acciones</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           @php $i = 1; @endphp
-                           @foreach($resoluciones as $r)
-                           @if($r->estatus == 1)
-                           <tr>
-                              <td>{{ $i }}</td>
-                              <td>{{ $r->remitente }}</td>
-                              <td>{{ $r->titulo }}</td>
-                              <td>
-                                 @switch($r->urgencia)
-                                 @case(1)
-                                 <span class="badge badge-light-danger mb-2 me-4">Muy Urgente</span>
-                                 @break
-                                 @case(2)
-                                 <span class="badge badge-light-danger mb-2 me-4">Urgente</span>
-                                 @break
-                                 @case(3)
-                                 <span class="badge badge-light-warning mb-2 me-4">Mediana</span>
-                                 @break
-                                 @case(4)
-                                 <span class="badge badge-light-success mb-2 me-4">Baja</span>
-                                 @break
-                                 @case(5)
-                                 <span class="badge badge-light-info mb-2 me-4">Muy Baja</span>
-                                 @break
-                                 @default
-                                 <span class="badge badge-light-info mb-2 me-4">Indefinida</span>
-                                 @endswitch
-                              </td>
-                              <td>{{ $r->fecha_aper }}</td>
-                              <td>
-                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a class="btn btn-info" href="/resolucion/{{ $r->resolucion_id }}">
-                                       <!-- Icono de ver -->
-                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye">
-                                          <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/>
-                                          <circle cx="12" cy="12" r="3"/>
-                                       </svg>
-                                    </a>
-                                    <a data-bs-toggle="modal" data-bs-target="#editModal2" type="button" class="btn btn-warning" 
-                                       style="border-radius: 0 5px 5px 0;">
-                                       <!-- Icono de editar -->
-                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil">
-                                          <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>
-                                          <path d="m15 5 4 4"/>
-                                       </svg>
-                                    </a>
-                                 </div>
-                              </td>
-                           </tr>
-                           @php $i++; @endphp
-                           @endif
-                           @endforeach
-                        </tbody>
-                        <tfoot>
-                           <tr>
-                              <th>#</th>
-                              <th>De:</th>
-                              <th>Asunto</th>
-                              <th>Urgencia</th>
-                              <th>Fecha de apertura</th>
-                              <th>Acciones</th>
-                           </tr>
-                        </tfoot>
-                     </table>
-                  </div>
+                  <div id="listado-resolucionesA"></div>
                </div>
             </div>
          </div>
       </div>
       <div class="tab-pane" id="fill-tabpanel-3" role="tabpanel" aria-labelledby="fill-tab-3">
-         <div class="row">
+      <div class="row">
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                <div class="statbox widget box box-shadow">
-                  <div class="widget-content widget-content-area">
-                     <table class="multi-table table dt-table-hover" style="width:100%">
-                        <thead>
-                           <tr>
-                              <th>#</th>
-                              <th>De:</th>
-                              <th>Asunto</th>
-                              <th>Urgencia</th>
-                              <th>Fecha de apertura</th>
-                              <th>Acciones</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           @php $i = 1; @endphp
-                           @foreach($resoluciones as $r)
-                           @if($r->estatus == 0)
-                           <tr>
-                              <td>{{ $i }}</td>
-                              <td>{{ $r->remitente }}</td>
-                              <td>{{ $r->titulo }}</td>
-                              <td>
-                                 @switch($r->urgencia)
-                                 @case(1)
-                                 <span class="badge badge-light-danger mb-2 me-4">Muy Urgente</span>
-                                 @break
-                                 @case(2)
-                                 <span class="badge badge-light-danger mb-2 me-4">Urgente</span>
-                                 @break
-                                 @case(3)
-                                 <span class="badge badge-light-warning mb-2 me-4">Mediana</span>
-                                 @break
-                                 @case(4)
-                                 <span class="badge badge-light-success mb-2 me-4">Baja</span>
-                                 @break
-                                 @case(5)
-                                 <span class="badge badge-light-info mb-2 me-4">Muy Baja</span>
-                                 @break
-                                 @default
-                                 <span class="badge badge-light-info mb-2 me-4">Indefinida</span>
-                                 @endswitch
-                              </td>
-                              <td>{{ $r->fecha_aper }}</td>
-                              <td>
-                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a class="btn btn-info" href="/resolucion/{{ $r->resolucion_id }}">
-                                       <!-- Icono de ver -->
-                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye">
-                                          <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/>
-                                          <circle cx="12" cy="12" r="3"/>
-                                       </svg>
-                                    </a>
-                                    <a data-bs-toggle="modal" data-bs-target="#editModal2" type="button" class="btn btn-warning" 
-                                       style="border-radius: 0 5px 5px 0;">
-                                       <!-- Icono de editar -->
-                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil">
-                                          <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>
-                                          <path d="m15 5 4 4"/>
-                                       </svg>
-                                    </a>
-                                 </div>
-                              </td>
-                           </tr>
-                           @php $i++; @endphp
-                           @endif
-                           @endforeach
-                        </tbody>
-                        <tfoot>
-                           <tr>
-                              <th>#</th>
-                              <th>De:</th>
-                              <th>Asunto</th>
-                              <th>Urgencia</th>
-                              <th>Fecha de apertura</th>
-                              <th>Acciones</th>
-                           </tr>
-                        </tfoot>
-                     </table>
-                  </div>
+                  <div id="listado-resolucionesP"></div>
                </div>
             </div>
          </div>
@@ -427,93 +196,19 @@
          <div class="row">
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                <div class="statbox widget box box-shadow">
-                  <div class="widget-content widget-content-area">
-                     <table class="multi-table table dt-table-hover" style="width:100%">
-                        <thead>
-                           <tr>
-                              <th>#</th>
-                              <th>De:</th>
-                              <th>Asunto</th>
-                              <th>Urgencia</th>
-                              <th>Fecha de apertura</th>
-                              <th>Acciones</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           @php $i = 1; @endphp
-                           @foreach($resoluciones as $r)
-                           @if($r->usuario_id == auth()->user()->usuario_id)
-                           <tr>
-                              <td>{{ $i }}</td>
-                              <td>{{ $r->remitente }}</td>
-                              <td>{{ $r->titulo }}</td>
-                              <td>
-                                 @switch($r->urgencia)
-                                 @case(1)
-                                 <span class="badge badge-light-danger mb-2 me-4">Muy Urgente</span>
-                                 @break
-                                 @case(2)
-                                 <span class="badge badge-light-danger mb-2 me-4">Urgente</span>
-                                 @break
-                                 @case(3)
-                                 <span class="badge badge-light-warning mb-2 me-4">Mediana</span>
-                                 @break
-                                 @case(4)
-                                 <span class="badge badge-light-success mb-2 me-4">Baja</span>
-                                 @break
-                                 @case(5)
-                                 <span class="badge badge-light-info mb-2 me-4">Muy Baja</span>
-                                 @break
-                                 @default
-                                 <span class="badge badge-light-info mb-2 me-4">Indefinida</span>
-                                 @endswitch
-                              </td>
-                              <td>{{ $r->fecha_aper }}</td>
-                              <td>
-                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a class="btn btn-info" href="/resolucion/{{ $r->resolucion_id }}">
-                                       <!-- Icono de ver -->
-                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye">
-                                          <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/>
-                                          <circle cx="12" cy="12" r="3"/>
-                                       </svg>
-                                    </a>
-                                    <a data-bs-toggle="modal" data-bs-target="#editModal2" type="button" class="btn btn-warning" 
-                                       style="border-radius: 0 5px 5px 0;">
-                                       <!-- Icono de editar -->
-                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil">
-                                          <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>
-                                          <path d="m15 5 4 4"/>
-                                       </svg>
-                                    </a>
-                                 </div>
-                              </td>
-                           </tr>
-                           @php $i++; @endphp
-                           @endif
-                           @endforeach
-                        </tbody>
-                        <tfoot>
-                           <tr>
-                              <th>#</th>
-                              <th>De:</th>
-                              <th>Asunto</th>
-                              <th>Urgencia</th>
-                              <th>Fecha de apertura</th>
-                              <th>Acciones</th>
-                           </tr>
-                        </tfoot>
-                     </table>
-                  </div>
+                  <div id="listado-resolucionesE"></div>
                </div>
             </div>
          </div>
       </div>
    </div>
+   </div>
    <br>
    @include('rppc.resoluciones.create-resolucion')
    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
    <x-slot:footerFiles>
+   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+   <!-- DataTables CSS -->
    @if (session('success'))
    <script>
       document.addEventListener('DOMContentLoaded', function() {

@@ -19,6 +19,44 @@
       display: inline-block;
       }
    </style>
+      <style>
+      .btn-flotante {
+      font-size: 10px; /* Cambiar el tamaño de la tipografia */
+      text-transform: uppercase; /* Texto en mayusculas */
+      font-weight: bold; /* Fuente en negrita o bold */
+      color: #ffffff; /* Color del texto */
+      border-radius: 50px; /* Borde del boton */
+      letter-spacing: 2px; /* Espacio entre letras */
+      background-color: #9e192d !important;; /* Color de fondo */
+      padding: 18px 30px; /* Relleno del boton */
+      position: fixed;
+      bottom: 120px;
+      right: 40px;
+      transition: all 300ms ease 0ms;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+      z-index: 99;
+      width: 60px; /* Ancho fijo del botón */
+      height: 60px; /* Altura fija del botón */
+      display: flex;
+      align-items: center;
+      justify-content: center; 
+      }
+      .btn-flotante:hover {
+      background-color: #2c2fa5; /* Color de fondo al pasar el cursor */
+      box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+      transform: translateY(-7px);
+      }
+      @media only screen and (max-width: 600px) {
+      .btn-flotante {
+      font-size: 14px;
+      padding: 12px 20px;
+      bottom: 20px;
+      right: 20px;
+      }
+      }
+
+ 
+</style>
    </x-slot>
    <!-- END GLOBAL MANDATORY STYLES -->
    <a href="/resoluciones" class="btn-flotante">Volver</a>
@@ -52,49 +90,83 @@
                                  <div class="inv--detail-section inv--customer-detail-section">
                                     <div class="row">
                                        <div class="col-xl-12 col-lg-7 col-md-6 col-sm-4 align-self-center">
-                                          <p class="inv-to">Generado por: </p>
-                                       </div>
-                                       <div class="col-xl-12 col-lg-7 col-md-6 col-sm-4">
-                                          <p class="inv-customer-name">{{ $resolucion[0]->remitente }}</p>
-                                          <p class="inv-customer-name"> Promovente {{ $resolucion[0]->promovente }}</p>
+                                       <div class="row">
+    <div class="col-md-6">
+        <p class="inv-to">Generado por:</p>
+    </div>
+    <div class="col-md-6">
+        <p class="inv-customer-name">{{ $resolucion[0]->remitente }}</p>
+    </div>
 
-                                          <p class="inv-street-addr">{{ $oficina_nombre }}</p>
-                                          <p class="inv-email-address">
-                                             Urgencia:
-                                             @switch($resolucion[0]->urgencia)
-                                             @case(1)
-                                             <span class="badge badge-light-danger mb-2 me-4">Muy Urgente</span>
-                                             @break
-                                             @case(2)
-                                             <span class="badge badge-light-danger mb-2 me-4">Urgente</span>
-                                             @break
-                                             @case(3)
-                                             <span class="badge badge-light-warning mb-2 me-4">Mediana</span>
-                                             @break
-                                             @case(4)
-                                             <span class="badge badge-light-success mb-2 me-4">Baja</span>
-                                             @break
-                                             @case(5)
-                                             <span class="badge badge-light-info mb-2 me-4">Muy Baja</span>
-                                             @break
-                                             @default
-                                             <span class="badge badge-light-info mb-2 me-4">Indefinida</span>
-                                             @endswitch
-                                          </p>
-                                          <p class="inv-email-address">
-                                             Estado:
-                                             @switch($resolucion[0]->estatus)
-                                             @case(0)
-                                             <span class="badge badge-light-warning mb-2 me-4">EN REVISIÓN</span>
-                                             @break
-                                             @case(1)
-                                             <span class="badge badge-light-success mb-2 me-4">APROBADA</span>
-                                             @break
-                                             @default
-                                             <span class="badge badge-light-info mb-2 me-4">Indefinida</span>
-                                             @endswitch
-                                          </p>
-                                          <hr>
+    <div class="col-md-6">
+        <p class="inv-customer-name">Promovente:</p>
+    </div>
+    <div class="col-md-6">
+        <p class="inv-customer-name">{{ $resolucion[0]->promovente }}</p>
+    </div>
+
+    <div class="col-md-6">
+        <p class="inv-street-addr">Oficina:</p>
+    </div>
+    <div class="col-md-6">
+        <p class="inv-street-addr">{{ $oficina_nombre }}</p>
+    </div>
+
+    <div class="col-md-6">
+        <p class="inv-email-address">Urgencia:</p>
+    </div>
+    <div class="col-md-6">
+        @switch($resolucion[0]->urgencia)
+            @case(1)
+                <span class="badge badge-light-danger mb-2 me-4">Muy Urgente</span>
+                @break
+            @case(2)
+                <span class="badge badge-light-danger mb-2 me-4">Urgente</span>
+                @break
+            @case(3)
+                <span class="badge badge-light-warning mb-2 me-4">Mediana</span>
+                @break
+            @case(4)
+                <span class="badge badge-light-success mb-2 me-4">Baja</span>
+                @break
+            @case(5)
+                <span class="badge badge-light-info mb-2 me-4">Muy Baja</span>
+                @break
+            @default
+                <span class="badge badge-light-info mb-2 me-4">Indefinida</span>
+        @endswitch
+    </div>
+
+    <div class="col-md-6">
+        <p class="inv-email-address">Estado de la resolución:</p>
+    </div>
+    <div class="col-md-6">
+        @switch($resolucion[0]->estatus)
+            @case(0)
+                <span class="badge badge-light-warning mb-2 me-4">EN REVISIÓN</span>
+                @break
+            @case(1)
+                <span class="badge badge-light-success mb-2 me-4">APROBADA</span>
+                @break
+            @case(2)
+                <span class="badge badge-light-success mb-2 me-4">EN REVISIÓN (Dirección Jurídica)</span>
+                @break
+            @default
+                <span class="badge badge-light-info mb-2 me-4">Indefinida</span>
+        @endswitch
+    </div>
+
+    @if($resolucion[0]->estatus == 1)
+        <div class="col-md-6">
+            <p class="inv-email-address">Aprobado por:</p>
+        </div>
+        <div class="col-md-6">
+            <span class="badge badge-light-info mb-2 me-4">{{ $resolucion[0]->aprobacion }}</span>
+        </div>
+    @endif
+</div>
+<hr>
+
                                           <div class="row">
                                              <div class="col-md-6">
                                                 <div class="mb-4 mail-to">
@@ -295,6 +367,12 @@
                                        <p class="inv-to">Anexo: </p>
                                        <ul id="filelist"></ul>
                                        <!-- Aquí se cargarán los archivos -->
+                                       <p class="inv-to">Solicitud: </p>
+                                       <ul id="solist"></ul>
+                                       <!-- Aquí se cargarán los archivos -->
+                                       <p class="inv-to">Oficio: </p>
+                                       <ul id="oficiolist"></ul>
+                                       <!-- Aquí se cargarán los archivos -->
                                        <br>
                                     </div>
                                  </div>
@@ -308,6 +386,16 @@
                                              <path d="m9 11 3 3L22 4"/>
                                           </svg>
                                        </button>
+
+                                       @if(auth()->user()->rol_id == 2)
+                                       <button class="btn btn-success mb-4" type="submit" id="aprobar-btn2">
+                                          Aprobar (Dirección Jurídica)
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big">
+                                             <path d="M21.801 10A10 10 0 1 1 17 3.335"/>
+                                             <path d="m9 11 3 3L22 4"/>
+                                          </svg>
+                                       </button>
+                                       @endif
 
                                  </div>
                                  <div class="inv--note">
@@ -331,29 +419,7 @@
                                                 </div>
                                                 @endforeach
                                              </div>
-                                             <div class="post-pagination">
-                                                <div class="pagination-no_spacing">
-                                                   <ul class="pagination">
-                                                      <li>
-                                                         <a href="javascript:void(0);" class="prev" data-image="prev">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left">
-                                                               <polyline points="15 18 9 12 15 6"></polyline>
-                                                            </svg>
-                                                         </a>
-                                                      </li>
-                                                      <li><a href="javascript:void(0);" data->1</a></li>
-                                                      <li><a href="javascript:void(0);" class="active">2</a></li>
-                                                      <li><a href="javascript:void(0);">3</a></li>
-                                                      <li>
-                                                         <a href="javascript:void(0);" class="next">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-                                                               <polyline points="9 18 15 12 9 6"></polyline>
-                                                            </svg>
-                                                         </a>
-                                                      </li>
-                                                   </ul>
-                                                </div>
-                                             </div>
+
                                           </div>
                                           <div class="post-form mt-5">
                                              <div class="section add-comment">
@@ -454,6 +520,94 @@
                   alert('Error al cargar los archivos de la resolución')
                }
             });
+
+            $.ajax({
+               url: '/resolucion/sol/' + resolucionId,
+               method: 'GET',
+               success: function(data) {
+                  console.log(data);
+      
+                  $('#solist').empty();
+      
+                  // Mostrar archivos 
+                  if (data.files.length === 0) {
+                     $('#solist').append('No hay archivos para mostrar');
+                  } else {
+                     data.files.forEach(file => {
+                        const fileName = file.file_path.split('/').pop() // Obtener solo el nombre del archivo
+                        const extension = fileName.split('.').pop().toLowerCase();
+      
+                        switch (extension) {
+                           case 'pdf':
+                              $('#solist').append(`<li><a href="/file/${encodeURIComponent(fileName)}" target="_blank"><i class="fa-regular fa-file-pdf"></i> ${fileName}</a></li>`);
+                              break;
+                           case 'doc':
+                           case 'docx':
+                              $('#solist').append(`<li><a href="/file/${encodeURIComponent(fileName)}" target="_blank"><i class="fa-regular fa-file-word"></i> ${fileName}</a></li>`);
+                              break;
+                              case 'jpg':
+                           case 'jpeg':
+                           case 'png':
+                           case 'gif':
+                              $('#solist').append(`<li><a href="/file/${encodeURIComponent(fileName)}" target="_blank"><i class="fa-regular fa-image"></i> ${fileName}</a></li>`);
+                              break;
+                           default:
+                              $('#solist').append(`<li><a href="/file/${encodeURIComponent(fileName)}" target="_blank"><i class="fa-solid fa-paperclip"></i> ${fileName}</a></li>`);
+                           break;
+                           }
+      
+                     });
+                  }
+               },
+               error: function() {
+                  alert('Error al cargar los archivos de la resolución')
+               }
+            });
+
+            $.ajax({
+               url: '/resolucion/oficio/' + resolucionId,
+               method: 'GET',
+               success: function(data) {
+                  console.log(data);
+      
+                  $('#oficiolist').empty();
+      
+                  // Mostrar archivos 
+                  if (data.files.length === 0) {
+                     $('#oficiolist').append('No hay archivos para mostrar');
+                  } else {
+                     data.files.forEach(file => {
+                        const fileName = file.file_path.split('/').pop() // Obtener solo el nombre del archivo
+                        const extension = fileName.split('.').pop().toLowerCase();
+      
+                        switch (extension) {
+                           case 'pdf':
+                              $('#oficiolist').append(`<li><a href="/file/${encodeURIComponent(fileName)}" target="_blank"><i class="fa-regular fa-file-pdf"></i> ${fileName}</a></li>`);
+                              break;
+                           case 'doc':
+                           case 'docx':
+                              $('#oficiolist').append(`<li><a href="/file/${encodeURIComponent(fileName)}" target="_blank"><i class="fa-regular fa-file-word"></i> ${fileName}</a></li>`);
+                              break;
+                              case 'jpg':
+                           case 'jpeg':
+                           case 'png':
+                           case 'gif':
+                              $('#oficiolist').append(`<li><a href="/file/${encodeURIComponent(fileName)}" target="_blank"><i class="fa-regular fa-image"></i> ${fileName}</a></li>`);
+                              break;
+                           default:
+                              $('#oficiolist').append(`<li><a href="/file/${encodeURIComponent(fileName)}" target="_blank"><i class="fa-solid fa-paperclip"></i> ${fileName}</a></li>`);
+                           break;
+                           }
+      
+                     });
+                  }
+               },
+               error: function() {
+                  alert('Error al cargar los archivos de la resolución')
+               }
+            });
+
+
          }
       });
    </script>
@@ -485,6 +639,33 @@
          });
       });
 
+   </script>
+   <script>
+          $(document).ready(function () {
+         $('#aprobar-btn2').on('click', function() {
+            let boton = $(this);
+            let resolucion_id = {{ $resolucion[0]->resolucion_id }}
+
+            $.ajax({
+               url: '/aprobar/resolucion/' + resolucion_id,
+               type: "POST",
+               data: {
+                  _token: "{{ csrf_token() }}"
+               },
+               success: function(response) {
+                  boton.attr("disabled", true);
+                  Swal.fire({
+                         icon: 'success',
+                         title: 'Éxito',
+                         text: 'Acabas de aprobar esta solictud, ya esta lista para imprimir',
+                     });
+               },
+               error: function(xhr, status, error) {
+                alert("Error al aprobar la resolución.");
+               }         
+            });
+         });
+      })
    </script>
    <script>
       $(document).ready(function () {

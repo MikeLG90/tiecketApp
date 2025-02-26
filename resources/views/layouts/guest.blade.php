@@ -20,7 +20,7 @@
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div>
             <a href="/">
-                <img src="{{ Vite::asset('resources/images/rppc_logo2.png') }}" width="220" height="130" alt="company">
+                <img src="{{ Vite::asset('resources/images/ICONO-RPPC-WEB.png') }}" width="400" height="310" alt="company">
             </a>
         </div>
 

@@ -6,6 +6,9 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\FolioController;
 use App\Http\Controllers\SATQController;
 use App\Http\Controllers\LibroController;
+use App\Http\Controllers\ResolucionController;
+use App\Http\Controllers\UserController;
+
 
 
 /*
@@ -47,3 +50,15 @@ Route::get('/libros/{id_oficina}', [LibroController::class,'getLibros'])->name('
 Route::get('/libros-st/{seccion}/{tomo}/{id_oficina}', [LibroController::class,'getLibrosST'])->name('lib.getS');
 Route::get('/libro/imagenes/{id_oficina}/{id_libro}', [LibroController::class,'getImagenesLibros'])->name('img.get');
 Route::get('/inscripciones/{seccion}/{tomo}/{id_oficina}/{inscripcion}', [LibroController::class,'getInscripciones'])->name('lib.ins');
+
+// Ruta para obtener las resolciones con o sin filtrado
+Route::get('/listado-resoluciones', [ResolucionController::class,'index1']);
+
+Route::get('/listado-resoluciones3', [ResolucionController::class,'index3']);
+Route::get('/listado-resoluciones4', [ResolucionController::class,'index4']);
+
+
+
+//Datos del usario 
+
+

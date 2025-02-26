@@ -34,6 +34,10 @@ use App\Http\Controllers\WebServicesController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/send-test-email', [MailController::class, 'sendTestEmail']);
+Route::get('/listado-resoluciones2', [ResolucionController::class,'index2']);
+
 // Rutas de las oficinas recurrentes
 Route::get('/oficinas-folios', [OficinaFolioController::class, 'index'])->name('index-oficina-folio');
 Route::post('/oficinas-folios/store', [OficinaFolioController::class, 'store'])->name('store-oficina-folio');
@@ -62,7 +66,7 @@ Route::middleware('auth')->group(function () {
 
 
 });
-
+Route::get('/user', [UserController::class, 'DatosUser']);
 // Visor
 Route::middleware('auth')->group(function () {
     Route::get('/visor_img', function () {
@@ -154,6 +158,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/resolucion/{id}', [ResolucionController::class, 'view'])->name('resolucion.view');
     Route::get('/resoluciones-chart-data', [ResolucionController::class, 'getResolucionesData'])->name('resolucion-data.index');
     Route::get('/resolucion/file/{id}', [ResolucionController::class, 'resolucionFile'])->name('resolucion.file');
+    Route::get('/resolucion/sol/{id}', [ResolucionController::class, 'resolucionFileSol'])->name('resolucion.file');
+    Route::get('/resolucion/oficio/{id}', [ResolucionController::class, 'resolucionFileOficio'])->name('resolucion.file');
     Route::post('/aprobar/resolucion/{resolucion_id}', [ResolucionController::class, 'cambiarEstado'])->name(name: 'resolucion.estado');
 
 

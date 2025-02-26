@@ -20,6 +20,8 @@
    @vite(['resources/scss/dark/assets/components/tabs.scss'])
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
    <!--  END CUSTOM STYLE FILE  -->
    <!--  END CUSTOM STYLE FILE  -->
    </x-slot>
@@ -61,7 +63,6 @@
       }
    </style>
    <div class="row layout-top-spacing">
-      <h3>Tickets</h3>
       <!-- Nav Tabs -->
       <nav>
          <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -635,7 +636,7 @@
                   data.forEach(usuario => {
                       let option = document.createElement('option');
                       option.value = usuario.usuario_id;
-                      option.textContent = usuario.nombre_completo;  
+                      option.textContent = `${usuario.nombre_completo} - ${usuario.rol} de ${usuario.oficina}`;
                       usuariosSelect.appendChild(option);
                   });
               });

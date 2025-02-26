@@ -196,10 +196,13 @@ $tickets4 = DB::table('tickets as t')
             ->join('persona as p', 'p.usuario_id', '=', 'u.usuario_id')
             ->join('oficinas as o', 'o.oficina_id', '=', 'u.oficina_id')
             ->join('areas as a', 'a.area_id', '=', 'u.area_id')
+            ->join('roles as r', 'r.rol_id', '=', 'u.rol_id')
             ->select(
                 'u.*',
+                'r.rol',
+                'o.oficina',
                 'a.area',
-                DB::raw('p.nombre || \' \' || p.ape_paterno || \' \' || p.ape_materno || \' (\' || a.area || \', \' || o.oficina || \')\' as nombre_completo')
+                DB::raw('p.nombre || \' \' || p.ape_paterno || \' \' || p.ape_materno || \' (\' || a.area || \')\' as nombre_completo')
             );
     
         if (auth()->user()->rol_id == 6) {
@@ -369,7 +372,7 @@ public function ticketFiles($id)
         $ticket = Ticket::findOrFail($id);
 
         // Retorna los detalles del ticket como JSON
-        return response()->json($ticket);
+        return response()->json(data: $ticket);
     }
 }
 

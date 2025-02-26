@@ -8,6 +8,7 @@ use App\Models\Persona;
 use App\Models\Rol;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserController extends Controller
@@ -65,11 +66,21 @@ public function updateUser(Request $request)
 
     public function cambioRol(Request $request, $userId) {
 
-        $user = User::findOrFail($userId);
+        $user = User::findOrFail(id: $userId);
         $user->rol_id = $request->rol;
         $user->save();
         return back()->with('success', 'Usuario actualizado correctamente');
 
     }
-
+    public function DatosUser()
+    {
+        $user = auth()->user(); // Intenta obtener el usuario autenticado
+    
+        if (!$user) {
+            return response()->json(['error' => 'No autenticado'], 401);
+        }
+    
+        return response()->json($user);
+    }
+    
 }
