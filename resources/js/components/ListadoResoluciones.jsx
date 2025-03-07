@@ -63,9 +63,9 @@ const ListadoResoluciones = () => {
             case "1":
                 return "bg-primary"; 
             case "2":
-                return "bg-success"; // Verde
+                return "bg-success"; 
             default:
-                return "bg-secondary"; // Gris
+                return "bg-secondary"; 
         }
     };
 
@@ -87,9 +87,9 @@ const ListadoResoluciones = () => {
             case "2":
                 return "bg-primary"; 
             case "1":
-                return "bg-success"; // Verde
+                return "bg-success"; 
             default:
-                return "bg-secondary"; // Gris
+                return "bg-secondary"; 
         }
     };
     

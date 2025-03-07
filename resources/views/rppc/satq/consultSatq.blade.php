@@ -179,7 +179,7 @@
                               $('#nombre').val(hd.Nombre);
       
                               conceptos.forEach((item, index) => {
-      const row = document.createElement('tr');
+                                const row = document.createElement('tr');
       
       // Crear celdas y agregar un evento de clic a cada celda
       row.innerHTML = `

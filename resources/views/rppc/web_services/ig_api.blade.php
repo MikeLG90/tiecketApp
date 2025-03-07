@@ -28,6 +28,21 @@
    <div class="row layout-top-spacing">
       <h3>Sistema de Consultas de Claves Catastrales</h3>
    </div>
+
+   <div class="simple-tab">
+   <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Consultas</button>
+      </li>
+      <li class="nav-item" role="presentation">
+         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Registros</button>
+      </li>
+   </ul>
+
+
+   <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        
    <div class="row">
       <div id="flHorizontalForm" class="col-lg-12 layout-spacing">
          <div class="card shadow-sm">
@@ -100,10 +115,122 @@
                   <span class="input-group-text">Dirección</span>
                   <textarea class="form-control" id="direccion" rows="3"></textarea>
                </div>
+               <h5>Datos RPPC</h5>
+               <hr class="mb-4">
+               <div class="row g-3 mb-4">
+                  <div class="col-md-6">
+                     <div class="input-group">
+                        <span class="input-group-text">Tipo de persona</span>
+                        <input type="text" class="form-control" id="persona">
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="input-group">
+                        <span class="input-group-text">Tipo de adjudicación</span>
+                        <input type="text" class="form-control"  id="adj">
+                     </div>
+                  </div>
+               </div>
+               <div class="input-group mb-4">
+                  <span class="input-group-text">Folio real electrónico</span>
+                  <input type="text" class="form-control" aria-describedby="" id="folio">
+               </div>
+               <div class="input-group mb-4">
+                  <span class="input-group-text">Titular</span>
+                  <input type="text" class="form-control" aria-describedby="" id="titular">
+               </div>
+               <div class="input-group mb-4">
+                  <span class="input-group-text">CURP</span>
+                  <input type="text" class="form-control" aria-describedby="" id="curp">
+               </div>
+               <div class="input-group mb-4">
+                  <span class="input-group-text">RFC</span>
+                  <input type="text" class="form-control" aria-describedby="" id="rfc">
+               </div>
+               <div class="input-group mb-4">
+                  <span class="input-group-text">Domicilio</span>
+                  <textarea class="form-control" id="domi" rows="3"></textarea>
+               </div>
+               <hr>
+               <div class="d-grid gap-2 col-6 mx-auto">
+                  <!-- Default -->
+                  <button class="btn btn-primary mb-4" type="submit" id="guardar-btn">
+                     Guardar datos catastrales
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database">
+                        <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                        <path d="M3 5V19A9 3 0 0 0 21 19V5"/>
+                        <path d="M3 12A9 3 0 0 0 21 12"/>
+                     </svg>
+                  </button>
+               </div>
             </div>
          </div>
       </div>
    </div>
+      </div>
+      <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+    <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
+        <div class="statbox widget box box-shadow no-rounded-corners">
+            <div class="widget-content widget-content-area">
+                <table class="multi-table table dt-table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Clave Catastral</th>
+                            <th>Ubicación</th> <!-- Concatenar Municipio, Localidad, Latitud y Longitud -->
+                            <th>Propietario/Titular</th> <!-- Concatenar Propietario y Titular -->
+                            <th>Folio</th>
+                            <th>Identificación</th> <!-- Concatenar CURP y RFC -->
+                            <th>Tipo</th> <!-- Concatenar Tipo de Persona y Tipo de Adjudicación -->
+                            <th>Domicilio</th>
+                            <th>Fecha de Creación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($catastros as $dato)
+                            <tr>
+                                <td>{{ $dato->cve_catastro }}</td>
+                                <td>
+                                    {{ $dato->municipio }} - {{ $dato->localidad }}<br>
+                                    Lat: {{ $dato->latitud }}, Long: {{ $dato->longitud }}
+                                </td>
+                                <td>
+                                    {{ $dato->propietario }}<br>
+                                    {{ $dato->titular }}
+                                </td>
+                                <td>{{ $dato->folio }}</td>
+                                <td>
+                                    CURP: {{ $dato->curp }}<br>
+                                    RFC: {{ $dato->rfc }}
+                                </td>
+                                <td>
+                                  PERSONA: {{ $dato->tipo_persona }}<br>
+                                  ADJUDICACIÓN: {{ $dato->tipo_adjudicacion }}
+                                </td>
+                                <td>{{ $dato->domicilio }}</td>
+                                <td>{{ $dato->fecha_creacion }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Clave Catastral</th>
+                            <th>Ubicación</th>
+                            <th>Propietario/Titular</th>
+                            <th>Folio</th>
+                            <th>Identificación</th>
+                            <th>Tipo</th>
+                            <th>Domicilio</th>
+                            <th>Fecha de Creación</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+   </div>
+</div>
+
    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
    <x-slot:footerFiles>
    <script src="{{asset('plugins/global/vendors.min.js')}}"></script>
@@ -120,41 +247,114 @@
             const cve = $('#cve_catastro').val();
             const municipio = $('#municipio').val()
       
-              //Realizar la solicitud AJAX para la obtención del token
-              $.ajax({
-                  url: '/consulta-catastro/' + municipio + '/' + cve ,
-                  method: 'GET',
-                  success: function(data) {
-                    if (data.length === 0) {
-                    // Usar SweetAlert para mostrar la alerta
-                    Swal.fire({
+               // Peticiones ajax para las apis
+               // Primera solicitud AJAX
+               var request1 = $.ajax({
+                                 url: '/consulta-catastro/' + municipio + '/' + cve,
+                                 method: 'GET'
+                                 });
+      
+               // Segunda solicitud ajax 
+               var request2 = $.ajax({
+                                 url: '/api/catastro/rppc/' + cve,
+                                 method: 'GET'
+                                 });
+      
+               // ejecutar ambas peticiones ajax
+      
+               $.when(request1, request2).then(function(response1, response2) {
+                  var data1 = response1[0];
+                  var data2 = response2[0];
+      
+                  console.log(data1);
+                  console.log(data2);
+      
+                  // manejar primera respuesta
+                  if (data1.lenght === 0) {
+                     Swal.fire({
+                    icon: 'warning',
+                    title: 'Sin registros',
+                    text: 'No se encontraron registros para los parámetros proporcionados en la primera consulta.',
+                });
+                return;
+                  }
+      
+                     $('#localidad').val(data1.nom_loc);
+                     $('#catastro').val(data1.clave_catastral);
+                     $('#propietario').val(data1.propietario);
+                     $('#direccion').val(data1.direccion);
+                     $('#latitud').val(data1.centroide_lat);
+                     $('#longitud').val(data1.centroide_log);
+      
+                     if (data2.length === 0) {
+                        Swal.fire({
                         icon: 'warning',
                         title: 'Sin registros',
-                        text: 'No se encontraron registros para los parámetros proporcionados.',
-                    });
-                    return; // Salimos de la función si no hay datos
-                }
-                      console.log(data);
-                      // Poner datos en los inputs
-                      $('#localidad').val(data.nom_loc);
-                      $('#catastro').val(data.clave_catastral);
-                      $('#propietario').val(data.propietario);
-                      $('#direccion').val(data.direccion);
-                      $('#latitud').val(data.centroide_lat);
-                      $('#longitud').val(data.centroide_log);
+                        text: 'No se encontraron registros para los parámetros proporcionados en la segunda consulta.',
+                     });
+                     return;
+                     }
       
-                  },
-                  error: function(error) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Sin registros',
-                        text: 'La conexión ha fallado',
-                    });
-                    return;
-                      }
-              });
-      
+                     $('#folio').val(data2.crfre);
+                     $('#titular').val(data2.titular);
+                     $('#curp').val(data2.cupr);
+                     $('#rfc').val(data2.rfc);
+                     $('#persona').val(data2.tipo_persona);
+                     $('#adj').val(data2.tipo_adjudicacion);
+                     $('#domi').val(data2.domicilio);
+               }).fail(function() {
+                  Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Ocurrió un error al realizar las consultas.',
+            });
+               });
+            
           });
+      });
+   </script>
+   <script>
+      $(document).ready(function() {
+         $('#guardar-btn').on('click', function() {
+            let boton = $(this);
+      
+            const datosGuardar = {
+               _token: "{{ csrf_token() }}",
+               cve_catastro: $('#cve_catastro').val(),
+               municipio: $('#municipio').val(),
+               localidad: $('#localidad').val(),
+               latitud: $('#latitud').val(),
+               longitud:  $('#longitud').val(),
+               folio: $('#folio').val(),
+               titular: $('#titular').val(),
+               curp: $('#curp').val(),
+               rfc: $('#rfc').val(),
+               persona: $('#persona').val(),
+               adj: $('#adj').val(),
+               domi: $('#domi').val()
+            };
+      
+            $.ajax({
+               url: '/guardar/catastro',
+               type: "POST",
+               data: datosGuardar,
+               success: function(response) {
+                   Swal.fire({
+                       icon: 'success',
+                       title: 'Éxito',
+                       text: response.message,
+                   });
+               },
+               error: function(xhr) {
+                   let errorMessage = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Ocurrió un error al guardar los datos.';
+                   Swal.fire({
+                       icon: 'error',
+                       title: 'Error',
+                       text: errorMessage,
+                   });
+               }
+            });
+         });
       });
    </script>
    </x-slot>

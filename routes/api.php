@@ -8,6 +8,7 @@ use App\Http\Controllers\SATQController;
 use App\Http\Controllers\LibroController;
 use App\Http\Controllers\ResolucionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CatastroApiController;
 
 
 
@@ -56,6 +57,9 @@ Route::get('/listado-resoluciones', [ResolucionController::class,'index1']);
 
 Route::get('/listado-resoluciones3', [ResolucionController::class,'index3']);
 Route::get('/listado-resoluciones4', [ResolucionController::class,'index4']);
+
+
+Route::get('/catastro/rppc/{cve_catastro}', [CatastroApiController::class,'obtenerDatosRppc'])->name('satq.conL');
 
 
 

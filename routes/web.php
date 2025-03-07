@@ -19,7 +19,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\GmailController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\WebServicesController;
-
+use App\Http\Controllers\CatastroApiController;
 
 
 
@@ -35,8 +35,14 @@ use App\Http\Controllers\WebServicesController;
 |
 */
 
+Route::post('/guardar/catastro', action: [CatastroApiController::class, 'store']);
+Route::get('/consulta/catastro', action: [CatastroApiController::class, 'index']);
+
+
 Route::get('/send-test-email', [MailController::class, 'sendTestEmail']);
 Route::get('/listado-resoluciones2', [ResolucionController::class,'index2']);
+
+
 
 // Rutas de las oficinas recurrentes
 Route::get('/oficinas-folios', [OficinaFolioController::class, 'index'])->name('index-oficina-folio');
