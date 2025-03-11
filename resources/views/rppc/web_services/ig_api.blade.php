@@ -242,77 +242,60 @@
    <script src="{{asset('plugins/table/datatable/button-ext/buttons.print.min.js')}}"></script>
    <script src="{{asset('plugins/table/datatable/custom_miscellaneous.js')}}"></script>
    <script>
-      $(document).ready(function() {
-          $('.btn-success').on('click', function() {
-            const cve = $('#cve_catastro').val();
-            const municipio = $('#municipio').val()
-      
-               // Peticiones ajax para las apis
-               // Primera solicitud AJAX
-               var request1 = $.ajax({
-                                 url: '/consulta-catastro/' + municipio + '/' + cve,
-                                 method: 'GET'
-                                 });
-      
-               // Segunda solicitud ajax 
-               var request2 = $.ajax({
-                                 url: '/api/catastro/rppc/' + cve,
-                                 method: 'GET'
-                                 });
-      
-               // ejecutar ambas peticiones ajax
-      
-               $.when(request1, request2).then(function(response1, response2) {
-                  var data1 = response1[0];
-                  var data2 = response2[0];
-      
-                  console.log(data1);
-                  console.log(data2);
-      
-                  // manejar primera respuesta
-                  if (data1.lenght === 0) {
-                     Swal.fire({
-                    icon: 'warning',
-                    title: 'Sin registros',
-                    text: 'No se encontraron registros para los parámetros proporcionados en la primera consulta.',
-                });
-                return;
-                  }
-      
-                     $('#localidad').val(data1.nom_loc);
-                     $('#catastro').val(data1.clave_catastral);
-                     $('#propietario').val(data1.propietario);
-                     $('#direccion').val(data1.direccion);
-                     $('#latitud').val(data1.centroide_lat);
-                     $('#longitud').val(data1.centroide_log);
-      
-                     if (data2.length === 0) {
-                        Swal.fire({
-                        icon: 'warning',
-                        title: 'Sin registros',
-                        text: 'No se encontraron registros para los parámetros proporcionados en la segunda consulta.',
-                     });
-                     return;
-                     }
-      
-                     $('#folio').val(data2.crfre);
-                     $('#titular').val(data2.titular);
-                     $('#curp').val(data2.cupr);
-                     $('#rfc').val(data2.rfc);
-                     $('#persona').val(data2.tipo_persona);
-                     $('#adj').val(data2.tipo_adjudicacion);
-                     $('#domi').val(data2.domicilio);
-               }).fail(function() {
-                  Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Ocurrió un error al realizar las consultas.',
-            });
-               });
-            
-          });
+  $(document).ready(function() {
+      $('.btn-success').on('click', function() {
+          const cve = $('#cve_catastro').val();
+          const municipio = $('#municipio').val();
+
+          function ejecutarRequest1() {
+              return $.ajax({
+                  url: '/consulta-catastro/' + municipio + '/' + cve,
+                  method: 'GET'
+              }).then(function(data1) {
+                  $('#localidad').val(data1.nom_loc || 'Sin registros encontrados');
+                  $('#catastro').val(data1.clave_catastral || 'Sin registros encontrados');
+                  $('#propietario').val(data1.propietario || 'Sin registros encontrados');
+                  $('#direccion').val(data1.direccion || 'Sin registros encontrados');
+                  $('#latitud').val(data1.centroide_lat || 'Sin registros encontrados');
+                  $('#longitud').val(data1.centroide_log || 'Sin registros encontrados');
+              }).catch(function() {
+                  $('#localidad').val('Sin registros encontrados');
+                  $('#catastro').val('Sin registros encontrados');
+                  $('#propietario').val('Sin registros encontrados');
+                  $('#direccion').val('Sin registros encontrados');
+                  $('#latitud').val('Sin registros encontrados');
+                  $('#longitud').val('Sin registros encontrados');
+              });
+          }
+
+          function ejecutarRequest2() {
+              return $.ajax({
+                  url: '/api/catastro/rppc/' + cve,
+                  method: 'GET'
+              }).then(function(data2) {
+                  $('#folio').val(data2.crfre || 'Sin registros encontrados');
+                  $('#titular').val(data2.titular || 'Sin registros encontrados');
+                  $('#curp').val(data2.cupr || 'Sin registros encontrados');
+                  $('#rfc').val(data2.rfc || 'Sin registros encontrados');
+                  $('#persona').val(data2.tipo_persona || 'Sin registros encontrados');
+                  $('#adj').val(data2.tipo_adjudicacion || 'Sin registros encontrados');
+                  $('#domi').val(data2.domicilio || 'Sin registros encontrados');
+              }).catch(function() {
+                  $('#folio').val('Sin registros encontrados');
+                  $('#titular').val('Sin registros encontrados');
+                  $('#curp').val('Sin registros encontrados');
+                  $('#rfc').val('Sin registros encontrados');
+                  $('#persona').val('Sin registros encontrados');
+                  $('#adj').val('Sin registros encontrados');
+                  $('#domi').val('Sin registros encontrados');
+              });
+          }
+
+          ejecutarRequest1(); 
+          ejecutarRequest2(); 
       });
-   </script>
+  });
+</script>
    <script>
       $(document).ready(function() {
          $('#guardar-btn').on('click', function() {
