@@ -47,21 +47,36 @@ class CatastroApiController extends Controller
     {
 
         try {
+
+            $cve_catastro = $request->cve_catastro;
+            $municipio = $request->municipio;
+            $localidad = $request->localidad !== 'Sin registros encontrados' ? $request->localidad : null;
+            $latitud = is_numeric($request->latitud) ? $request->latitud : null;
+            $longitud = is_numeric($request->longitud) ? $request->longitud : null;
+            $folio = $request->folio;
+            $propietario = $request->titular !== 'Sin registros encontrados' ? $request->titular : null;
+            $titular = $request->titular !== 'Sin registros encontrados' ? $request->titular : null;
+            $curp = $request->curp !== 'Sin registros encontrados' ? $request->curp : null;
+            $rfc = $request->rfc !== 'Sin registros encontrados' ? $request->rfc : null;
+            $tipo_persona = $request->persona !== 'Sin registros encontrados' ? $request->persona : null;
+            $tipo_adjudicacion = $request->adj !== 'Sin registros encontrados' ? $request->adj : null;
+            $domicilio = $request->domi !== 'Sin registros encontrados' ? $request->domi : null;
+    
             $catastroDatos = Catastro::create([
                 'fuente' => "API",
-                'cve_catastro' => $request->cve_catastro,
-                'municipio' => $request->municipio,
-                'localidad' => $request->localidad,
-                'latitud' => $request->latitud,
-                'longitud' => $request->longitud,
-                'folio' => $request->folio,
-                'propietario' => $request->titular,
-                'titular' => $request->titular,
-                'curp' => $request->curp,
-                'rfc' => $request->rfc,
-                'tipo_persona' => $request->persona,
-                'tipo_adjudicacion' => $request->adj,
-                'domicilio' => $request->domi,
+                'cve_catastro' => $cve_catastro,
+                'municipio' => $municipio,
+                'localidad' => $localidad,
+                'latitud' => $latitud,
+                'longitud' => $longitud,
+                'folio' => $folio,
+                'propietario' => $propietario,
+                'titular' => $titular,
+                'curp' => $curp,
+                'rfc' => $rfc,
+                'tipo_persona' => $tipo_persona,
+                'tipo_adjudicacion' => $tipo_adjudicacion,
+                'domicilio' => $domicilio,
             ]);
     
             return response()->json([
