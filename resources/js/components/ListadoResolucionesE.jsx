@@ -45,9 +45,17 @@ const ListadoResoluciones = () => {
         setTipos([
             { id: "Todos", nombre: "Todos" },
             { id: "1", nombre: "Reposición de asientos" },
-            { id: "2", nombre: "Traspaso de folios" }
+            { id: "2", nombre: "Traspaso de folios" },
+            { id: "3", nombre: "Cancelación de embargos" },
+            { id: "4", nombre: "Rectificación de boleta" },
+            { id: "5", nombre: "Rectificación de captura en la descripción de acto" },
+            { id: "6", nombre: "Rectificación de captura del número exterior del predio" },
+            { id: "7", nombre: "Rectificación de folio/s" },
+            { id: "8", nombre: "Cancelación de anotación" },
+            { id: "9", nombre: "Cancelación de gravamen" }
         ]);
     };
+    
 
     const fetchEstatus = () => {
         setEstatus([
@@ -57,28 +65,57 @@ const ListadoResoluciones = () => {
             { id: "3", nombre: "Aprobadas" }
         ]);
     };
-
     const getBadgeClass = (tipo) => {
         switch (tipo) {
             case "1":
-                return "bg-primary"; 
+                return "bg-primary"; // Azul
             case "2":
                 return "bg-success"; // Verde
-            default:
+            case "3":
+                return "bg-danger"; // Rojo
+            case "4":
+                return "bg-warning"; // Amarillo
+            case "5":
+                return "bg-info"; // Celeste
+            case "6":
+                return "bg-dark"; // Negro
+            case "7":
                 return "bg-secondary"; // Gris
+            case "8":
+                return "bg-info"; // Morado
+            case "9":
+                return "bg-info"; // Rosa
+            default:
+                return "bg-light"; // Blanco/Gris claro
         }
     };
-
+    
     const getBadgeText = (tipo) => {
         switch (tipo) {
             case "1":
                 return "Reposición de asientos";
             case "2":
                 return "Traspaso de folios";
+            case "3":
+                return "Cancelación de embargos";
+            case "4":
+                return "Rectificación de boleta";
+            case "5":
+                return "Rectificación de captura en la descripción de acto";
+            case "6":
+                return "Rectificación de captura del número exterior del predio";
+            case "7":
+                return "Rectificación de folio/s";
+            case "8":
+                return "Cancelación de anotación";
+            case "9":
+                return "Cancelación de gravamen";
             default:
                 return "Desconocido";
         }
     };
+    
+    
     
     const getBadgeClassEtapas = (estado) => {
         switch (estado) {

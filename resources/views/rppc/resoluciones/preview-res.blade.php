@@ -19,7 +19,7 @@
       display: inline-block;
       }
    </style>
-      <style>
+   <style>
       .btn-flotante {
       font-size: 10px; /* Cambiar el tamaño de la tipografia */
       text-transform: uppercase; /* Texto en mayusculas */
@@ -54,13 +54,10 @@
       right: 20px;
       }
       }
-
- 
-</style>
+   </style>
    </x-slot>
    <!-- END GLOBAL MANDATORY STYLES -->
    <a href="/resoluciones" class="btn-flotante">Volver</a>
-
    <div class="row invoice layout-top-spacing layout-spacing">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
          <div class="doc-container">
@@ -90,83 +87,77 @@
                                  <div class="inv--detail-section inv--customer-detail-section">
                                     <div class="row">
                                        <div class="col-xl-12 col-lg-7 col-md-6 col-sm-4 align-self-center">
-                                       <div class="row">
-    <div class="col-md-6">
-        <p class="inv-to">Generado por:</p>
-    </div>
-    <div class="col-md-6">
-        <p class="inv-customer-name">{{ $resolucion[0]->remitente }}</p>
-    </div>
-
-    <div class="col-md-6">
-        <p class="inv-customer-name">Promovente:</p>
-    </div>
-    <div class="col-md-6">
-        <p class="inv-customer-name">{{ $resolucion[0]->promovente }}</p>
-    </div>
-
-    <div class="col-md-6">
-        <p class="inv-street-addr">Oficina:</p>
-    </div>
-    <div class="col-md-6">
-        <p class="inv-street-addr">{{ $oficina_nombre }}</p>
-    </div>
-
-    <div class="col-md-6">
-        <p class="inv-email-address">Urgencia:</p>
-    </div>
-    <div class="col-md-6">
-        @switch($resolucion[0]->urgencia)
-            @case(1)
-                <span class="badge badge-light-danger mb-2 me-4">Muy Urgente</span>
-                @break
-            @case(2)
-                <span class="badge badge-light-danger mb-2 me-4">Urgente</span>
-                @break
-            @case(3)
-                <span class="badge badge-light-warning mb-2 me-4">Mediana</span>
-                @break
-            @case(4)
-                <span class="badge badge-light-success mb-2 me-4">Baja</span>
-                @break
-            @case(5)
-                <span class="badge badge-light-info mb-2 me-4">Muy Baja</span>
-                @break
-            @default
-                <span class="badge badge-light-info mb-2 me-4">Indefinida</span>
-        @endswitch
-    </div>
-
-    <div class="col-md-6">
-        <p class="inv-email-address">Estado de la resolución:</p>
-    </div>
-    <div class="col-md-6">
-        @switch($resolucion[0]->estatus)
-            @case(0)
-                <span class="badge badge-light-warning mb-2 me-4">EN REVISIÓN</span>
-                @break
-            @case(1)
-                <span class="badge badge-light-success mb-2 me-4">APROBADA</span>
-                @break
-            @case(2)
-                <span class="badge badge-light-success mb-2 me-4">EN REVISIÓN (Dirección Jurídica)</span>
-                @break
-            @default
-                <span class="badge badge-light-info mb-2 me-4">Indefinida</span>
-        @endswitch
-    </div>
-
-    @if($resolucion[0]->estatus == 1)
-        <div class="col-md-6">
-            <p class="inv-email-address">Aprobado por:</p>
-        </div>
-        <div class="col-md-6">
-            <span class="badge badge-light-info mb-2 me-4">{{ $resolucion[0]->aprobacion }}</span>
-        </div>
-    @endif
-</div>
-<hr>
-
+                                          <div class="row">
+                                             <div class="col-md-6">
+                                                <p class="inv-to">Generado por:</p>
+                                             </div>
+                                             <div class="col-md-6">
+                                                <p class="inv-customer-name">{{ $resolucion[0]->remitente }}</p>
+                                             </div>
+                                             <div class="col-md-6">
+                                                <p class="inv-customer-name">Promovente:</p>
+                                             </div>
+                                             <div class="col-md-6">
+                                                <p class="inv-customer-name">{{ $resolucion[0]->promovente }}</p>
+                                             </div>
+                                             <div class="col-md-6">
+                                                <p class="inv-street-addr">Oficina:</p>
+                                             </div>
+                                             <div class="col-md-6">
+                                                <p class="inv-street-addr">{{ $oficina_nombre }}</p>
+                                             </div>
+                                             <div class="col-md-6">
+                                                <p class="inv-email-address">Urgencia:</p>
+                                             </div>
+                                             <div class="col-md-6">
+                                                @switch($resolucion[0]->urgencia)
+                                                @case(1)
+                                                <span class="badge badge-light-danger mb-2 me-4">Muy Urgente</span>
+                                                @break
+                                                @case(2)
+                                                <span class="badge badge-light-danger mb-2 me-4">Urgente</span>
+                                                @break
+                                                @case(3)
+                                                <span class="badge badge-light-warning mb-2 me-4">Mediana</span>
+                                                @break
+                                                @case(4)
+                                                <span class="badge badge-light-success mb-2 me-4">Baja</span>
+                                                @break
+                                                @case(5)
+                                                <span class="badge badge-light-info mb-2 me-4">Muy Baja</span>
+                                                @break
+                                                @default
+                                                <span class="badge badge-light-info mb-2 me-4">Indefinida</span>
+                                                @endswitch
+                                             </div>
+                                             <div class="col-md-6">
+                                                <p class="inv-email-address">Estado de la resolución:</p>
+                                             </div>
+                                             <div class="col-md-6">
+                                                @switch($resolucion[0]->estatus)
+                                                @case(0)
+                                                <span class="badge badge-light-warning mb-2 me-4">EN REVISIÓN</span>
+                                                @break
+                                                @case(1)
+                                                <span class="badge badge-light-success mb-2 me-4">APROBADA</span>
+                                                @break
+                                                @case(2)
+                                                <span class="badge badge-light-success mb-2 me-4">EN REVISIÓN (Dirección Jurídica)</span>
+                                                @break
+                                                @default
+                                                <span class="badge badge-light-info mb-2 me-4">Indefinida</span>
+                                                @endswitch
+                                             </div>
+                                             @if($resolucion[0]->estatus == 1)
+                                             <div class="col-md-6">
+                                                <p class="inv-email-address">Aprobado por:</p>
+                                             </div>
+                                             <div class="col-md-6">
+                                                <span class="badge badge-light-info mb-2 me-4">{{ $resolucion[0]->aprobacion }}</span>
+                                             </div>
+                                             @endif
+                                          </div>
+                                          <hr>
                                           <div class="row">
                                              <div class="col-md-6">
                                                 <div class="mb-4 mail-to">
@@ -196,8 +187,16 @@
                                                    <div>
                                                       <select name="tipo" id="m-cc" class="form-control" required>
                                                          <option value="" disabled selected>Seleccione un tipo</option>
-                                                         <option value="1" {{ $resolucion[0]->tipo == 1 ? 'selected' : '' }}>Incidente</option>
-                                                         <option value="2" {{ $resolucion[0]->tipo == 2 ? 'selected' : '' }}>Solicitar</option>
+                                                         <option value="1" {{ $resolucion[0]->tipo == 1 ? 'selected' : '' }}>Reposición de asientos</option>
+                                                         <option value="2" {{ $resolucion[0]->tipo == 2 ? 'selected' : '' }}>Traspaso de folios</option>
+                                                         <option value="3" {{ $resolucion[0]->tipo == 3 ? 'selected' : '' }}>Cancelación de embargos</option>
+                                                         <option value="4" {{ $resolucion[0]->tipo == 4 ? 'selected' : '' }}>Rectificación de boleta</option>
+                                                         <option value="5" {{ $resolucion[0]->tipo == 5 ? 'selected' : '' }}>Rectificación de captura en la descripción de acto</option>
+                                                         <option value="6" {{ $resolucion[0]->tipo == 6 ? 'selected' : '' }}>Rectificación de captura del número exterior del predio</option>
+                                                         <option value="7" {{ $resolucion[0]->tipo == 7 ? 'selected' : '' }}>Rectificación de folio/s</option>
+                                                         <option value="8" {{ $resolucion[0]->tipo == 8 ? 'selected' : '' }}>Cancelación de anotación</option>
+                                                         <option value="9" {{ $resolucion[0]->tipo == 9 ? 'selected' : '' }}>Cancelación de gravamen</option>
+
                                                          <!-- Agrega más opciones según sea necesario -->
                                                       </select>
                                                       <span class="validation-text"></span>
@@ -378,25 +377,22 @@
                                  </div>
                                  <div class="d-grid gap-2 col-6 mx-auto">
                                     <!-- Default -->
-
-                                       <button class="btn btn-success mb-4" type="submit" id="aprobar-btn">
-                                          Aprobar 
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big">
-                                             <path d="M21.801 10A10 10 0 1 1 17 3.335"/>
-                                             <path d="m9 11 3 3L22 4"/>
-                                          </svg>
-                                       </button>
-
-                                       @if(auth()->user()->rol_id == 2)
-                                       <button class="btn btn-success mb-4" type="submit" id="aprobar-btn2">
-                                          Aprobar (Dirección Jurídica)
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big">
-                                             <path d="M21.801 10A10 10 0 1 1 17 3.335"/>
-                                             <path d="m9 11 3 3L22 4"/>
-                                          </svg>
-                                       </button>
-                                       @endif
-
+                                    <button class="btn btn-success mb-4" type="submit" id="aprobar-btn">
+                                       Aprobar 
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big">
+                                          <path d="M21.801 10A10 10 0 1 1 17 3.335"/>
+                                          <path d="m9 11 3 3L22 4"/>
+                                       </svg>
+                                    </button>
+                                    @if(auth()->user()->rol_id == 2)
+                                    <button class="btn btn-success mb-4" type="submit" id="aprobar-btn2">
+                                       Aprobar (Dirección Jurídica)
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big">
+                                          <path d="M21.801 10A10 10 0 1 1 17 3.335"/>
+                                          <path d="m9 11 3 3L22 4"/>
+                                       </svg>
+                                    </button>
+                                    @endif
                                  </div>
                                  <div class="inv--note">
                                     <div class="row mt-4">
@@ -419,7 +415,6 @@
                                                 </div>
                                                 @endforeach
                                              </div>
-
                                           </div>
                                           <div class="post-form mt-5">
                                              <div class="section add-comment">
@@ -520,7 +515,7 @@
                   alert('Error al cargar los archivos de la resolución')
                }
             });
-
+      
             $.ajax({
                url: '/resolucion/sol/' + resolucionId,
                method: 'GET',
@@ -563,7 +558,7 @@
                   alert('Error al cargar los archivos de la resolución')
                }
             });
-
+      
             $.ajax({
                url: '/resolucion/oficio/' + resolucionId,
                method: 'GET',
@@ -606,8 +601,8 @@
                   alert('Error al cargar los archivos de la resolución')
                }
             });
-
-
+      
+      
          }
       });
    </script>
@@ -617,7 +612,7 @@
          $('#aprobar-btn').on('click', function() {
             let boton = $(this);
             let resolucion_id = {{ $resolucion[0]->resolucion_id }}
-
+      
             $.ajax({
                url: '/aprobar/resolucion/' + resolucion_id,
                type: "POST",
@@ -638,40 +633,40 @@
             });
          });
       });
-
+      
    </script>
    <script>
-          $(document).ready(function () {
-         $('#aprobar-btn2').on('click', function() {
-            let boton = $(this);
-            let resolucion_id = {{ $resolucion[0]->resolucion_id }}
-
-            $.ajax({
-               url: '/aprobar/resolucion/' + resolucion_id,
-               type: "POST",
-               data: {
-                  _token: "{{ csrf_token() }}"
-               },
-               success: function(response) {
-                  boton.attr("disabled", true);
-                  Swal.fire({
-                         icon: 'success',
-                         title: 'Éxito',
-                         text: 'Acabas de aprobar esta solictud, ya esta lista para imprimir',
-                     });
-               },
-               error: function(xhr, status, error) {
-                alert("Error al aprobar la resolución.");
-               }         
-            });
-         });
+      $(document).ready(function () {
+      $('#aprobar-btn2').on('click', function() {
+        let boton = $(this);
+        let resolucion_id = {{ $resolucion[0]->resolucion_id }}
+      
+        $.ajax({
+           url: '/aprobar/resolucion/' + resolucion_id,
+           type: "POST",
+           data: {
+              _token: "{{ csrf_token() }}"
+           },
+           success: function(response) {
+              boton.attr("disabled", true);
+              Swal.fire({
+                     icon: 'success',
+                     title: 'Éxito',
+                     text: 'Acabas de aprobar esta solictud, ya esta lista para imprimir',
+                 });
+           },
+           error: function(xhr, status, error) {
+            alert("Error al aprobar la resolución.");
+           }         
+        });
+      });
       })
    </script>
    <script>
       $(document).ready(function () {
          let estado = {{ $resolucion[0]->estatus }}
          let boton = $('#aprobar-btn');
-
+      
          if (estado !== 0) {
             boton.attr("disabled", true);
          } else {

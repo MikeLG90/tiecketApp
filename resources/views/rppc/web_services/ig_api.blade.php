@@ -18,6 +18,7 @@
       cursor: pointer; /* Cambia el cursor a un puntero */
       }
    </style>
+   
    </x-slot>
    <!-- END GLOBAL MANDATORY STYLES -->
    <style>

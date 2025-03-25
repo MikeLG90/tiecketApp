@@ -57,6 +57,13 @@
                                  <option value="" disabled selected>Seleccione un tipo</option>
                                  <option value="1">Reposición de asientos</option>
                                  <option value="2">Traspaso de folios</option>
+                                 <option value="3">Cancelación de embargos</option>
+                                 <option value="4">Reftificación de boleta</option>
+                                 <option value="5">Rectificación de captura en la descripción de acto</option>
+                                 <option value="6">Rectificación de captura del número exterior del predio </option>
+                                 <option value="7">Rectificación de folio/s</option>
+                                 <option value="8">Cancelación de anotación</option>
+                                 <option value="9">Cancelación de gravamen</option>
                                  <!-- Agrega más opciones según sea necesario -->
                               </select>
                               <span class="validation-text"></span>

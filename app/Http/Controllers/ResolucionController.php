@@ -184,6 +184,9 @@ class ResolucionController extends Controller
     public function index4(Request $request)
     {
         try {
+            // Obtener la oficina del usuario autenticado
+            $oficinaUsuario = auth()->user()->oficina_id;
+    
             // Construir la consulta base
             $resultados = DB::table('rppc.resoluciones as r')
                 ->join('rppc.usuarios as u', 'r.usuario_id', '=', 'u.usuario_id')
@@ -194,9 +197,10 @@ class ResolucionController extends Controller
                     'o.oficina',
                     DB::raw("p.nombre || ' ' || p.ape_paterno || ' ' || p.ape_materno AS nombre_completo")
                 )
-                ->where('r.estatus',0);
+                ->where('r.estatus', 0)
+                ->where('r.oficina_dest', $oficinaUsuario); // Filtrar por la oficina del usuario autenticado
     
-            // Aplicar filtros
+            // Aplicar filtros opcionales
             if ($request->has('oficina_id') && $request->oficina_id !== 'Todos') {
                 $resultados->where('r.oficina_dest', $request->oficina_id);
             }
@@ -208,10 +212,10 @@ class ResolucionController extends Controller
             if ($request->has('estatus') && $request->estatus !== 'Todos') {
                 $resultados->where('r.estatus', $request->estatus);
             }
- 
+    
             $perPage = $request->input('per_page', 10);
     
-            // Obtener los resultados
+            // Obtener los resultados paginados
             $resoluciones = $resultados->paginate($perPage);
     
             return response()->json($resoluciones);
@@ -223,7 +227,6 @@ class ResolucionController extends Controller
             ], 500);
         }
     }
-    
     
 
     public function store(Request $request)
